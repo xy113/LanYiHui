@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Pages;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class PagesController extends Controller
+class PagesController extends BaseController
 {
     public function index(Request $request){
         if ($request->post('formsubmit') === 'yes'){

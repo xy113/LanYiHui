@@ -7,9 +7,8 @@ use App\WeChat\WxApi\WxMaterialApi;
 use App\WeChat\WxApi\WxMenuApi;
 use App\WeChat\WxApi\WxNewsApi;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class WeixinController extends Controller
+class WeixinController extends BaseController
 {
     /**
      * @param Request $request

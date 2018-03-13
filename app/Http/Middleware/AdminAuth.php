@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Cookie;
+use Illuminate\Support\Facades\Cookie;
 
 class AdminAuth
 {
@@ -20,14 +20,12 @@ class AdminAuth
         $uid = $request->cookie('uid');
         $adminid = $request->cookie('adminid');
         $username = $request->cookie('username');
-        //echo 'uid:'.$uid.',username:'.$username;exit();
         if (!$uid || !$username || !$adminid){
-            return redirect()->route('login');
+            return redirect()->action('Admin\LoginController@index');
         }
 
-        if ($uid !== $adminid) {
-            cookie('adminid', null);
-            return redirect()->route('login');
+        if ($uid != $adminid) {
+            return redirect()->action('Admin\LoginController@index')->withCookie(Cookie::forget('adminid'));
         }
 
         return $next($request);

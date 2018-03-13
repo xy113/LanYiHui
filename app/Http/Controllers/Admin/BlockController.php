@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Block;
 use App\Models\BlockItem;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class BlockController extends Controller
+class BlockController extends BaseController
 {
     /**
      * @param Request $request

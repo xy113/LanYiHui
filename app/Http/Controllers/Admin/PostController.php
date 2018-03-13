@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Helpers\VideoParser;
+use App\Helpers\VideoParser;
 use App\Models\PostCatlog;
 use App\Models\PostContent;
 use App\Models\PostImage;
@@ -10,81 +10,96 @@ use App\Models\PostItem;
 use App\Models\PostLog;
 use App\Models\PostMedia;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
-class PostController extends Controller
+class PostController extends BaseController
 {
     /**
      * 文章列表
      */
     public function index(Request $request){
 
-        $data = $condition = $queryParams = [];
+        $condition = $queryParams = [];
         $searchType = intval($request->input('searchType'));
         $queryParams['searchType'] = $searchType;
-        $data['searchType'] = $searchType;
+        $data = [
+            'searchType'=>$searchType,
+            'title'=>'',
+            'username'=>'',
+            'catid'=>'',
+            'status'=>'',
+            'type'=>'',
+            'time_begin'=>'',
+            'time_end'=>'',
+            'q'=>''
+        ];
 
-        $title = htmlspecialchars($request->input('title'));
-        if ($title) {
-            $condition[] = ['i.title', 'LIKE', $title];
-            $queryParams['title'] = $title;
-            $data['title'] = $title;
+        if ($searchType) {
+            $title = $request->input('title');
+            if ($title) {
+                $condition[] = ['i.title', 'LIKE', "%$title%"];
+                $queryParams['title'] = $title;
+                $data['title'] = $title;
+            }
+
+            $username = $request->input('username');
+            if ($username) {
+                $condition[] = ['i.username', '=', $username];
+                $queryParams['username'] = $username;
+            }
+            $data['username'] = $username;
+
+            $catid = $request->input('catid');
+            if ($catid) {
+                $condition[] = ['i.catid', '=', $catid];
+                $queryParams['catid'] = $catid;
+            }
+            $data['catid'] = $catid;
+
+            $status = $request->input('status');
+            if ($status != '') {
+                $condition[] = ['i.status', '=', $status];
+                $queryParams['status'] = $status;
+            }
+            $data['status'] = $status;
+
+            $type = $request->input('type');
+            if ($type) {
+                $condition[] = ['i.type', '=', $type];
+                $queryParams['type'] = $type;
+            }
+            $data['type'] = $type;
+
+            $time_begin = $request->input('time_begin');
+            if ($time_begin) {
+                $condition[] = ['i.create_at', '>', strtotime($time_begin)];
+                $queryParams['time_begin'] = $time_begin;
+            }
+            $data['time_begin'] = $time_begin;
+
+            $time_end = $request->input('time_end');
+            if ($time_end) {
+                $condition[] = ['i.create_at', '<', strtotime($time_end)];
+                $queryParams['time_end'] = $time_end;
+            }
+            $data['time_end'] = $time_end;
         }else {
             $q = $request->input('q');
+            $data['q'] = $q;
             if ($q) {
-                $condition[] = ['i.title', 'LIKE', $q];
+                $condition[] = ['i.title', 'LIKE', "%$q%"];
                 $queryParams['q'] = $q;
-                $data['q'] = $q;
             }
         }
 
-        $username = $request->input('username');
-        if ($username) {
-            $condition[] = ['i.username', '=', $username];
-            $queryParams['username'] = $username;
-        }
-        $data['username'] = $username;
-
-        $catid = $request->input('catid');
-        if ($catid) {
-            $condition[] = ['i.catid', '=', $catid];
-            $queryParams['catid'] = $catid;
-        }
-        $data['catid'] = $catid;
-
-        $status = $request->input('status');
-        if ($status != '') {
-            $condition[] = ['i.status', '=', $status];
-            $queryParams['status'] = $status;
-        }
-        $data['status'] = $status;
-
-        $type = $request->input('type');
-        if ($type) {
-            $condition[] = ['i.type', '=', $type];
-            $queryParams['type'] = $type;
-        }
-        $data['type'] = $type;
-
-        $time_begin = $request->input('time_begin');
-        if ($time_begin) {
-            $condition[] = ['i.create_at', '>', strtotime($time_begin)];
-            $queryParams['time_begin'] = $time_begin;
-        }
-        $data['time_begin'] = $time_begin;
-
-        $time_end = $request->input('time_end');
-        if ($time_end) {
-            $condition[] = ['i.create_at', '<', strtotime($time_end)];
-            $queryParams['time_end'] = $time_end;
-        }
-        $data['time_end'] = $time_end;
 
         $data['post_types'] = trans('post.post_types');
         $data['post_status'] = trans('post.post_status');
         $data['catloglist'] = PostCatlog::getTree();
 
-        $db = \DB::table('post_item as i')->leftJoin('post_catlog as c', 'c.catid', '=', 'i.catid')->where($condition);
+        $data['itemlist'] = [];
+        $db = DB::table('post_item as i')->leftJoin('post_catlog as c', 'c.catid', '=', 'i.catid')->where($condition);
         $itemlist = $db->select('i.*', 'c.name as cat_name')->orderBy('i.aid','DESC')->paginate(20);
         foreach ($itemlist as $item){
             $data['itemlist'][$item->aid] = get_object_vars($item);
@@ -126,20 +141,17 @@ class PostController extends Controller
      * 审核文章
      */
     public function review(){
-        $event = trim($_GET['event']);
-        if ($this->checkFormSubmit()){
-            $items = $_GET['items'];
-            if ($items && is_array($items)){
-                foreach ($items as $aid){
-                    if ($event == 'pass'){
-                        PostItem::getInstance()->where(array('aid'=>$aid))->data(array('status'=>1))->save();
-                    }else {
-                        PostItem::getInstance()->where(array('aid'=>$aid))->data(array('status'=>-1))->save();
-                    }
-                }
+        $event = $this->request->input('event');
+        $status = $event === 'pass' ? 1 : 0;
+
+        $items = $this->request->post('items');
+        if ($items) {
+            foreach ($items as $aid){
+                PostItem::where('aid', $aid)->update(['status'=>$status]);
             }
         }
-        $this->showAjaxReturn();
+
+        return ajaxReturn();
     }
 
     /**
@@ -157,7 +169,10 @@ class PostController extends Controller
     }
 
     /**
-     * 发布文章
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function publish(Request $request){
 
@@ -370,11 +385,11 @@ class PostController extends Controller
                 $links = array (
                     array (
                         'text' => trans('common.reedit'),
-                        'url' => \URL::action('Admin\PostController@publish', ['aid'=>$aid])
+                        'url' => URL::action('Admin\PostController@publish', ['aid'=>$aid])
                     ),
                     array (
                         'text'=>trans('common.view'),
-                        'url'=>url('/post/detail/'.$aid),
+                        'url'=>post_url($aid),
                         'target'=>'_blank'
                     ),
                     array(
@@ -387,11 +402,11 @@ class PostController extends Controller
                 $links = array (
                     array (
                         'text' => trans('common.continue_publish'),
-                        'url' => \URL::action('Admin\PostController@publish', ['type'=>$newpost['type'],'catid'=>$newpost['catid']])
+                        'url' => URL::action('Admin\PostController@publish', ['type'=>$newpost['type'],'catid'=>$newpost['catid']])
                     ),
                     array (
                         'text'=>trans('common.view'),
-                        'url'=>url('/post/detail', array('aid'=>$aid)),
+                        'url'=>post_url($aid),
                         'target'=>'_blank'
                     ),
                     array(

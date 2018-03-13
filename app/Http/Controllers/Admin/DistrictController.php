@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\Pinyin;
 use App\Models\District;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class DistrictController extends Controller
+class DistrictController extends BaseController
 {
     /**
      *

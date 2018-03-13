@@ -5,23 +5,25 @@
 @stop
 
 @section('content')
-    <div class="area sysmessage">
-        <h3 class="{{$type or 'success'}}">{{$msg or ''}}</h3>
-        @if($autoredirect)
-        <div class="tips">{!! trans('ui.auto_redirect') !!}</div>
-        @else
-        <div class="tips">{!! trans('ui.message_tips') !!}</div>
-        @endif
-
-        <div class="links">
-            @if($links)
-                @foreach($links as $link)
-                <a href="{{$link['url'] or ''}}" target="{{$link['target'] or ''}}">{{$link['text'] or ''}}</a>
-                @endforeach
+    <div class="area">
+        <div class="sysmessage">
+            <h3 class="{{$type or 'success'}}">{{$msg or ''}}</h3>
+            @if($autoredirect)
+                <div class="tips">{!! trans('ui.auto_redirect') !!}</div>
             @else
-            <a href="{{$forward or ''}}">{{trans('common.go_back')}}</a>
-            <a href="/">{{trans('common.go_home')}}</a>
+                <div class="tips">{!! trans('ui.message_tips') !!}</div>
             @endif
+
+            <div class="links">
+                @if($links)
+                    @foreach($links as $link)
+                        <a href="{{$link['url'] or ''}}" target="{{$link['target'] or ''}}">{{$link['text'] or ''}}</a>
+                    @endforeach
+                @else
+                    <a href="{{$forward or ''}}">{{trans('common.go_back')}}</a>
+                    <a href="/">{{trans('common.go_home')}}</a>
+                @endif
+            </div>
         </div>
     </div>
     @if($autoredirect)

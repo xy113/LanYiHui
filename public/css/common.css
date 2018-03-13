@@ -213,7 +213,7 @@ input[type="checkbox"], input[type="radio"],.checkbox,.radio{
 .top .right .iconfont{font-size: 16px; float: left; margin-right: 3px;}
 .area{display: block; margin: 0 auto; width: 1180px;}
 
-.sysmessage{background:#fff; clear:both; border:1px #ccc solid; padding:50px 0; margin:50px auto; border-radius:5px;}
+.sysmessage{background:#fff; clear:both; padding:50px 0; margin:80px auto; border-radius:5px;}
 .sysmessage h3{text-align:center; font-size:16px; font-weight:bold;}
 .sysmessage h3.success{color:#060;}
 .sysmessage h3.error{color:#F00;}

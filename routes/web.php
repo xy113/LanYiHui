@@ -15,17 +15,55 @@ Route::group(['namespace' => 'Home'], function () {
     Route::get('/', 'IndexController@index');
 });
 
-Route::group(['namespace' => 'Member'], function () {
-    Route::get('/member', 'MemberController@index');
+Route::group(['namespace' => 'Member', 'middleware' => 'member.auth', 'prefix' => 'member'], function () {
+    Route::get('/', 'IndexController@index');
+    Route::any('/settings/userinfo', 'SettingsController@userinfo');
+    Route::any('/settings/security', 'SettingsController@security');
+    Route::any('/settings/verify', 'SettingsController@verify');
+
+    Route::any('/wallet', 'WalletController@index');
+    Route::any('/address', 'AddressController@index');
+    Route::any('/address/setdefault', 'AddressController@setdefault');
+    Route::any('/address/delete', 'AddressController@delete');
+    Route::any('/collection/delete', 'CollectionController@delete');
+    Route::any('/collection/{type}', 'CollectionController@index');
+    Route::any('/comment', 'CommentController@index');
 });
 
-Route::get('/plugin/image', 'Plugin\ImageController@index');
+Route::group(['prefix'=>'plugin'], function (){
+    Route::get('/image', 'Plugin\ImageController@index');
+    Route::get('/avatar', 'Plugin\AvatarController@index');
+});
+
+Route::group(['namespace' => 'Account', 'prefix'=>'account'], function (){
+    Route::get('/login', 'LoginController@index');
+    Route::post('/login/check', 'LoginController@check');
+    Route::get('/logout', 'LogoutController@index');
+    Route::get('/register', 'RegisterController@index');
+    Route::post('register/save', 'RegisterController@save');
+    Route::any('/register/check', 'RegisterController@check');
+});
+
 
 //service
 Route::post('/service/upload/image', 'Service\UploadController@image');
 
-Route::group(['prefix'=>'post'], function (){
-    Route::get('/detail/{aid}.html', 'Post\DetailController@index');
+Route::group(['namespace' => 'Post'], function (){
+    Route::get('news', 'IndexController@index');
+
+    Route::group(['prefix'=>'post'], function (){
+        Route::get('/detail/{aid}.html', 'DetailController@index');
+    });
+});
+
+Route::group(['namespace'=>'Company', 'prefix'=>'company'], function (){
+    Route::any('/', 'IndexController@index');
+    Route::get('/login', 'LoginController@index');
+    Route::post('/login/check', 'LoginController@check');
+    Route::post('/logout', 'LoginController@logout');
+    Route::get('/register', 'RegisterController@index');
+    Route::post('/register/save', 'RegisterController@save');
+    Route::post('/register/check', 'RegisterController@check');
 });
 
 //后台管理
@@ -66,6 +104,7 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         Route::post('/post/save', 'PostController@save');
         Route::post('/post/delete', 'PostController@delete');
         Route::post('/post/setimage', 'PostController@setimage');
+        Route::post('/post/review', 'PostController@review');
 
         Route::any('/postcatlog', 'PostCatlogController@index');
         Route::any('/postcatlog/edit', 'PostCatlogController@edit');

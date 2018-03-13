@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\MemberGroup;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class MemberGroupController extends Controller
+class MemberGroupController extends BaseController
 {
 
     /**

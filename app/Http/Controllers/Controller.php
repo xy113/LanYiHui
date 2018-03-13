@@ -2,32 +2,100 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
+use App\Models\MemberInfo;
+use App\Models\MemberStatus;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $request;
+
     protected $uid = 0;
     protected $username = '';
-    protected $request;
+    protected $data = [
+        'uid'=>0,
+        'username'=>'',
+        'member'=>[],
+        'member_info'=>[],
+        'member_status'=>[],
+        'islogined'=>0
+    ];
+
+    protected $messageView = 'common.message';
 
     /**
      * Controller constructor.
      */
     function __construct(Request $request)
     {
-        //dump($request->cookies);exit();
-        //$this->uid = Cookie::get('uid');
-        //$this->username = Cookie::get('username');
         $this->request = $request;
-        $this->uid = $request->cookie('uid');
-        $this->username = $request->cookie('username');
+        $this->middleware(function (Request $req, $next){
+            $this->uid = $req->cookie('uid');
+            $this->username = $req->cookie('username');
+            $this->data['uid'] = $this->uid;
+            $this->data['username'] = $this->username;
+
+            if ($this->uid && $this->username) {
+                $this->data['islogined'] = 1;
+                try {
+                    $member = Session::get('member');
+                    if (!is_array($member)) {
+                        $member = Member::where('uid', $this->uid)->first();
+                        if ($member) {
+                            Session::flash('member', $member);
+                            $this->data['member'] = $member->toArray();
+                        }
+                    }
+
+                    $memberInfo = Session::get('member_info');
+                    if (!is_array($memberInfo)) {
+                        $memberInfo = MemberInfo::where('uid', $this->uid)->first();
+                        if ($memberInfo) {
+                            Session::flash('member_info', $memberInfo);
+                            $this->data['member_info'] = $memberInfo->toArray();
+                        }
+                    }
+
+                    $memberStatus = Session::get('member_status');
+                    if (!is_array($memberStatus)) {
+                        $memberStatus = MemberStatus::where('uid', $this->uid)->first();
+                        if ($memberStatus) {
+                            Session::flash('member_status', $memberStatus);
+                            $this->data['member_status'] = $memberStatus->toArray();
+                        }
+                    }
+                }catch (\Exception $e){
+
+                }
+            }
+            return $next($req);
+        });
+    }
+
+    /**
+     * @param array $array
+     * @param bool $replace
+     */
+    protected function appends($array = [], $replace = true){
+        foreach ($array as $key=>$value) {
+            if (is_string($key)) {
+                if (!$replace) {
+                    if (array_key_exists($key, $this->data)){
+                        continue;
+                    }
+                }
+                $this->data[$key] = $value;
+            }
+        }
     }
 
     /**
@@ -72,7 +140,15 @@ class Controller extends BaseController
             unset($newlinks);
         }
         $forward = $forward ? $forward : ($links ? $links[0]['url'] : $_SERVER['HTTP_REFERER']);
-        return view('common.message',['msg'=>$msg, 'type'=>$type, 'forward'=>$forward,'links'=>$links, 'tips'=>$tips, 'autoredirect'=>$autoredirect]);
+        $this->appends([
+            'msg'=>$msg,
+            'type'=>$type,
+            'forward'=>$forward,
+            'links'=>$links,
+            'tips'=>$tips,
+            'autoredirect'=>$autoredirect
+        ]);
+        return view($this->messageView, $this->data);
     }
 
     /**

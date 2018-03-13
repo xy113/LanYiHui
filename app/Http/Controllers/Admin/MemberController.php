@@ -6,9 +6,8 @@ use App\Models\Member;
 use App\Models\MemberGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
-class MemberController extends Controller
+class MemberController extends BaseController
 {
     /**
      * @param Request $request

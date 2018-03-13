@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DistrictController;
 use Illuminate\Http\Request;
 
 /*
@@ -13,6 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::group(['namespace'=>'Api'], function (){
+    Route::any('district/{action}', function (DistrictController $controller, $action){
+        return $controller->$action();
+    });
 });

@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Material;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 
-class MaterialController extends Controller
+class MaterialController extends BaseController
 {
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

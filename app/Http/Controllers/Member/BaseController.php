@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Member;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BaseController extends Controller
 {
-    protected $uid = 0;
-    protected $username = '';
+
+    protected $messageView = 'member.message';
 
     /**
      * BaseController constructor.
@@ -16,5 +17,7 @@ class BaseController extends Controller
     function __construct(Request $request)
     {
         parent::__construct($request);
+        $this->middleware(['member.auth']);
+        $this->appends(['menu'=>'']);
     }
 }

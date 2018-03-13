@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Ad;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class AdController extends Controller
+class AdController extends BaseController
 {
     /**
      * @param Request $request

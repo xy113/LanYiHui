@@ -1,4 +1,4 @@
-@extends('admin.default')
+@extends('layouts.admin')
 
 @section('scripts')
     <script src="/DatePicker/WdatePicker.js" type="text/javascript"></script>
@@ -13,7 +13,7 @@
         <a>会员列表</a>
     </div>
     <div class="search-container">
-        <form method="get" id="searchFrom" action="/admin/member/index">
+        <form method="get" id="searchFrom" action="/admin/member">
             <div class="row">
                 <div class="cell">
                     <label>用户名:</label>
@@ -81,7 +81,7 @@
                 @foreach($memberlist as $uid=>$member)
                 <tr>
                     <td><input title="" type="checkbox" class="checkbox checkmark" name="members[]" value="{{$uid}}" /></td>
-                    <td><img src="{avatar:$uid|small}" width="30" height="30" style="border-radius:100%;"></td>
+                    <td><img src="{{avatar($uid, 'small')}}" width="30" height="30" style="border-radius:100%;"></td>
                     <th><a>{{$member->username}}</a></th>
                     <td>{{$member->mobile}}</td>
                     <td>{{$member->email}}</td>

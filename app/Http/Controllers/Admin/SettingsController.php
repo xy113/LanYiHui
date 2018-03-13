@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Settings;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class SettingsController extends Controller
+class SettingsController extends BaseController
 {
     public function index($type){
         $settings = array();

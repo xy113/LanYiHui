@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\PostCatlog;
 use App\Models\PostItem;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class PostCatlogController extends Controller
+class PostCatlogController extends BaseController
 {
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

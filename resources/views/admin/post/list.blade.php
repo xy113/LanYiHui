@@ -1,4 +1,4 @@
-@extends('admin.default')
+@extends('layouts.admin')
 
 @section('scripts')
     <script src="/DatePicker/WdatePicker.js" type="text/javascript"></script>
@@ -226,7 +226,7 @@
                 }
                 if (action === 'review'){
                     $("#listForm").ajaxSubmit({
-                        url:"{URL:('/admin/post/review')}",
+                        url:"/admin/post/review",
                         dataType:'json',
                         data:{event:$(this).attr('data-value')},
                         beforeSend:function () {

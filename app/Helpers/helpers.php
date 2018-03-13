@@ -38,8 +38,20 @@ function setting($name=null, $value=''){
     }
 }
 
-function avatar($uid, $size){
-
+if (!function_exists('substring')){
+    /**
+     * @param $str
+     * @param $length
+     * @param string $dot
+     * @return string
+     */
+    function substring($str, $length, $dot='...'){
+        if (mb_strlen($str) <= $length) {
+            return $str;
+        }else {
+            return mb_substr($str, 0, $length).$dot;
+        }
+    }
 }
 
 /**
@@ -57,11 +69,11 @@ function distance($distance){
 }
 
 /**
- * @desc 计算两点之间的距离
- * @param float $lat 纬度值
- * @param float $lng 经度值
- * @param float $lat2 纬度值
- * @param float $lng2 经度值
+ * 计算两点之间的距离
+ * @param $lat1
+ * @param $lng1
+ * @param $lat2
+ * @param $lng2
  * @return float
  */
 function getDistance($lat1,$lng1,$lat2,$lng2){
@@ -98,7 +110,7 @@ function md5_16($str){
  */
 function authcode($string, $decode = 0, $key = '', $expiry = 0) {
     $ckey_length = 4;
-    $key  = md5($key ? $key : C('AUTHKEY'));
+    $key  = md5($key ? $key : config('app.key'));
     $keya = md5(substr($key, 0, 16));
     $keyb = md5(substr($key, 16, 16));
     $keyc = $ckey_length ? ($decode ? substr($string, 0, $ckey_length): substr(md5(microtime()), -$ckey_length)) : '';
@@ -144,17 +156,13 @@ function authcode($string, $decode = 0, $key = '', $expiry = 0) {
     }
 }
 
-/**
- * 获取密码密文
- * @param string $password
+/**获取密码密文
+ * @param $password
  * @return string
  */
-function getPassword($password){
-    if ($password) {
-        return sha1(md5($password));
-    }else {
-        return '';
-    }
+function encrypt_password($password) {
+    if (!$password || !is_string($password)) return '';
+    return sha1(md5($password));
 }
 
 /**
@@ -163,20 +171,6 @@ function getPassword($password){
  */
 function formhash() {
     return md5(substr(time(), 0, -4).config('app.key'));
-}
-
-function daddslashes($string, $force = 0) {
-    !defined('MAGIC_QUOTES_GPC') && define('MAGIC_QUOTES_GPC', get_magic_quotes_gpc());
-    if(!MAGIC_QUOTES_GPC || $force) {
-        if(is_array($string)) {
-            foreach($string as $key => $val) {
-                $string[$key] = daddslashes($val, $force);
-            }
-        } else {
-            $string = addslashes($string);
-        }
-    }
-    return $string;
 }
 
 /**
@@ -244,7 +238,7 @@ function print_array($array){
  * @return string
  */
 function implodeids($array) {
-    if(!empty($array)) {
+    if(is_array($array) && !empty($array)) {
         return "'".implode("','", is_array($array) ? $array : array($array))."'";
     } else {
         return '';
@@ -256,6 +250,7 @@ function implodeids($array) {
  * @param string $time
  * @param string $format
  * @return boolean
+ * @throws \Psr\SimpleCache\InvalidArgumentException
  */
 function formatTime($time,$format=''){
     if(!$time) return false;
@@ -322,20 +317,6 @@ function curPageURL() {
  */
 function getIp() {
     return $_SERVER['REMOTE_ADDR'];
-}
-
-/**
- * SQL反注入
- * @param string $sql
- * @return bool
- */
-function injCheck($sql) {
-    $check = preg_match('/select|insert|update|delete|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile/', $sql);
-    if ($check) {
-        return false;
-    } else {
-        return $sql;
-    }
 }
 
 /**
@@ -513,6 +494,15 @@ function image_url($path){
     }else {
         return asset('images/common/nopic.png');
     }
+}
+
+/**
+ * @param $uid
+ * @param string $size
+ * @return string
+ */
+function avatar($uid, $size = 'big'){
+    return action('Plugin\AvatarController@index', ['uid'=>$uid, 'size'=>$size]);
 }
 
 /**

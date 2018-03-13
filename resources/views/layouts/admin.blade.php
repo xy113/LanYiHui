@@ -2,16 +2,16 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>@yield('title', 'Title')-后台管理中心</title>
+    <title>@yield('title', setting('sitename'))-后台管理中心</title>
     <meta name="render" content="webkit">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="/images/common/favicon.png">
-    <link rel="stylesheet" type="text/css" href="/css/admin.css?{TIMESTAMP}">
+    <link rel="icon" href="{{asset('images/common/favicon.png')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/admin.css')}}">
     @yield('styles')
-    <script src="/js/jquery.js" type="text/javascript"></script>
-    <script src="/js/common.js" type="text/javascript"></script>
+    <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/common.js')}}" type="text/javascript"></script>
     @yield('scripts')
     <script type="text/javascript">
         $.ajaxSetup({

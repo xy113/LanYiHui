@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Cookie;
 use App\Models\Member;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
 
-class LoginController extends Controller
+class LoginController extends BaseController
 {
     /**
      * 显示登录页面
@@ -19,7 +17,7 @@ class LoginController extends Controller
         if ($request->cookie('adminid')) {
             return redirect()->to('/admin');
         }else {
-            return view('admin.login');
+            return view('admin.login', $this->data);
         }
     }
 
@@ -35,7 +33,7 @@ class LoginController extends Controller
             return ajaxError(1, trans('member.you are not an administrator'));
         }
 
-        if ($member->password !== sha1(md5($password))){
+        if ($member->password !== encrypt_password($password)){
             return ajaxError(2, trans('member.password incorrect'));
         }
 

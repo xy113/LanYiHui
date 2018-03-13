@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>后台管理中心</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style type="text/css">
         body {padding:0; margin:0; font:12px Arial; background-color:#CCC; background-size:cover; position:relative;}
         a:link,a:active,a:visited{color:#333333; text-decoration:none;}
@@ -28,7 +29,7 @@
         {{csrf_field()}}
         <h1 class="title">登录后台管理中心</h1>
         <div class="err" id="err"></div>
-        <div class="item"><input type="text" name="account" id="account" class="input-text" placeholder="用户名/手机号/邮箱"></div>
+        <div class="item"><input type="text" name="account" value="{{$username or ''}}" id="account" class="input-text" placeholder="用户名/手机号/邮箱"></div>
         <div class="item"><input type="password" name="password" id="password" class="input-text" placeholder="密码"></div>
         <div class="item"><div class="button" tabindex="1" id="loginButton">登录</div></div>
     </form>

@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Express;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ExpressController extends Controller
+class ExpressController extends BaseController
 {
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
