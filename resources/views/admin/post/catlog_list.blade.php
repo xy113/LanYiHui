@@ -8,6 +8,7 @@
     <div class="content-div">
         <form method="post" action="">
             {{csrf_field()}}
+            <input type="hidden" name="formsubmit" value="yes">
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="listtable">
                 <thead>
                 <tr>

@@ -605,3 +605,11 @@ function mutipage($curPage, $pageSize, $totalCount, $params = array(), $showTota
 
     return   $multipage.'</ul>';
 }
+
+/**
+ * @param $job_id
+ * @return string
+ */
+function job_url($job_id){
+    return action('Job\DetailController@index', ['job_id'=>$job_id]);
+}

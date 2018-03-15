@@ -13,9 +13,28 @@ class PostCatlogController extends BaseController
      * @throws \Exception
      */
     public function index(){
-        $data = [];
-        $data['catloglist'] = PostCatlog::getTree();
-        return view('admin.post.catlog_list', $data);
+        if ($this->isOnSubmit()) {
+            $catloglist = $this->request->post('catloglist');
+            if ($catloglist) {
+                foreach ($catloglist as $catid=>$catlog){
+                    if ($catlog['name']){
+                        if ($catid > 0) {
+                            PostCatlog::where('catid', $catid)->update($catlog);
+                        }else {
+                            PostCatlog::insert($catlog);
+                        }
+                    }
+                }
+                PostCatlog::updateCache();
+            }
+            return $this->showSuccess(trans('ui.save_succeed'));
+        }else {
+
+            $this->appends([
+                'catloglist'=>PostCatlog::getTree(false)
+            ]);
+            return view('admin.post.catlog_list', $this->data);
+        }
     }
 
     /**

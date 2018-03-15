@@ -30,9 +30,9 @@ Route::group(['namespace' => 'Member', 'middleware' => 'member.auth', 'prefix' =
     Route::any('/comment', 'CommentController@index');
 });
 
-Route::group(['prefix'=>'plugin'], function (){
-    Route::get('/image', 'Plugin\ImageController@index');
-    Route::get('/avatar', 'Plugin\AvatarController@index');
+Route::group(['namespace'=>'Plugin', 'prefix'=>'plugin'], function (){
+    Route::get('/image', 'ImageController@index');
+    Route::get('/avatar', 'AvatarController@index');
 });
 
 Route::group(['namespace' => 'Account', 'prefix'=>'account'], function (){
@@ -52,8 +52,18 @@ Route::group(['namespace' => 'Post'], function (){
     Route::get('news', 'IndexController@index');
 
     Route::group(['prefix'=>'post'], function (){
+        Route::get('/list', 'ListController@index');
         Route::get('/detail/{aid}.html', 'DetailController@index');
     });
+});
+
+Route::group(['namespace'=>'Recruit', 'prefix'=>'recruit'], function (){
+    Route::get('/', 'IndexController@index');
+});
+
+Route::group(['namespace'=>'Job', 'prefix'=>'job'], function (){
+    Route::get('/', 'IndexController@index');
+    Route::get('/detail/{id}.html', 'DetailController@index');
 });
 
 Route::group(['namespace'=>'Company', 'prefix'=>'company'], function (){
@@ -64,6 +74,11 @@ Route::group(['namespace'=>'Company', 'prefix'=>'company'], function (){
     Route::get('/register', 'RegisterController@index');
     Route::post('/register/save', 'RegisterController@save');
     Route::post('/register/check', 'RegisterController@check');
+
+    Route::any('/security', 'SecurityController@index');
+    Route::any('/job', 'JobController@index');
+    Route::any('/job/publish', 'JobController@publish');
+    Route::any('/resume', 'ResumeController@index');
 });
 
 //后台管理
@@ -142,4 +157,8 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         Route::post('/link/save', 'LinkController@save');
         Route::post('/link/setimage', 'LinkController@setimage');
     });
+});
+
+Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
+    Route::get('/', 'IndexController@index');
 });

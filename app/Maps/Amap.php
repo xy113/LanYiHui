@@ -13,9 +13,15 @@ use App\Helpers\Http;
 class Amap
 {
     private $key = '';
+
+    /**
+     * Amap constructor.
+     * @param $key
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
     function __construct($key)
     {
-        $this->key = $key ? $key : setting('amap_key');
+        $this->key = $key ? $key : setting('amap.key');
     }
 
     /**

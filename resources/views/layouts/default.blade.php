@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>@yield('title', setting('sitename'))</title>
-    <meta name="keywords" content="@yield('keywords', setting('keywrods'))">
+    <meta name="keywords" content="@yield('keywords', setting('keywords'))">
     <meta name="description" content="@yield('description', setting('description'))">
     <meta name="render" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -37,10 +37,10 @@
             </div>
             <ul class="nav">
                 <li class="cur"><a href="{{url('/')}}">首页</a></li>
-                <li><a href="/news">动态</a></li>
-                <li><a>招新</a></li>
-                <li><a>人才</a></li>
-                <li><a>活动</a></li>
+                <li><a href="/post/list?catid=15">动态</a></li>
+                <li><a href="/recruit">招新</a></li>
+                <li><a href="/job">人才</a></li>
+                <li><a href="/post/list?catid=16">活动</a></li>
             </ul>
         </div>
     </div>

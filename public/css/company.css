@@ -250,3 +250,47 @@
 .formtable .image-upload-button .file{position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; opacity: 0; cursor: pointer;}
 .formtable label{margin-right: 6px;}
 .formtable .button-long{padding: 0 30px;}
+
+.listtable{border: 1px #e1e6eb solid; border-radius: 2px;}
+.listtable td,.listtable th{text-align:left; font-size:12px; word-break: break-all; word-wrap: break-word;}
+.listtable td .title{font-size:12px; font-weight:400; line-height:1.1;}
+.listtable td .info{font-size:10px; color:#999; display:block; margin-top:5px;}
+.listtable td .pic{width:50px; height:50px; float:left; border-radius:100%; background-size:cover;}
+.listtable td .pic img{width:100%; height:100%; display:block; border-radius:100%;}
+.listtable thead th{background-color:#f5f6fa; padding: 8px; color: #888; font-weight: normal;}
+.listtable tbody td,.listtable tbody th{border-top:1px #e1e6eb solid; padding: 12px 8px;}
+.listtable tbody tr:hover td,.listtable tbody tr:hover th{background-color:#FeFeF0;}
+.listtable tfoot td,
+.listtable tfoot th{background-color:#f5f6fa; border-top:1px #e1e6eb solid; padding: 12px 8px;}
+.listtable tfoot .button{margin-right: 7px;}
+.listtable tfoot .btn{
+    border: 1px #DDD solid; height: 24px; line-height: 22px; text-align: center; font-size: 12px;
+    padding: 0 10px; border-radius: 2px; display: inline-block; background-color: #fff;
+}
+.listtable tfoot .btn:hover{
+    background-color: #f5f5f5; color: #222; border-color: #999;
+}
+.listtable .head-first{padding-left:10px;}
+.listtable .first{padding-left:10px;}
+.listtable .avatar{border-radius: 50%;}
+.listtable label{margin-right: 5px;}
+.listtable .align-center{text-align: center;}
+.listtable .align-right{text-align: right;}
+.listtable .cat-level{
+    background-image: url("../images/admin/join.png");
+    background-position: left center; float: left;
+    background-repeat: repeat-x; height: 26px;
+}
+.listtable .cat-level-2{padding-left: 30px;}
+.listtable .cat-level-3{padding-left: 60px;}
+.listtable h3.title{font-size: 14px; display: block; margin-bottom: 5px;}
+.listtable .subtitle{font-size: 12px; display: block; color: #777;}
+.listtable .subtitle a{color: #777;}
+.listtable .subtitle a:hover{text-decoration: underline;}
+.listtable .catlog{background: url("../images/admin/join.png") left center no-repeat; padding-left: 30px;}
+.listtable .addnew-wrap{
+    background-image: url("../images/admin/gou.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 32px;
+}

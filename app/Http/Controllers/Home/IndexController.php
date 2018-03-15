@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Models\BlockItem;
+use App\Models\Job;
 use App\Models\Member;
 use App\Models\PostItem;
 use App\Http\Controllers\Controller;
@@ -19,7 +20,8 @@ class IndexController extends Controller
             'focus_imgs'=>BlockItem::where('block_id', 10)->get(),
             'newslist'=>PostItem::where('status', 1)->limit(6)->orderBy('aid', 'DESC')->get(),
             'articleCount'=>PostItem::where('status', 1)->count(),
-            'memberCount'=>Member::count()
+            'memberCount'=>Member::count(),
+            'jobCount'=>Job::count()
         ]);
 
         return view('home.index', $this->data);
