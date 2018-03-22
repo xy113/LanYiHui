@@ -6,10 +6,10 @@
     <meta name="render" content="webkit">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="icon" href="/images/common/favicon.png">
-    <link rel="stylesheet" type="text/css" href="/css/admin.css">
-    <script src="/js/jquery.js" type="text/javascript"></script>
-    <script src="/js/common.js" type="text/javascript"></script>
+    <link rel="icon" href="{{asset('images/common/favicon.png')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/admin.css')}}">
+    <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/common.js')}}" type="text/javascript"></script>
 </head>
 <body>
 <div class="mcenter-header">
@@ -58,6 +58,7 @@
                         </ul>
                     </dt>
                 </dl>
+                <!--
                 <dl>
                     <dd><a><i class="iconfont icon-presentfill"></i>商品管理</a></dd>
                     <dt>
@@ -87,6 +88,7 @@
                         </ul>
                     </dt>
                 </dl>
+                -->
                 <dl>
                     <dd><a><i class="iconfont icon-newsfill"></i>文章管理</a></dd>
                     <dt>

@@ -63,6 +63,11 @@
                     <td><textarea title="" class="textarea w300" name="settings[sysrulestxt]" style="height: 150px;">{{$settings['sysrulestxt'] or ''}}</textarea></td>
                     <td>注册许可协议的详细内容</td>
                 </tr>
+                <tr>
+                    <td class="cell-name">入会要求:</td>
+                    <td><textarea title="" class="textarea w300" name="settings[membership_desc]" style="height: 150px;">{{$settings['membership_desc'] or ''}}</textarea></td>
+                    <td>填写联谊会入会要求详细说明</td>
+                </tr>
                 </tbody>
                 <tfoot>
                 <tr>

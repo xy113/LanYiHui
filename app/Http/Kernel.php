@@ -41,11 +41,6 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
-
-        'openapi' => [
-            'throttle:60,1',
-            'bindings',
-        ]
     ];
 
     /**
@@ -62,7 +57,8 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'auth.admin' => \App\Http\Middleware\AdminAuth::class,
-        'member.auth' => \App\Http\Middleware\MemberAuth::class
+        'admin.auth' => \App\Http\Middleware\AdminAuth::class,
+        'member.auth' => \App\Http\Middleware\MemberAuth::class,
+        'mobile.auth' => \App\Http\Middleware\MobileMemberAuth::class
     ];
 }

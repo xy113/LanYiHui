@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 
 class LoginController extends BaseController
 {
-    /**
-     * 显示登录页面
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index(Request $request){
 
-        if ($request->cookie('adminid')) {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function index(){
+
+        if ($this->request->cookie('adminid')) {
             return redirect()->to('/admin');
         }else {
             return view('admin.login', $this->data);
@@ -25,8 +25,8 @@ class LoginController extends BaseController
      * 验证登录
      */
     public function checklogin(){
-        $account  = request()->post('account');
-        $password = request()->post('password');
+        $account  = $this->request->post('account');
+        $password = $this->request->post('password');
 
         $member = Member::where('username',$account)->orWhere('mobile',$account)->orWhere('email',$account)->first();
         if (!$member->admincp){

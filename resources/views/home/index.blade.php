@@ -126,5 +126,35 @@
                 </ul>
             </div>
         </div>
+
+        <div class="blank"></div>
+        <div class="area">
+            <div class="title-div">
+                <a class="more">更多职位></a>
+                <strong>最新职位</strong>
+            </div>
+            <div class="job-wrapper">
+                <ul class="job-list">
+                    @foreach($jobList as $item)
+                        <li>
+                            <div class="box-left">
+                                <h3 class="job-title"><a href="{{job_url($item['job_id'])}}" target="_blank">{{$item['title']}}</a></h3>
+                                <span class="job-type">(@if($item['type']==1)全职@else 兼职 @endif)</span>
+                                <div class="job-data">
+                                    <span class="salary">{{$salary_ranges[$item['salary']]}}/月</span>
+                                    @foreach($item['welfares'] as $k=>$v)
+                                        <i>{{$v}}</i>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="box-right">
+                                <div class="pubtime">{{@date('Y-m-d H:i', $item['created_at'])}}</div>
+                                <div class="company">{{$item['company_name']}}</div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
 @stop

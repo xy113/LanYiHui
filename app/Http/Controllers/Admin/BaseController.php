@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cookie;
 
 class BaseController extends Controller
 {
-    protected $messageView = 'admin.message';
     protected $adminid = 0;
+    protected $messageView = 'admin.message';
 
     /**
      * BaseController constructor.
@@ -18,10 +17,8 @@ class BaseController extends Controller
     function __construct(Request $request)
     {
         parent::__construct($request);
-
-        $this->middleware(function ($req, $next){
-            $this->adminid = Cookie::get('adminid');
-            $this->appends(['adminid'=>$this->adminid]);
+        $this->middleware(function (Request $req, $next){
+            $this->adminid = $req->cookie('adminid');
             return $next($req);
         });
     }

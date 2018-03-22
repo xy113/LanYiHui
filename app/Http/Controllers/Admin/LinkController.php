@@ -3,40 +3,42 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Link;
-use Illuminate\Http\Request;
 
 class LinkController extends BaseController
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(){
-        $data = [
+
+        $this->appends([
             'categorylist'=>[],
             'itemlist'=>[]
-        ];
+        ]);
 
-        foreach (Link::where('type', 'category')->get() as $c){
-            $data['categorylist'][$c->id] = $c->toArray();
-        }
+        Link::where('type', 'category')->get()->map(function ($c){
+            $this->data['categorylist'][$c->id] = $c;
+        });
 
-        foreach (Link::where('type', 'item')->get() as $c){
-            $data['itemlist'][$c->catid][$c->id] = $c->toArray();
-        }
+        Link::where('type', 'item')->get()->map(function ($c){
+            $this->data['itemlist'][$c->catid][$c->id] = $c;
+        });
 
-        return view('admin.common.link', $data);
+        return view('admin.common.link', $this->data);
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function save(Request $request){
-        $delete = $request->input('delete');
+    public function save(){
+        $delete = $this->request->input('delete');
         if ($delete && is_array($delete)){
             foreach ($delete as $id){
                 Link::where('id', $id)->delete();
             }
         }
 
-        $itemlist = $request->input('itemlist');
+        $itemlist = $this->request->input('itemlist');
         if ($itemlist && is_array($itemlist)) {
             foreach ($itemlist as $id=>$item){
                 if ($item['title']) {
@@ -51,9 +53,12 @@ class LinkController extends BaseController
         return $this->showSuccess(trans('ui.save_succeed'));
     }
 
-    public function setimage(Request $request){
-        $id = $request->input('id');
-        $image = $request->input('image');
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setimage(){
+        $id = $this->request->input('id');
+        $image = $this->request->input('image');
         if ($id && $image){
             Link::where('id', $id)->update(['image'=>$image]);
         }

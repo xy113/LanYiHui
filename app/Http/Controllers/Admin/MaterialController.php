@@ -10,72 +10,69 @@ class MaterialController extends BaseController
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request){
+    public function index(){
 
-        $data = [
-            'itemlist'=>[],
-            'pagination'=>'',
-            'material_types'=>trans('common.material_types')
-        ];
+        $this->data['material_types'] = trans('common.material_types');
 
-        $condition = $queryParams = array();
+        $condition = $queryParams = [];
 
-        $type = $request->get('type');
+        $type = $this->request->get('type');
         $type = $type ? $type : 'image';
+        $this->data['type'] = $type;
         $condition[] = ['type', '=', $type];
         $queryParams['type'] = $type;
-        $data['type'] = $type;
 
-        $uid = $request->input('uid');
-        $data['uid'] = $uid;
+        $uid = $this->request->input('uid');
+        $this->data['uid'] = $uid;
         if ($uid) {
             $condition[] = ['uid', '=', $uid];
             $queryParams['uid'] = $uid;
         }
 
-        $username = $request->input('username');
-        $data['username'] = $username;
+        $username = $this->request->input('username');
+        $this->data['username'] = $username;
         if ($username) {
             $condition[] = ['username', '=', $username];
             $queryParams['username'] = $username;
         }
 
-        $name = $request->input('name');
-        $data['name'] = $name;
+        $name = $this->request->input('name');
+        $this->data['name'] = $name;
         if ($name) {
-            $condition[] = ['name', 'LIKE', $name];
+            $condition[] = ['name', 'LIKE', "%$name%"];
             $queryParams['name'] = $name;
         }
 
-        $time_begin = $request->input('time_begin');
-        $data['time_begin'] = $time_begin;
+        $time_begin = $this->request->input('time_begin');
+        $this->data['time_begin'] = $time_begin;
         if ($time_begin) {
             $condition[] = ['created_at', '>', strtotime($time_begin)];
             $queryParams['time_begin'] = $time_begin;
         }
 
-        $time_end = $request->input('time_end');
-        $data['time_end'] = $time_end;
+        $time_end = $this->request->input('time_end');
+        $this->data['time_end'] = $time_end;
         if ($time_end) {
             $condition[] = ['created_at', '<', strtotime($time_end)];
             $queryParams['time_end'] = $time_end;
         }
 
         $materials = Material::where($condition)->orderBy('id', 'DESC')->paginate(20);
-        $data['pagination'] = $materials->appends($queryParams)->links();
+        $this->data['pagination'] = $materials->appends($queryParams)->links();
 
-        foreach ($materials as $m){
-            $data['itemlist'][$m->id] = $m->toArray();
-        }
-        //print_array($data);exit();
-        return view('admin.common.material', $data);
+        $this->data['itemlist'] = [];
+        $materials->map(function ($m){
+            $this->data['itemlist'][$m->id] = $m;
+        });
+
+        return view('admin.common.material', $this->data);
     }
 
     /**
      *
      */
-    public function delete(Request $request){
-        $materials = $request->input('materials');
+    public function delete(){
+        $materials = $this->request->input('materials');
         foreach (Material::whereIn('id', $materials)->get() as $m){
             @unlink(storage_public_path($m->thumb));
             @unlink(storage_public_path($m->path));

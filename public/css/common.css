@@ -86,8 +86,8 @@ input[type="checkbox"], input[type="radio"],.checkbox,.radio{
 .dsx-message-box .message-error {background-color:#FF002D}
 .dsx-message-box .message-warning {background-color:#FAA722;}
 .dsx-message-box .message-infomation {background-color:#53A9C2;}
-.dsx-message-box .message-text{font-size:15px; display:inline;}
-.dsx-message-box .message-icon{font-size:18px; width:auto; height:18px; line-height:18px; margin:1px 6px 0 0; float:left; display:inline-block; vertical-align:middle;}
+.dsx-message-box .message-text{font-size:15px; margin-left: 24px; line-height: 1.3;}
+.dsx-message-box .message-icon{font-size:18px; height:18px; line-height:18px; margin:1px 6px 0 0; float:left; width: 20px; display: block; vertical-align:middle;}
 /*======*/
 .dsx-confirm-box {width:180px; background:#fefefe; border:#d5d5d5 1px solid; border-radius:3px; box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);}
 .dsx-confirm-box dl{clear:both;}

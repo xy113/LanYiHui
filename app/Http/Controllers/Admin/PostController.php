@@ -9,110 +9,114 @@ use App\Models\PostImage;
 use App\Models\PostItem;
 use App\Models\PostLog;
 use App\Models\PostMedia;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
 class PostController extends BaseController
 {
     /**
-     * 文章列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
      */
-    public function index(Request $request){
+    public function index(){
 
         $condition = $queryParams = [];
-        $searchType = intval($request->input('searchType'));
+        $searchType = intval($this->request->input('searchType'));
         $queryParams['searchType'] = $searchType;
-        $data = [
+        $this->appends([
             'searchType'=>$searchType,
             'title'=>'',
             'username'=>'',
-            'catid'=>'',
+            'catid'=>0,
             'status'=>'',
             'type'=>'',
             'time_begin'=>'',
             'time_end'=>'',
-            'q'=>''
-        ];
+            'q'=>'',
+            'post_types'=>trans('post.post_types'),
+            'post_status'=>trans('post.post_status'),
+            'catloglist'=>PostCatlog::getTree(),
+            'itemlist'=>[]
+        ]);
 
         if ($searchType) {
-            $title = $request->input('title');
+            $title = $this->request->input('title');
             if ($title) {
                 $condition[] = ['i.title', 'LIKE', "%$title%"];
                 $queryParams['title'] = $title;
-                $data['title'] = $title;
+                $this->data['title'] = $title;
             }
 
-            $username = $request->input('username');
+            $username = $this->request->input('username');
             if ($username) {
                 $condition[] = ['i.username', '=', $username];
                 $queryParams['username'] = $username;
+                $this->data['username'] = $username;
             }
-            $data['username'] = $username;
 
-            $catid = $request->input('catid');
+            $catid = $this->request->input('catid');
             if ($catid) {
                 $condition[] = ['i.catid', '=', $catid];
                 $queryParams['catid'] = $catid;
+                $this->data['catid'] = $catid;
             }
-            $data['catid'] = $catid;
 
-            $status = $request->input('status');
+            $status = $this->request->input('status');
             if ($status != '') {
                 $condition[] = ['i.status', '=', $status];
                 $queryParams['status'] = $status;
+                $this->data['status'] = $status;
             }
-            $data['status'] = $status;
 
-            $type = $request->input('type');
+            $type = $this->request->input('type');
             if ($type) {
                 $condition[] = ['i.type', '=', $type];
                 $queryParams['type'] = $type;
+                $this->data['type'] = $type;
             }
-            $data['type'] = $type;
 
-            $time_begin = $request->input('time_begin');
+            $time_begin = $this->request->input('time_begin');
             if ($time_begin) {
                 $condition[] = ['i.create_at', '>', strtotime($time_begin)];
                 $queryParams['time_begin'] = $time_begin;
+                $this->data['time_begin'] = $time_begin;
             }
-            $data['time_begin'] = $time_begin;
 
-            $time_end = $request->input('time_end');
+            $time_end = $this->request->input('time_end');
             if ($time_end) {
                 $condition[] = ['i.create_at', '<', strtotime($time_end)];
                 $queryParams['time_end'] = $time_end;
+                $this->data['time_end'] = $time_end;
             }
-            $data['time_end'] = $time_end;
+
         }else {
-            $q = $request->input('q');
-            $data['q'] = $q;
+            $q = $this->request->input('q');
             if ($q) {
                 $condition[] = ['i.title', 'LIKE', "%$q%"];
                 $queryParams['q'] = $q;
+                $this->data['q'] = $q;
             }
         }
 
+        $items = DB::table('post_item as i')
+            ->leftJoin('post_catlog as c', 'c.catid', '=', 'i.catid')
+            ->where($condition)
+            ->select('i.*', 'c.name as cat_name')
+            ->orderBy('i.aid','DESC')
+            ->paginate(20);
+        $this->data['pagination'] = $items->appends($queryParams)->links();
+        $items->map(function ($item){
+            $this->data['itemlist'][$item->aid] = get_object_vars($item);
+        });
 
-        $data['post_types'] = trans('post.post_types');
-        $data['post_status'] = trans('post.post_status');
-        $data['catloglist'] = PostCatlog::getTree();
-
-        $data['itemlist'] = [];
-        $db = DB::table('post_item as i')->leftJoin('post_catlog as c', 'c.catid', '=', 'i.catid')->where($condition);
-        $itemlist = $db->select('i.*', 'c.name as cat_name')->orderBy('i.aid','DESC')->paginate(20);
-        foreach ($itemlist as $item){
-            $data['itemlist'][$item->aid] = get_object_vars($item);
-        }
-        $data['pagination'] = $itemlist->appends($queryParams)->links();
-        return view('admin.post.list', $data);
+        return view('admin.post.list', $this->data);
     }
 
     /**
      * 删除文章
      */
-    public function delete(Request $request){
-        $items = $request->input('items');
+    public function delete(){
+        $items = $this->request->input('items');
         if ($items && is_array($items)){
             foreach ($items as $aid){
                 PostItem::deleteAll($aid);
@@ -125,16 +129,15 @@ class PostController extends BaseController
      * 移动文章
      */
     public function move(){
-        if ($this->checkFormSubmit()){
-            $items = $_GET['items'];
-            $target = intval($_GET['target']);
-            if ($items && is_array($items)){
-                foreach ($items as $aid){
-                    PostItem::getInstance()->where(array('aid'=>$aid))->data(array('catid'=>$target))->save();
-                }
+        $items = $this->request->post('items');
+        $target = $this->request->post('target');
+        if ($items) {
+            foreach ($items as $aid) {
+                PostItem::where('aid', $aid)->update(['catid'=>$target]);
             }
         }
-        $this->showAjaxReturn();
+
+        return ajaxReturn();
     }
 
     /**
@@ -157,9 +160,9 @@ class PostController extends BaseController
     /**
      * 设置文章图片
      */
-    public function setimage(Request $request){
-        $aid = $request->input('aid');
-        $image = $request->input('image');
+    public function setimage(){
+        $aid = $this->request->input('aid');
+        $image = $this->request->input('image');
         if ($aid && $image){
             PostItem::where('aid', $aid)->update(['image'=>$image]);
             return ajaxReturn(['aid'=>$aid,'image'=>$image]);
@@ -169,20 +172,23 @@ class PostController extends BaseController
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function publish(Request $request){
+    public function publish(){
 
-        $data = [
-            'aid'=>0,
-            'catid'=>0,
-            'type'=>'article',
+        $aid = $this->request->get('aid');
+        $catid = $this->request->get('catid');
+        $type = $this->request->input('type');
+        $type = in_array($type, array('image','video', 'voice')) ? $type : 'article';
+        $this->appends([
+            'aid'=>$aid,
+            'catid'=>$catid,
+            'type'=>$type,
             'item'=>[
                 'aid'=>0,
-                'type'=>'article',
+                'type'=>$type,
                 'catid'=>0,
                 'created_at'=>date('Y-m-d H:i:s'),
                 'title'=>'',
@@ -204,55 +210,42 @@ class PostController extends BaseController
             ],
             'gallery'=>[],
             'media'=>[]
-        ];
+        ]);
 
-        $aid = intval($request->get('aid'));
-        $data['aid'] = $aid;
         if ($aid) {
             $item = PostItem::where('aid', $aid)->first()->toArray();
             $item['created_at'] = $item['created_at'] ? @date('Y-m-d H:i:s', $item['created_at']) : @date('Y-m-d H:i:s');
-            $data['type'] = in_array($item['type'], array('image','video')) ? $item['type'] : 'article';
-            $data['catid'] = $item['catid'];
-            $data['item'] = array_merge($data['item'], $item);
+            $item['type'] = in_array($item['type'], array('image','video')) ? $item['type'] : 'article';
+            $this->appends([
+                'type'=>$item['type'],
+                'catid'=>$item['catid'],
+                'item'=>$item
+            ]);
 
-            $content = PostContent::where('aid',$aid)->first();
-            if ($content) {
-                $data['content'] = $content->toArray();
-            }
+            $this->data['content'] = PostContent::where('aid',$aid)->first();
+
             //相册列表
-            $gallery = PostImage::where('aid', $aid)->orderBy('displayorder', 'ASC')->orderBy('id', 'ASC')->get();
-            if ($gallery) {
-                foreach ($gallery as $image){
-                    $data['gallery'][] = $image->toArray();
-                }
-            }
-            //获取媒体信息
-            $media = PostMedia::where('aid', $aid)->first();
-            if ($media) {
-                $data['media'] = $media->toArray();
-            }
-        }else {
-            $catid = $request->input('catid');
-            $data['catid'] = $catid ? $catid : 0;
+            $this->data['gallery'] = PostImage::where('aid', $aid)->orderBy('displayorder', 'ASC')->orderBy('id', 'ASC')->get();
 
-            $type = $request->input('type');
-            $type = in_array($type, array('image','video', 'voice')) ? $type : 'article';
-            $data['type'] = $type;
-            $data['item']['type'] = $type;
+            //获取媒体信息
+            $this->data['media'] = PostMedia::where('aid', $aid)->first();
+
         }
-        $data['catloglist'] = PostCatlog::getTree();
-        return view('admin.post.publish', $data);
+        $this->data['catloglist'] = PostCatlog::getTree();
+        return view('admin.post.publish', $this->data);
     }
 
     /**
-     * 保存文章
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function save(Request $request){
-        $newpost = $request->input('newpost');
-        $content = $request->input('content');
-        $aid = intval($request->input('aid'));
+    public function save(){
+        $aid = $this->request->input('aid');
+        $newpost = $this->request->post('newpost');
+        $content = $this->request->post('content');
+
         if (is_array ($newpost)) {
-            $newpost = rejectNullValues($newpost);
+
             if (!$newpost['title']) {
                 return $this->showError(trans('post.post title empty'));
             }
@@ -314,7 +307,7 @@ class PostController extends BaseController
             //保存文章内容
             if (PostContent::where('aid', $aid)->count()){
                 PostContent::where('aid', $aid)->update([
-                   'content'=>$content,
+                    'content'=>$content,
                     'updated_at'=>time()
                 ]);
             }else {
@@ -326,7 +319,7 @@ class PostController extends BaseController
             }
 
             //添加相册
-            $gallery = $request->input('gallery');
+            $gallery = $this->request->post('gallery');
             if ($gallery) {
                 $imageList = array();
                 if ($eventType == 'edit') {
@@ -365,7 +358,7 @@ class PostController extends BaseController
                 }
             }
 
-            $media = $request->input('media');
+            $media = $this->request->post('media');
             if ($media && $media['original_url']){
                 if ($source = VideoParser::parse($media['original_url'])) {
                     $media['aid'] = $aid;

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\PostCatlog;
 use App\Models\PostItem;
-use Illuminate\Http\Request;
 
 class PostCatlogController extends BaseController
 {
@@ -13,40 +12,19 @@ class PostCatlogController extends BaseController
      * @throws \Exception
      */
     public function index(){
-        if ($this->isOnSubmit()) {
-            $catloglist = $this->request->post('catloglist');
-            if ($catloglist) {
-                foreach ($catloglist as $catid=>$catlog){
-                    if ($catlog['name']){
-                        if ($catid > 0) {
-                            PostCatlog::where('catid', $catid)->update($catlog);
-                        }else {
-                            PostCatlog::insert($catlog);
-                        }
-                    }
-                }
-                PostCatlog::updateCache();
-            }
-            return $this->showSuccess(trans('ui.save_succeed'));
-        }else {
 
-            $this->appends([
-                'catloglist'=>PostCatlog::getTree(false)
-            ]);
-            return view('admin.post.catlog_list', $this->data);
-        }
+        $this->data['catloglist'] = PostCatlog::getTree();
+        return view('admin.post.catlog_list', $this->data);
     }
 
     /**
-     * 编辑分类
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      */
-    public function edit(Request $request){
-        if ($request->post('formsubmit') === 'yes'){
-            $catid = intval($request->post('catid'));
-            $catlog = $request->post('catlog');
+    public function edit(){
+        if ($this->isOnSubmit()){
+            $catid = $this->request->post('catid');
+            $catlog = $this->request->post('catlog');
             if ($catid) {
                 PostCatlog::where('catid', $catid)->update($catlog);
             }else {
@@ -54,8 +32,8 @@ class PostCatlogController extends BaseController
             }
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
-            $catid = $request->get('catid');
-            $data = [
+            $catid = $this->request->get('catid');
+            $this->appends([
                 'catid'=>$catid,
                 'catlog'=>[
                     'name'=>'',
@@ -68,16 +46,15 @@ class PostCatlogController extends BaseController
                     'description'=>''
                 ],
                 'catloglist'=>[]
-            ];
+            ]);
 
             if ($catid) {
-                $catlog = PostCatlog::where('catid', $catid)->first();
-                if ($catlog) $data['catlog'] = $catlog->toArray();
+                $this->data['catlog'] = PostCatlog::where('catid', $catid)->first();
             }
 
-            $data['catloglist'] = PostCatlog::getTree();
+            $this->data['catloglist'] = PostCatlog::getTree();
 
-            return view('admin.post.catlog_edit', $data);
+            return view('admin.post.catlog_edit', $this->data);
         }
     }
 
@@ -85,11 +62,11 @@ class PostCatlogController extends BaseController
      * 删除分类
      * @throws \Exception
      */
-    public function delete(Request $request){
-        $catid = intval($request->input('catid'));
+    public function delete(){
+        $catid = $this->request->input('catid');
         if ($this->isOnSubmit()) {
-            $moveto = $request->post('moveto');
-            $deleteChilds = $request->post('deleteChilds');
+            $moveto = $this->request->post('moveto');
+            $deleteChilds = $this->request->post('deleteChilds');
 
             if ($moveto || $deleteChilds) {
                 $childIds = PostCatlog::getAllChildIds($catid);
@@ -114,29 +91,25 @@ class PostCatlogController extends BaseController
 
             return $this->showSuccess(trans('ui.update_succeed'));
         }else {
-            $data = [
-                'catid'=>$catid,
-                'catlog'=>[],
-                'catloglist'=>[]
-            ];
-            $catlog = PostCatlog::where('catid', $catid)->first();
-            if ($catlog) $data['catlog'] = $catlog->toArray();
-            $data['catloglist'] = PostCatlog::getTree(false);
 
-            return view('admin.post.catlog_delete', $data);
+            $this->appends([
+                'catid'=>$catid,
+                'catlog'=>PostCatlog::where('catid', $catid)->first(),
+                'catloglist'=>PostCatlog::getTree(false)
+            ]);
+
+            return view('admin.post.catlog_delete', $this->data);
         }
     }
 
     /**
-     * 合并分类
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Exception
      */
-    public function merge(Request $request){
+    public function merge(){
         if ($this->isOnSubmit()) {
-            $target = intval($request->post('target'));
-            $source = $request->post('source');
+            $target = $this->request->post('target');
+            $source = $this->request->post('source');
             if ($source) {
                 foreach ($source as $catid) {
                     PostItem::where('catid', $catid)->update(['catid'=>$target]);
@@ -148,16 +121,18 @@ class PostCatlogController extends BaseController
                 array('text'=>trans('common.back_list'), 'url'=>url('/admin/postcatlog'))
             ]);
         }else {
-            return view('admin.post.catlog_merge', ['catloglist'=>PostCatlog::getTree(false)]);
+
+            $this->data['catloglist'] = PostCatlog::getTree(false);
+            return view('admin.post.catlog_merge', $this->data);
         }
     }
 
     /**
-     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function seticon(Request $request){
-        $catid = intval($request->post('catid'));
-        $icon = $request->post('icon');
+    public function seticon(){
+        $catid = $this->request->post('catid');
+        $icon = $this->request->post('icon');
         if ($catid && $icon){
             PostCatlog::where('catid', $catid)->update(['icon'=>$icon]);
         }

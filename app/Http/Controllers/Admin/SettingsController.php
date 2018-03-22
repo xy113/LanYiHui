@@ -3,36 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Settings;
-use Illuminate\Http\Request;
 
 class SettingsController extends BaseController
 {
+    /**
+     * @param $type
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index($type){
-        $settings = array();
-        foreach (Settings::all() as $setting){
-            $settings[$setting->skey] = $setting->svalue;
-        }
-        return view('admin.settings.'.$type, ['settings'=>$settings]);
+
+        $this->data['settings'] = [];
+        Settings::all()->map(function ($setting){
+            $this->data['settings'][$setting->skey] = $setting->svalue;
+        });
+        return view('admin.settings.'.$type, $this->data);
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function save(Request $request){
-        $settings = array();
+    public function save(){
+        $settings = [];
         foreach (Settings::all() as $setting){
             $settings[$setting->skey] = $setting->svalue;
         }
 
-        foreach (rejectNullValues($request->input('settings')) as $skey=>$svalue){
+        foreach ($this->request->post('settings') as $skey=>$svalue){
             if (array_key_exists($skey, $settings)) {
                 Settings::where('skey', $skey)->update(['svalue'=>$svalue]);
             }else {
                 Settings::insert(['skey'=>$skey, 'svalue'=>$svalue]);
             }
         }
+
         try{
             Settings::updateCache();
             return $this->showSuccess(trans('ui.save_succeed'));

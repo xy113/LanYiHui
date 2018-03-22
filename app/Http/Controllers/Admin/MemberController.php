@@ -10,98 +10,106 @@ use Illuminate\Support\Facades\DB;
 class MemberController extends BaseController
 {
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request){
-        $condition = $queryParams = $data = array();
+    public function index(){
+        $condition = $queryParams = [];
 
-        $uid = htmlspecialchars($request->input('uid'));
+        $uid = $this->request->input('uid');
+        $this->data['uid'] = $uid;
         if ($uid) {
             $condition[] = ['m.uid', '=', $uid];
             $queryParams['uid'] = $uid;
         }
-        $data['uid'] = $uid;
 
-        $username = htmlspecialchars($request->input('username'));
+        $username = $this->request->input('username');
+        $this->data['username'] = $username;
         if ($username) {
             $condition[] = ['m.username', 'LIKE', $username];
             $queryParams['username'] = $username;
         }
-        $data['username'] = $username;
 
-        $mobile = htmlspecialchars($request->input('mobile'));
+        $mobile = $this->request->input('mobile');
+        $this->data['mobile'] = $mobile;
         if ($mobile) {
             $condition[] = ['m.mobile', '=', $mobile];
             $queryParams['mobile'] = $mobile;
         }
-        $data['mobile'] = $mobile;
 
-        $email = htmlspecialchars($request->input('email'));
+        $email = $this->request->input('email');
+        $this->data['email'] = $email;
         if ($email) {
             $condition[] = ['m.email', '=', $email];
             $queryParams['email'] = $email;
         }
-        $data['email'] = $email;
 
-        $reg_time_begin = htmlspecialchars($request->input('reg_time_begin'));
+        $reg_time_begin = $this->request->input('reg_time_begin');
+        $this->data['reg_time_begin'] = $reg_time_begin;
         if ($reg_time_begin) {
             $condition[] = ['s.regdate', '>', strtotime($reg_time_begin)];
             $queryParams['reg_time_begin'] = $reg_time_begin;
         }
-        $data['reg_time_begin'] = $reg_time_begin;
 
-        $reg_time_end = htmlspecialchars($request->input('reg_time_end'));
+        $reg_time_end = $this->request->input('reg_time_end');
+        $this->data['reg_time_end'] = $reg_time_end;
         if ($reg_time_end) {
             $condition[] = ['s.regdate', '<', strtotime($reg_time_end)];
             $queryParams['reg_time_end'] = $reg_time_end;
         }
-        $data['reg_time_end'] = $reg_time_end;
 
-        $last_visit_begin = htmlspecialchars($request->input('last_visit_begin'));
+        $last_visit_begin = $this->request->input('last_visit_begin');
+        $this->data['last_visit_begin'] = $last_visit_begin;
         if ($last_visit_begin) {
             $condition[] = ['s.lastvisit', '>', strtotime($last_visit_begin)];
             $queryParams['last_visit_begin'] = $last_visit_begin;
         }
-        $data['last_visit_begin'] = $last_visit_begin;
 
-        $last_visit_end = htmlspecialchars($request->input('last_visit_end'));
+        $last_visit_end = $this->request->input('last_visit_end');
+        $this->data['last_visit_end'] = $last_visit_end;
         if ($last_visit_end) {
             $condition[] = ['s.lastvisit', '<', strtotime($last_visit_end)];;
             $queryParams['last_visit_end'] = $last_visit_end;
         }
-        $data['last_visit_end'] = $last_visit_end;
 
-        $memberlist = DB::table('member as m')
+        $members = DB::table('member as m')
                         ->leftJoin('member_status as s', 'm.uid', '=', 's.uid')
                         ->where($condition)
                         ->select('m.*','s.regdate','s.lastvisit','s.regip','s.lastvisitip')
                         ->orderBy('uid', 'ASC')
                         ->paginate(20);
-        $data['pagination'] = $memberlist ? $memberlist->links() : '';
+        $this->data['pagination'] = $members->appends($queryParams)->links();
 
-        $grouplist = [];
-        foreach (MemberGroup::all() as $group){
-            $grouplist[$group->gid] = $group;
-        }
+        $this->data['grouplist'] = [];
+        MemberGroup::all()->map(function ($group){
+            $this->data['grouplist'][$group->gid] = $group;
+        });
 
-        $data['memberlist'] = [];
-        foreach ($memberlist as $member){
-            $member->grouptitle = $grouplist[$member->gid]->title;
-            $data['memberlist'][$member->uid] = $member;
-        }
-        $data['member_status'] = trans('member.member_status');
-        return view('admin.member.list',$data);
+        $this->data['memberlist'] = [];
+        $members->map(function ($m){
+            if (isset($this->data[$m->gid])){
+                $m->grouptitle = $this->data[$m->gid]->title;
+            }else {
+                $m->grouptitle = '';
+            }
+
+            $this->data['memberlist'][$m->uid] = $m;
+        });
+
+        $this->data['member_status'] = trans('member.member_status');
+        return view('admin.member.list', $this->data);
     }
 
-    public function delete(Request $request){
-        $members = $request->input('members');
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(){
+        $members = $this->request->input('members');
         foreach ($members as $uid){
             if ($uid != 1000000){
                 Member::deleteAll($uid);
             }
         }
-        return $this->showAjaxReturn();
+        return ajaxReturn();
     }
 
     /**
@@ -183,42 +191,5 @@ class MemberController extends BaseController
         $target = intval($_GET['target']);
         member_update_data(array('uid'=>array('IN', $uids)), array('gid'=>$target));
         $this->showSuccess('update_succeed', U('a=member_list&gid='.$target));
-    }
-
-    public function grouplist(){
-        global $_G,$_lang;
-        G('menu', 'membergroup');
-
-        if($this->checkFormSubmit()){
-            $delete = $_GET['delete'];
-            if ($delete && is_array($delete)) {
-                $deleteids = implodeids($delete);
-                usergroup_delete_data(array('gid'=>array('IN', $deleteids), 'type'=>'custom'));
-                $_Group = M('member_group')->where(array('type'=>'custom'))->order('creditslower ASC')->getOne();
-                member_update_data(array('gid'=>array('IN', $deleteids)), array('gid'=>$_Group['gid']));
-            }
-
-            $_Grouplist = $_GET['grouplist'];
-            if ($_Grouplist && is_array($_Grouplist)) {
-                foreach ($_Grouplist as $_Gid=>$_Group){
-                    if ($_Group['title']) {
-                        $_Group['perm'] = serialize($_Group['perm']);
-                        if ($_Gid > 0){
-                            usergroup_update_data(array('gid'=>$_Gid), $_Group);
-                        }else {
-                            usergroup_add_data($_Group);
-                        }
-                    }
-                }
-            }
-
-            $this->showSuccess('update_succeed');
-        }else{
-            $grouplist = array();
-            foreach (member_get_group_list() as $_Group){
-                $usergrouplist[$_Group['type']][$_Group['gid']] = $_Group;
-            }
-            include template('member/member_group');
-        }
     }
 }

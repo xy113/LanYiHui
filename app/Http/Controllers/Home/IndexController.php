@@ -7,6 +7,7 @@ use App\Models\Job;
 use App\Models\Member;
 use App\Models\PostItem;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -23,6 +24,15 @@ class IndexController extends Controller
             'memberCount'=>Member::count(),
             'jobCount'=>Job::count()
         ]);
+
+        $jobList = DB::table('job AS j')->leftJoin('company AS c', 'c.company_id', '=', 'j.company_id')
+            ->select(['j.job_id', 'j.title', 'j.type', 'j.salary', 'j.welfare', 'j.created_at', 'j.company_id', 'c.company_name'])
+            ->limit(10)->get();
+        $jobList = $jobList->map(function ($item){
+            $item->welfares = unserialize($item->welfare);
+            return get_object_vars($item);
+        });
+        $this->appends(['jobList'=>$jobList, 'salary_ranges'=>trans('job.salary_ranges')]);
 
         return view('home.index', $this->data);
     }

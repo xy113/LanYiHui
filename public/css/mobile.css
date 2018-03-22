@@ -1,1 +1,727 @@
 @import "common.css";
+body,html{font-size: 16px; background-color: #f2f2f2;}
+.tabbar{
+    position: relative;
+    height: 49px;
+}
+.tabbar .bar{
+    position: fixed;
+    width: 100%;
+    height: 49px;
+    border-top: 1px #e7e7e7 solid;
+    bottom: 0;
+    background-color: #fff;
+    display: flex;
+    z-index: 1000;
+}
+
+.tabbar .bar .item{
+    flex: 1;
+    width: 25%;
+    min-width: 25%;
+    max-width: 25%;
+    padding: 5px 0 0;
+}
+
+.tabbar .bar .item .item-icon{
+    height: 20px;
+    background-position: center;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.tabbar .bar .item .item-title{
+    text-align: center;
+    font-size: 14px;
+}
+
+.tabbar .bar .item .item-title-active{
+    color: #6CD07E;
+}
+
+.tabbar .bar .item .item-home{
+    background-image: url("../images/mobile/home.png");
+}
+
+.tabbar .bar .item .item-home-active{
+    background-image: url("../images/mobile/home-selected.png");
+}
+
+.tabbar .bar .item .item-grow{
+    background-image: url("../images/mobile/cz.png");
+}
+
+.tabbar .bar .item .item-grow-active{
+    background-image: url("../images/mobile/cz-selected.png");
+}
+
+.tabbar .bar .item .item-com{
+    background-image: url("../images/mobile/jl.png");
+}
+
+.tabbar .bar .item .item-com-active{
+    background-image: url("../images/mobile/jl-selected.png");
+}
+
+.tabbar .bar .item .item-mine{
+    background-image: url("../images/mobile/mine.png");
+}
+
+.tabbar .bar .item .item-mine-active{
+    background-image: url("../images/mobile/mine-selected.png");
+}
+
+.page{
+    display: block;
+    overflow: hidden;
+}
+
+.global-menus{
+    display: block;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.global-menus .wrapper{
+    margin: -1px;
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    padding: 10px 0;
+}
+
+.global-menus .wrapper li{
+    flex: 1;
+    width: 25%;
+    min-width: 25%;
+    max-width: 25%;
+    padding: 10px 0;
+}
+
+.global-menus .wrapper li .image{
+    text-align: center;
+    display: block;
+}
+
+.global-menus .wrapper li .image img{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.global-menus .wrapper li .title{
+    text-align: center;
+    font-size: 14px;
+    color: #222;
+    display: block;
+}
+
+.content-div{
+    display: block;
+    background-color: #fff;
+}
+
+.title-div{
+    display: block;
+    padding: 10px;
+    font-size: 18px;
+    color: #222;
+    font-weight: 500;
+    border-bottom: 1px #e9e9e9 solid;
+}
+
+.more-div{
+    display: block;
+}
+
+.more-div a,.more-div span{
+    display: block;
+    padding: 15px;
+    text-align: center;
+    color: #00a2d4;
+    font-size: 15px;
+}
+
+.article-list{
+    display: block;
+    padding: 0 10px;
+}
+
+.article-list li{
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px #e5e5e5 solid;
+}
+
+.article-list li .image{
+    flex: 1;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    height: 80px;
+    display: block;
+    margin-right: 10px;
+    border-radius: 2px;
+}
+
+.article-list li .data{
+    flex: 1;
+    height: 80px;
+    position: relative;
+}
+
+.article-list li .data .title{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    display: block;
+    margin-bottom: 7px;
+    color: #222;
+}
+
+.article-list li .data .info{
+    color: #888;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.article-list li .data .info span{
+    margin-right: 10px;
+}
+
+.article-list li .data .created_at{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 13px;
+    color: #888;
+}
+
+/*===新闻正文===*/
+.articel-detail{
+    display: block; overflow: hidden;
+    background-color: #f8f8f8;
+}
+
+.articel-detail .head{
+    background-color: #fff;
+    padding: 20px 15px 10px;
+    display: block;
+}
+
+.articel-detail .head h1{
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    display: block;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.articel-detail .head p{
+    color: #888; font-size: 12px;
+    display: block;
+}
+
+.articel-detail .body{
+    display: block;
+    padding: 15px;
+    background-color: #f8f8f8;
+}
+
+.articel-detail .body .content{
+    font-size: 18px; color: #333;
+    line-height: 1.5; text-align: justify;
+}
+
+.articel-detail .body .content *{max-width: 100%;}
+
+.articel-detail .body .media{
+    display: block;
+    padding-top: 70%;
+    position: relative;
+}
+
+.articel-detail .body .media .iframe, .news-detail .body .media .video{
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    z-index: 10;
+    background-color: #333;
+}
+
+.articel-detail .body .media .play-btn{
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    z-index: 20;
+}
+
+.articel-detail .body .image-list{
+    display: block;
+}
+
+.articel-detail .body .image-list img{
+    max-width: 100%; margin-bottom: 10px;
+}
+
+.articel-detail .qrcode{
+    display: block;
+    text-align: center;
+    padding: 20px;
+}
+
+.articel-detail .qrcode .qr img{
+    width: 140px; height: 140px;
+    display: block; margin: 0 auto;
+}
+
+.articel-detail .qrcode p{
+    text-align: center;
+    font-size: 16px; margin-top: 10px;
+    color: #666;
+}
+
+.articel-detail .share{
+    display: block;
+    padding: 20px 0;
+}
+
+.articel-detail .share .line{
+    height: 0; display: block;
+    clear: both; border-bottom: 1px #DDD solid;
+    position: relative;
+}
+
+.articel-detail .share .text{
+    position: absolute;
+    height: 20px;
+    width: 100px;
+    text-align: center;
+    background-color: #f8f8f8;
+    display: block;
+    left: 50%;
+    top: -10px;
+    margin-left: -50px;
+    font-size: 12px;
+    color: #777;
+}
+
+.articel-detail .share .item-list{
+    display: inline-flex; flex-flow: row nowrap;
+    width: 100%; margin-top: 30px;
+}
+
+.articel-detail .share .item-list li{
+    flex: 1;
+    text-align: center;
+    width: 25%;
+    min-width: 25%;
+    max-width: 25%;
+}
+
+.articel-detail .share .item-list li .ico{
+    width: 40px; height: 40px; display: block; margin: 0 auto 5px auto;
+}
+
+.articel-detail .share .item-list li .title{
+    font-size: 14px; color: #777; display: block; text-align: center;
+}
+
+
+.comment{
+    display: block;
+    overflow: hidden;
+    background-color: #f8f8f8;
+}
+
+.comment .title{
+    display: block;
+    padding: 10px 15px;
+    border-bottom: 1px #e7e7e7 solid;
+}
+
+.comment .title span{
+    background-color: #FE4456;
+    font-size: 12px;
+    color: #fff;
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.comment .listview{
+    display: block;
+}
+
+.comment .listview .item{
+    display: flex;
+    flex-flow: row nowrap;
+    border-bottom: 1px #e7e7e7 solid;
+    padding: 15px;
+    width: 100%;
+}
+
+.comment .listview .item .avatar{
+    width: 40px;
+    height: 40px;
+    display: block;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex: 1;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.comment .listview .item .content{
+    flex: 1;
+    display: block;
+    position: relative;
+}
+
+.comment .listview .item .likes{
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 13px;
+    color: #999;
+}
+
+.comment .listview .item .likes span{
+    margin-right: 4px; font-size: 14px;
+}
+
+.comment .listview .item .likes i{
+    font-size: 13px; font-style: normal;
+}
+
+.comment .listview .item .username{
+    font-size: 14px; color: #777;
+    display: block; line-height: 1.0;
+}
+
+.comment .listview .item .location{
+    font-size: 12px;
+    color: #999;
+    padding: 3px 0;
+}
+
+.comment .listview .item .location span{
+    margin-right: 5px;
+}
+
+.comment .listview .item .message{
+    font-size: 16px;
+    color: #333;
+    line-height: 1.3;
+    text-align: justify;
+}
+
+.comment .listview .title{
+    background-color: #e2e2e2;
+    font-size: 14px; padding: 0 5px;
+    height: 28px; line-height: 28px; display: block;
+    overflow: hidden; color: #666; margin-top: 5px;
+    border-radius: 2px;
+}
+
+.comment .nocomment{
+    display: block; padding: 100px 0;
+}
+
+.comment .nocomment .icon{
+    background-image: url("../images/mobile/soufa.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    width: 80px; height: 80px;
+    display: block; margin: 0 auto;
+}
+
+.comment .nocomment p{
+    color: #9999;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+/*加入联谊会*/
+.join{
+    display: block;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.join .title{
+    font-size: 18px;
+    display: block;
+    text-align: center;
+}
+
+.join .content{
+    font-size: 16px;
+    color: #222;
+    text-align: justify;
+    line-height: 1.5;
+    padding: 20px 0;
+}
+
+.join .bottom-view{
+    display: block;
+    padding: 20px;
+}
+
+.join .bottom-view .button{
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.enroll{
+    display: block;
+    padding: 0 0 20px;
+}
+
+.enroll .form-wrapper{
+    display: block;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.enroll .form-wrapper .form-group{
+    margin: 20px 0;
+    display: flex;
+}
+
+.enroll .form-wrapper .form-group .label{
+    text-align: right;
+    float: left;
+    padding-top: 10px;
+    font-size: 16px;
+    flex: 1;
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
+}
+
+.enroll .form-wrapper .form-group .content{
+    flex: 1;
+    font-size: 16px;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.enroll .form-wrapper .form-group .input-text{
+    width: 100%;
+    height: 46px;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.enroll .form-wrapper .form-group .button{
+    height: 46px;
+    line-height: 46px;
+    font-size: 16px;
+    text-align: center;
+    width: 140px;
+}
+
+/**登录注册**/
+.sign{
+    display: block;
+    padding: 20px;
+}
+
+.sign .form-group{
+    margin: 20px 0;
+    display: block;
+}
+
+.sign .form-group .input-text{
+    width: 100%;
+    height: 46px;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.sign .form-group .button{
+    height: 46px;
+    line-height: 46px;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+}
+
+.sign .link{
+    display: block;
+    margin-top: 20px;
+}
+
+.sign .link a{
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    color: #00a2d4;
+    display: block;
+}
+
+/*工作*/
+.job-list-wrapper{
+    display: block;
+    padding: 0 10px;
+}
+
+.job-list {
+    display: block;
+}
+
+.job-list li{
+    display: flex;
+    padding: 15px 0;
+    border-bottom: 1px #e7e7e7 solid;
+}
+
+.job-list li .image{
+    flex: 1;
+    width: 64px;
+    min-width: 64px;
+    max-width: 64px;
+    display: block;
+    margin-right: 10px;
+    border-radius: 2px;
+}
+
+.job-list li .data{
+    flex: 1;
+    height: 64px;
+    display: block;
+    position: relative;
+}
+
+.job-list li .data h3{
+    line-height: 1.2;
+    font-size: 16px;
+    font-weight: 400;
+    display: block;
+}
+
+.job-list li .data .company{
+    font-size: 13px;
+    color: #777;
+    display: block;
+    margin-top: 5px;
+}
+
+.job-list li .data .attrs{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #666;
+    font-size: 12px;
+}
+
+.job-list li .data .pubtime{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 12px;
+    color: #777;
+}
+
+.job-detail{
+    display: block;
+    background-color: #f2f2f2;
+}
+
+.job-detail .basic{
+    background-color: #fff;
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.job-detail .basic h1{
+    font-size: 22px;
+    color: #222;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.job-detail .basic .attrs{
+    font-size: 14px;
+    color: #777;
+    display: block;
+}
+
+.job-detail .basic .attrs .money{
+    color: #f40;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.job-detail .basic .attrs i{
+    font-style: normal;
+    color: #222;
+}
+
+.job-detail .desc{
+    display: block;
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.job-detail .desc .title{
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.job-detail .desc .content{
+    font-size: 16px;
+    text-align: justify;
+    line-height: 1.5;
+    padding: 10px;
+}
+
+.job-detail .desc .company-data{
+    display: block;
+    padding: 10px;
+}
+.job-detail .desc .company-data li{
+    display: flex;
+    font-size: 15px;
+    padding: 5px 0;
+}
+
+.job-detail .desc .company-data li .label{
+    color: #777;
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    flex: 1;
+    text-align: justify;
+    text-align-last: justify;
+    margin-right: 10px;
+}
+
+.job-detail .desc .company-data li .text{
+    color: #222;
+    text-align: left;
+}

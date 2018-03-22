@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Ad;
-use Illuminate\Http\Request;
 
 class AdController extends BaseController
 {
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function index(Request $request){
+    public function index(){
         if ($this->isOnSubmit()) {
-            $ads = $request->post('ads');
-            $eventType = $request->post('eventType');
+            $ads = $this->request->post('ads');
+            $eventType = $this->request->post('eventType');
             if ($eventType === 'delete') {
                 foreach ($ads as $id) {
                     Ad::where('id', $id)->delete();
@@ -34,35 +32,29 @@ class AdController extends BaseController
             }
             return ajaxReturn();
         }else {
-            $data = [
-                'itemlist'=>[],
-                'pagination'=>'',
-                'ad_types'=>trans('common.ad_types')
-            ];
 
+            $ad_types = trans('common.ad_types');
             $ads = Ad::orderBy('id', 'ASC')->paginate(20);
-            $data['pagination'] = $ads->links();
+            $this->appends(['pagination'=>$ads->links(), 'ad_types'=>$ad_types]);
 
-            if ($ads) {
-                foreach ($ads as $ad) {
-                    $ad->type_name = $data['ad_types'][$ad->type];
-                    $data['itemlist'][$ad->id] = $ad->toArray();
-                }
-            }
+            $this->data['itemlist'] = [];
+            $ads->map(function ($ad) use ($ad_types){
+                $ad->type_name = $ad_types[$ad->type];
+                $this->data['itemlist'][$ad->id] = $ad;
+            });
 
-            return view('admin.common.ad_list', $data);
+            return view('admin.common.ad_list', $this->data);
         }
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(Request $request) {
+    public function edit() {
         if ($this->isOnSubmit()) {
-            $id = intval($request->post('id'));
-            $ad = $request->post('adnew');
-            $addata = $request->post('addata');
+            $id = $this->request->post('id');
+            $ad = $this->request->post('adnew');
+            $addata = $this->request->post('addata');
             $ad['data'] = serialize($addata[$ad['type']]);
             if ($id) {
                 Ad::where('id', $id)->update($ad);
@@ -71,8 +63,8 @@ class AdController extends BaseController
             }
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
-            $id = intval($request->get('id'));
-            $data = [
+            $id = intval($this->request->get('id'));
+            $this->appends([
                 'id'=>$id,
                 'ad'=>[
                     'title'=>'',
@@ -94,19 +86,17 @@ class AdController extends BaseController
                     'code'=>''
                 ],
                 'ad_types'=>trans('common.ad_types')
-            ];
+            ]);
 
             if ($id) {
                 $ad = Ad::where('id', $id)->first();
                 if ($ad) {
-                    $ad = $ad->toArray();
-                    $data['addata'][$ad['type']] = unserialize($ad['data']);
-                    unset($ad['data']);
-                    $data['ad'] = $ad;
+                    $this->data['ad'] = $ad;
+                    $this->data['addata'][$ad->type] = unserialize($ad->data);
                 }
             }
 
-            return view('admin.common.ad_edit', $data);
+            return view('admin.common.ad_edit', $this->data);
         }
     }
 }

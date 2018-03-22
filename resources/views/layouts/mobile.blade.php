@@ -15,11 +15,20 @@
     <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/common.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/angular.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/jquery.mobile.touch.min.js')}}" type="text/javascript"></script>
     @yield('scripts')
 </head>
 <body>
+<div class="page">
+    @yield('content', '')
+</div>
 
-@yield('content', '')
-
+<script type="text/javascript">
+    $("[data-link]").on('tap', function () {
+        if ($(this).attr('data-link')){
+            window.location.href = $(this).attr('data-link');
+        }
+    });
+</script>
 </body>
 </html>

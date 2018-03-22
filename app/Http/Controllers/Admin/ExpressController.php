@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Express;
-use Illuminate\Http\Request;
 
 class ExpressController extends BaseController
 {
@@ -11,26 +10,25 @@ class ExpressController extends BaseController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $itemlist = [];
-        foreach (Express::orderBy('id', 'ASC')->get() as $item){
-            $itemlist[$item->id] = $item->toArray();
-        }
 
-        return view('admin.common.express', ['itemlist'=>$itemlist]);
+        $this->data['itemlist'] = [];
+        Express::orderBy('id', 'ASC')->get()->map(function ($item){
+            $this->data['itemlist'][$item->id] = $item;
+        });
+        return view('admin.common.express', $this->data);
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function save(Request $request){
-        $delete = $request->input('delete');
+    public function save(){
+        $delete = $this->request->input('delete');
         if ($delete && is_array($delete)){
             foreach ($delete as $id){
                 Express::where('id', $id)->delete();
             }
         }
-        $itemlist = $request->input('itemlist');
+        $itemlist = $this->request->input('itemlist');
         if ($itemlist && is_array($itemlist)){
             foreach ($itemlist as $id=>$item){
                 $item = rejectNullValues($item);

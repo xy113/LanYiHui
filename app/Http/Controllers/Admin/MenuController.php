@@ -8,12 +8,11 @@ use Illuminate\Http\Request;
 class MenuController extends BaseController
 {
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request){
+    public function index(){
         if ($this->isOnSubmit()) {
-            $delete = $request->post('delete');
+            $delete = $this->request->post('delete');
             if ($delete) {
                 foreach ($delete as $id){
                     Menu::where('id', $id)->delete();
@@ -21,7 +20,7 @@ class MenuController extends BaseController
                 }
             }
 
-            $menulist = $request->post('menulist');
+            $menulist = $this->request->post('menulist');
             if ($menulist) {
                 foreach ($menulist as $id=>$menu) {
                     if ($menu['name']) {
@@ -35,32 +34,31 @@ class MenuController extends BaseController
             }
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
-            $menulist = [];
-            foreach (Menu::where('type','menu')->get() as $menu){
-                $menulist[$menu->id] = $menu->toArray();
-            }
-            return view('admin.common.menu_list', ['menulist'=>$menulist]);
+
+            $this->data['menulist'] = [];
+            Menu::where('type','menu')->get()->map(function ($menu){
+                $this->data['menulist'][$menu->id] = $menu;
+            });
+
+            return view('admin.common.menu_list', $this->data);
         }
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function itemlist(Request $request) {
+    public function itemlist() {
         if ($this->isOnSubmit()) {
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
-            $menuid = intval($request->get('menuid'));
-            $data = [
+            $menuid = $this->request->get('menuid');
+            $this->appends([
                 'menuid'=>$menuid,
-                'menu'=>[],
-                'itemlist'=>[]
-            ];
+                'menu'=>Menu::where('id', $menuid)->first(),
+                'itemlist'=>Menu::where('menuid', $menuid)->get()
+            ]);
 
-            $menu = Menu::where('id', $menuid)->first();
-            if ($menu) $data['menu'] = $menu->toArray();
-            return view('admin.common.menu_items', $data);
+            return view('admin.common.menu_items', $this->data);
         }
     }
 }

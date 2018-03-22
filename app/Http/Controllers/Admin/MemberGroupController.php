@@ -9,19 +9,18 @@ class MemberGroupController extends BaseController
 {
 
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request){
-        if ($request->post('formsubmit') === 'yes'){
-            $delete = $request->post('delete');
+    public function index(){
+        if ($this->isOnSubmit()){
+            $delete = $this->request->post('delete');
             if ($delete) {
                 foreach ($delete as $gid) {
                     MemberGroup::where('gid', $gid)->delete();
                 }
             }
 
-            $grouplist = $request->post('grouplist');
+            $grouplist = $this->request->post('grouplist');
             if ($grouplist) {
                 foreach ($grouplist as $gid=>$group){
                     if ($group['title']) {
@@ -35,11 +34,13 @@ class MemberGroupController extends BaseController
             }
             return $this->showSuccess(trans('ui.update_succeed'));
         }else {
-            $grouplist = [];
-            foreach (MemberGroup::all() as $g){
-                $grouplist[$g->type][$g->gid] = $g->toArray();
-            }
-            return view('admin.member.group', ['grouplist'=>$grouplist]);
+
+            $this->data['grouplist'] = [];
+            MemberGroup::all()->map(function ($g){
+                $this->data['grouplist'][$g->type][$g->gid] = $g;
+            });
+
+            return view('admin.member.group', $this->data);
         }
     }
 }

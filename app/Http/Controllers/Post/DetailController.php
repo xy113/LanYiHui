@@ -12,14 +12,14 @@ class DetailController extends Controller
     /**
      *
      */
-    public function index(Request $request, $aid=0){
+    public function index($aid=0){
         $this->appends(['aid'=>$aid]);
 
         PostItem::where('aid', $aid)->increment('view_num', 1);
-        $article = PostItem::where('aid',$aid)->first()->toArray();
+        $article = PostItem::where('aid',$aid)->first();
         $this->appends(['article'=>$article]);
 
-        $content = PostContent::where('aid', $aid)->first()->toArray();
+        $content = PostContent::where('aid', $aid)->first();
         $this->appends(['content'=>$content]);
 
         $this->appends(['hotnews'=>PostItem::where('status', 1)->orderBy('view_num', 'DESC')->limit(5)->get()]);

@@ -66,6 +66,11 @@ Route::group(['namespace'=>'Job', 'prefix'=>'job'], function (){
     Route::get('/detail/{id}.html', 'DetailController@index');
 });
 
+Route::group(['namespace'=>'Enroll', 'prefix'=>'enroll', 'middleware'=>'member.auth'], function (){
+    Route::get('/', 'IndexController@index');
+    Route::any('/enroll', 'IndexController@enroll');
+});
+
 Route::group(['namespace'=>'Company', 'prefix'=>'company'], function (){
     Route::any('/', 'IndexController@index');
     Route::get('/login', 'LoginController@index');
@@ -90,7 +95,7 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
     Route::get('logout', 'LoginController@logout')->name('logout');
     Route::post('checklogin', 'LoginController@checklogin');
 
-    Route::group(['middleware'=>'auth.admin'], function (){
+    Route::group(['middleware'=>'admin.auth'], function (){
         Route::get('/', 'IndexController@index');
         Route::get('/index/wellcome', 'IndexController@wellcome');
         //系统设置
@@ -161,4 +166,18 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
 
 Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/', 'IndexController@index');
+
+    Route::get('/post/detail/{aid}.html', 'PostController@detail');
+    Route::get('/post/list', 'PostController@itemlist');
+
+    Route::get('/job/list', 'JobController@itemlist');
+    Route::get('/job/detail/{id}.html', 'JobController@detail');
+
+    Route::any('/join/index', 'JoinController@index');
+    Route::any('/join/enroll', 'JoinController@enroll');
+
+    Route::any('/login', 'SignController@signin');
+    Route::any('/register', 'SignController@signup');
+
+    Route::get('/member', 'MemberController@index');
 });

@@ -11,19 +11,18 @@ use Illuminate\Http\Request;
 class WeixinController extends BaseController
 {
     /**
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function menu(Request $request){
+    public function menu(){
         if ($this->isOnSubmit()) {
-            $delete = $request->post('delete');
+            $delete = $this->request->post('delete');
             if ($delete) {
                 foreach ($delete as $id) {
                     WeixinMenu::where('id', $id)->delete();
                 }
             }
 
-            $menulist = $request->post('menulist');
+            $menulist = $this->request->post('menulist');
             if ($menulist) {
                 foreach ($menulist as $id=>$menu) {
                     if ($menu['name']) {
@@ -38,34 +37,33 @@ class WeixinController extends BaseController
             return $this->showSuccess(trans('ui.update_succeed'));
         }else {
 
-            $data = [
+            $this->appends([
                 'menulist'=>[],
                 'menu_types'=>trans('weixin.menu_types')
-            ];
+            ]);
 
-            $menulist = WeixinMenu::orderBy('displayorder', 'ASC')->orderBy('id', 'ASC')->get();
-            if ($menulist) {
-                foreach ($menulist as $menu) {
-                    $menu->type_name = $data['menu_types'][$menu->type];
-                    $data['menulist'][$menu->fid][$menu->id] = $menu->toArray();
-                }
-            }
+            WeixinMenu::orderBy('displayorder', 'ASC')
+                ->orderBy('id', 'ASC')->get()
+                ->map(function ($menu){
+                    $menu->type_name = $this->data['menu_types'][$menu->type];
+                    $this->data['menulist'][$menu->fid][$menu->id] = $menu;
+                });
 
-            return view('admin.weixin.menu', $data);
+            return view('admin.weixin.menu', $this->data);
         }
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function apply_menu(Request $request) {
+    public function apply_menu() {
         $menulist = [];
-        foreach (WeixinMenu::orderBy('displayorder','ASC')->orderBy('id','ASC')->get() as $menu){
+        WeixinMenu::orderBy('displayorder','ASC')->orderBy('id','ASC')->get()->map(function ($menu){
             $menulist[$menu->fid][$menu->id] = $menu->toArray();
-        }
+        });
+
         if ($menulist) {
             $datalist = array();
             foreach ($menulist[0] as $menu){
@@ -151,12 +149,11 @@ class WeixinController extends BaseController
     }
 
     /**
-     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function remove_menu(Request $request){
+    public function remove_menu(){
         $json = (new WxMenuApi())->delete();
         $res = json_decode($json, true);
         if ($res['errcode'] == 0) {
@@ -167,15 +164,13 @@ class WeixinController extends BaseController
     }
 
     /**
-     * 编辑菜单
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function edit_menu(Request $request) {
-        $id = intval($request->input('id'));
-        $fid = intval($request->input('fid'));
+    public function edit_menu() {
+        $id = intval($this->request->input('id'));
+        $fid = intval($this->request->input('fid'));
         if ($this->isOnSubmit()) {
-            $menu = $request->post('menu');
+            $menu = $this->request->post('menu');
             if ($id) {
                 WeixinMenu::where('id', $id)->update($menu);
             }else {
@@ -184,7 +179,8 @@ class WeixinController extends BaseController
             }
             return ajaxReturn();
         }else {
-            $data = [
+
+            $this->appends([
                 'fid'=>$fid,
                 'menu'=>[
                     'fid'=>$fid,
@@ -195,51 +191,45 @@ class WeixinController extends BaseController
                     'key'=>''
                 ],
                 'menu_types'=>trans('weixin.menu_types')
-            ];
+            ]);
 
-            if ($id) {
-                $menu = WeixinMenu::where('id', $id)->first();
-                if ($menu) {
-                    $data['menu'] = $menu->toArray();
-                }
-            }
+            $id && $this->data['menu'] = WeixinMenu::where('id', $id)->first();
 
-            return view('admin.weixin.edit_menu', $data);
+            return view('admin.weixin.edit_menu', $this->data);
         }
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
      * @throws \Exception
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function material(Request $request) {
+    public function material() {
         $api = new WxMaterialApi();
         if ($this->isOnSubmit()) {
-            $materials = $request->input('materials');
+            $materials = $this->request->input('materials');
             foreach ($materials as $media_id) {
                 $api->del($media_id);
             }
             return $this->showSuccess(trans('ui.delete_succeed'));
         }else {
-            $type = $request->get('type');
+            $type = $this->request->get('type');
             $type = $type ? $type : 'image';
-            $data = [
+            $this->appends([
                 'material_types'=>trans('weixin.material_types'),
                 'type'=>$type,
                 'itemlist'=>[]
-            ];
+            ]);
 
-            $page = max(array(1, intval($request->get('page'))));
+            $page = max(array(1, intval($this->request->get('page'))));
             $json = $api->batchget($type, ($page-1)*20, 20);
             $materials = json_decode($json, true);
             if (isset($materials['item'])) {
                 $totalCount = $materials['total_count'];
-                $data['itemlist'] = $materials['item'];
-                $data['pagination'] = mutipage($page, 20, $totalCount, ['type'=>$type], false);
+                $this->data['itemlist'] = $materials['item'];
+                $this->data['pagination'] = mutipage($page, 20, $totalCount, ['type'=>$type], false);
 
-                return view('admin.weixin.material', $data);
+                return view('admin.weixin.material', $this->data);
             }else {
                 return $json;
             }
@@ -247,54 +237,51 @@ class WeixinController extends BaseController
     }
 
     /**
-     * @param Request $request
+     *
      */
-    public function add_material(Request $request){
+    public function add_material(){
 
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|mixed
      * @throws \Exception
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function news(Request $request) {
+    public function news() {
         if ($this->isOnSubmit()) {
-            $materials = $request->post('materials');
+            $materials = $this->request->post('materials');
             $newsApi = new WxNewsApi();
             foreach ($materials as $media_id) {
                 $newsApi->delete($media_id);
             }
             return $this->showSuccess(trans('ui.delete_succeed'));
         }else {
-            $data = [
+
+            $this->appends([
                 'itemlist'=>[],
                 'pagination'=>''
-            ];
+            ]);
             $newsApi = new WxNewsApi();
-            $page = max(array(1, intval($request->get('page'))));
+            $page = max(array(1, intval($this->request->get('page'))));
             $json = $newsApi->batchget(($page - 1)*20, 20);
             $news = json_decode($json, true);
             if (isset($news['item'])) {
                 $itemlist = $news['item'];
                 $totalcount = $news['total_count'];
-                $page = intval($request->get('page'));
-                $data['pagination'] = mutipage($page, 20, $totalcount, null, false);
+                $this->data['pagination'] = mutipage($page, 20, $totalcount, null, false);
 
                 if ($itemlist) {
-                    $datalist = array();
                     foreach ($itemlist as $item){
                         $item['title'] = $item['content']['news_item'][0]['title'];
                         $item['thumb_media_id'] = $item['content']['news_item'][0]['thumb_media_id'];
                         $item['item_count'] = count($item['content']['news_item']);
                         unset($item['content']);
-                        $datalist[$item['media_id']] = $item;
+                        $this->data['itemlist'][$item['media_id']] = $item;
                     }
-                    $data['itemlist'] = $datalist;
                 }
 
-                return view('admin.weixin.news', $data);
+                return view('admin.weixin.news', $this->data);
             }else {
                 return $json;
             }
@@ -303,20 +290,19 @@ class WeixinController extends BaseController
     }
 
     /**
-     * @param Request $request
+     *
      */
-    public function add_news(Request $request){
+    public function add_news(){
 
     }
 
     /**
-     * @param Request $request
      * @return mixed
      * @throws \Exception
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function viewimage(Request $request){
-        $media_id = $request->get('media_id');
+    public function viewimage(){
+        $media_id = $this->request->get('media_id');
         $api = new WxMaterialApi();
         return $api->get($media_id);
     }

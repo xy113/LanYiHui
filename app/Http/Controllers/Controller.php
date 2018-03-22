@@ -10,7 +10,6 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 
 class Controller extends BaseController
@@ -39,20 +38,24 @@ class Controller extends BaseController
     {
         $this->request = $request;
         $this->middleware(function (Request $req, $next){
-            $this->uid = $req->cookie('uid');
-            $this->username = $req->cookie('username');
-            $this->data['uid'] = $this->uid;
-            $this->data['username'] = $this->username;
+            $uid = $req->cookie('uid');
+            $username = $req->cookie('username');
 
-            if ($this->uid && $this->username) {
-                $this->data['islogined'] = 1;
+            if ($uid && $username) {
+                $this->uid = $uid;
+                $this->username = $username;
+                $this->appends([
+                    'uid'=>$this->uid,
+                    'username'=>$this->username,
+                    'islogined'=>1
+                ]);
                 try {
                     $member = Session::get('member');
                     if (!is_array($member)) {
                         $member = Member::where('uid', $this->uid)->first();
                         if ($member) {
                             Session::flash('member', $member);
-                            $this->data['member'] = $member->toArray();
+                            $this->data['member'] = $member;
                         }
                     }
 
@@ -61,7 +64,7 @@ class Controller extends BaseController
                         $memberInfo = MemberInfo::where('uid', $this->uid)->first();
                         if ($memberInfo) {
                             Session::flash('member_info', $memberInfo);
-                            $this->data['member_info'] = $memberInfo->toArray();
+                            $this->data['member_info'] = $memberInfo;
                         }
                     }
 
@@ -70,7 +73,7 @@ class Controller extends BaseController
                         $memberStatus = MemberStatus::where('uid', $this->uid)->first();
                         if ($memberStatus) {
                             Session::flash('member_status', $memberStatus);
-                            $this->data['member_status'] = $memberStatus->toArray();
+                            $this->data['member_status'] = $memberStatus;
                         }
                     }
                 }catch (\Exception $e){
@@ -84,6 +87,7 @@ class Controller extends BaseController
     /**
      * @param array $array
      * @param bool $replace
+     * @return $this
      */
     protected function appends($array = [], $replace = true){
         foreach ($array as $key=>$value) {
@@ -96,6 +100,7 @@ class Controller extends BaseController
                 $this->data[$key] = $value;
             }
         }
+        return $this;
     }
 
     /**

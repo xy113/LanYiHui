@@ -11,12 +11,12 @@ class DistrictController extends BaseController
     /**
      *
      */
-    public function index(Request $request){
-        $province = intval($request->get('province'));
-        $city     = intval($request->get('city'));
-        $district = intval($request->get('district'));
+    public function index(){
+        $province = intval($this->request->get('province'));
+        $city     = intval($this->request->get('city'));
+        $district = intval($this->request->get('district'));
 
-        $data = [
+        $this->appends([
             'province'=>$province,
             'city'=>$city,
             'district'=>$district,
@@ -24,34 +24,34 @@ class DistrictController extends BaseController
             'citylist'=>[],
             'districtlist'=>[],
             'itemlist'=>[]
-        ];
+        ]);
 
         $provincelist = District::where('fid', 0)->orderBy('displayorder', 'ASC')->orderBy('id', 'ASC')->get();
         if ($provincelist) {
             foreach ($provincelist as $p){
-                $data['provincelist'][$p->id] = $p->toArray();
+                $this->data['provincelist'][$p->id] = $p;
             }
-            $data['itemlist'] = $data['provincelist'];
+            $this->data['itemlist'] = $this->data['provincelist'];
         }
 
         if ($province) {
             $citylist = District::where('fid', $province)->orderBy('displayorder', 'ASC')->orderBy('id', 'ASC')->get();
             if ($citylist) {
                 foreach ($citylist as $c){
-                    $data['citylist'][$c->id] = $c->toArray();
+                    $this->data['citylist'][$c->id] = $c;
                 }
             }
-            $data['itemlist'] = $data['citylist'];
+            $this->data['itemlist'] = $this->data['citylist'];
         }
 
         if ($city) {
             $districtlist = District::where('fid', $city)->orderBy('displayorder', 'ASC')->orderBy('id', 'ASC')->get();
             if ($districtlist) {
                 foreach ($districtlist as $d) {
-                    $data['districtlist'][$d->id] = $d->toArray();
+                    $this->data['districtlist'][$d->id] = $d;
                 }
             }
-            $data['itemlist'] = $data['districtlist'];
+            $this->data['itemlist'] = $this->data['districtlist'];
         }
 
 
@@ -59,24 +59,27 @@ class DistrictController extends BaseController
             $townlist = District::where('fid', $district)->orderBy('displayorder', 'ASC')->orderBy('id', 'ASC')->get();
             if ($townlist) {
                 foreach ($townlist as $t){
-                    $data['itemlist'][$t->id] = $t->toArray();
+                    $this->data['itemlist'][$t->id] = $t;
                 }
             }
         }
 
-        return view('admin.common.district', $data);
+        return view('admin.common.district', $this->data);
     }
 
 
-    public function save(Request $request){
-        $delete = $request->input('delete');
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function save(){
+        $delete = $this->request->input('delete');
         if ($delete) {
             foreach ($delete as $id) {
                 District::where('id', $id)->delete();
             }
         }
 
-        $itemlist = $request->input('itemlist');
+        $itemlist = $this->request->input('itemlist');
         if ($itemlist) {
             $pinyin = new Pinyin();
             foreach ($itemlist as $id=>$item){

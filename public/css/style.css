@@ -8,7 +8,7 @@ body,html{background-color: #f7f7f7; padding: 0;}
     margin: 0;
     padding: 0;
     position: relative;
-    z-index: 9995;
+    z-index: 999;
 }
 
 .header-wrap .header-fix{
@@ -271,6 +271,10 @@ body,html{background-color: #f7f7f7; padding: 0;}
     display: block;
 }
 
+.home .job-wrapper{
+    background-color: #fff;
+    padding: 0 20px;
+}
 
 /*文章部分*/
 .article{
@@ -584,4 +588,213 @@ body,html{background-color: #f7f7f7; padding: 0;}
     line-height: 1.5;
     text-align: justify;
     color: #222;
+}
+
+.job .search-wrapper{
+    display: block;
+}
+
+.job .search-wrapper .keywords{
+    float: left;
+}
+
+.job .search-wrapper .keywords .s-text{
+    padding: 0 20px;
+    font-size: 16px;
+    border: 1px #e5e5e5 solid;
+    width: 760px;
+    height: 46px;
+    box-sizing: border-box;
+}
+
+.job .search-wrapper .s-button{
+    padding: 0 55px;
+    background-color: #00b38a;
+    font-size: 16px;
+    color: #fff;
+    border: 0;
+    height: 46px;
+    line-height: 46px;
+    border-right: 0;
+    cursor: pointer;
+}
+
+.job .search-wrapper .s-button:hover{
+    background-color: #00a57f;
+}
+
+.job .search-wrapper .r-search{
+    display: block;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.job .search-wrapper .r-search span{
+    width: 80px;
+    float: left;
+    display: inline-block;
+}
+
+.job .search-wrapper .r-search .words{
+
+}
+
+.job .search-wrapper .r-search .words a{
+    margin-right: 10px;
+    color: #00b38a;
+}
+
+.job-list-wrapper{
+    background-color: #fff;
+    display: block;
+}
+
+.job-list{
+    display: block;
+}
+
+.job-list li{
+    padding: 20px 0;
+    border-bottom: 1px #e5e5e5 dotted;
+}
+
+.job-list li .box-left{
+    width: 60%;
+    float: left;
+}
+
+.job-list li .box-left h3{
+    font-size: 18px;
+    float: left;
+    margin-right: 5px;
+    vertical-align: bottom;
+}
+
+.job-list li .box-left .job-type{
+    font-size: 14px;
+    color: #1e8cbe;
+    display: inline-block;
+    padding-top: 3px;
+}
+
+.job-list li .box-left .job-data{
+    display: block;
+    padding-top: 10px;
+}
+
+.job-list li .box-left .job-data .salary{
+    font-size: 15px;
+    color: #ff0000;
+    padding-right: 10px;
+    display: inline-block;
+}
+
+.job-list li .box-left .job-data i{
+    color: #666;
+    display: inline-block;
+    padding: 0 10px;
+    border-left:1px #e5e5e5 solid;
+    font-style: normal;
+}
+
+.job-list li .box-right{
+    overflow: hidden;
+}
+
+.job-list li .box-right .pubtime{
+    font-size: 12px;
+    color: #888;
+    text-align: right;
+}
+
+.job-list li .box-right .company{
+    font-size: 13px;
+    color: #333;
+    text-align: right;
+    margin-top: 10px;
+    display: block;
+}
+
+.recruit{
+    display: block;
+    padding: 20px 0;
+}
+
+.recruit .page-content{
+    background-color: #fff;
+    display: block;
+    padding: 20px;
+}
+
+.recruit .page-content .title{
+    text-align: center;
+    font-size: 18px;
+}
+
+.recruit .page-content .content{
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: justify;
+    display: block;
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.recruit .page-content .bottom{
+    display: block;
+    text-align: center;
+}
+
+.recruit .page-content .bottom .button{
+    border-radius: 5px;
+    height: 46px;
+    line-height: 46px;
+    width: 140px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.enroll{
+    display: block;
+    padding: 20px 0;
+}
+
+.enroll .form-wrapper{
+    display: block;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.enroll .form-wrapper .form-group{
+    display: block;
+    margin: 20px 0;
+}
+
+.enroll .form-wrapper .form-group .label{
+    width: 200px;
+    text-align: right;
+    float: left;
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+.enroll .form-wrapper .form-group .content{
+    margin-left: 220px;
+    font-size: 16px;
+}
+
+.enroll .form-wrapper .form-group .input-text{
+    width: 300px;
+    height: 46px;
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+.enroll .form-wrapper .form-group .button{
+    height: 46px;
+    line-height: 46px;
+    font-size: 16px;
+    text-align: center;
+    width: 140px;
 }

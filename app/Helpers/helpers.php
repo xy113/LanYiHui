@@ -514,6 +514,14 @@ function post_url($aid) {
 }
 
 /**
+ * @param $aid
+ * @return string
+ */
+function post_mobile_url($aid){
+    return action('Mobile\PostController@detail', ['aid'=>$aid]);
+}
+
+/**
  * 分页函数
  * @param int $curPage
  * @param int $pageSize
