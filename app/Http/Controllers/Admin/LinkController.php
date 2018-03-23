@@ -11,7 +11,7 @@ class LinkController extends BaseController
      */
     public function index(){
 
-        $this->appends([
+        $this->assign([
             'categorylist'=>[],
             'itemlist'=>[]
         ]);
@@ -24,7 +24,7 @@ class LinkController extends BaseController
             $this->data['itemlist'][$c->catid][$c->id] = $c;
         });
 
-        return view('admin.common.link', $this->data);
+        return $this->view('admin.common.link');
     }
 
     /**

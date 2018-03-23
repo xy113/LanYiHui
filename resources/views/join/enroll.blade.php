@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <div class="label">手机号</div>
                         <div class="content">
-                            <input type="text" class="input-text" title="" name="phone" id="phone" placeholder="常用手机号码">
+                            <input type="text" class="input-text" title="" name="phone" id="phone" value="{{$member['mobile'] or ''}}" placeholder="常用手机号码">
                         </div>
                     </div>
                     <div class="form-group">

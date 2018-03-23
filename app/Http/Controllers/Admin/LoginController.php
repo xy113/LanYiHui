@@ -17,7 +17,7 @@ class LoginController extends BaseController
         if ($this->request->cookie('adminid')) {
             return redirect()->to('/admin');
         }else {
-            return view('admin.login', $this->data);
+            return $this->view('admin.login');
         }
     }
 

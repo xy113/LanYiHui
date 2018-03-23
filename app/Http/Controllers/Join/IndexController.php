@@ -1,14 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Enroll;
+namespace App\Http\Controllers\Join;
 
 use App\Models\MemberArchive;
+use Illuminate\Http\Request;
 
 class IndexController extends BaseController
 {
+    /**
+     * IndexController constructor.
+     * @param Request $request
+     */
+    function __construct(Request $request)
+    {
+        parent::__construct($request);
+        $this->middleware(function (Request $req, $next){
+            if (MemberArchive::where('uid', $this->uid)->exists()){
+                return redirect()->to('/member');
+            }
+            return $next($req);
+        })->except(['index']);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(){
 
-        return view('enroll.index', $this->data);
+        return $this->view('join.index');
     }
 
     /**
@@ -33,7 +52,7 @@ class IndexController extends BaseController
             ]);
             return ajaxReturn();
         }else {
-            return view('enroll.enroll', $this->data);
+            return $this->view('join.enroll');
         }
     }
 }

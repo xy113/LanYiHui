@@ -39,7 +39,7 @@
                 <li><a href="{{url('/')}}">首页</a></li>
                 <li><a href="/post/list?catid=15">动态</a></li>
                 <li><a href="/post/list?catid=16">活动</a></li>
-                <li><a href="/enroll">招新</a></li>
+                <li><a href="/join">招新</a></li>
                 <li><a href="/job">人才</a></li>
             </ul>
         </div>

@@ -16,7 +16,7 @@ class DistrictController extends BaseController
         $city     = intval($this->request->get('city'));
         $district = intval($this->request->get('district'));
 
-        $this->appends([
+        $this->assign([
             'province'=>$province,
             'city'=>$city,
             'district'=>$district,
@@ -64,7 +64,7 @@ class DistrictController extends BaseController
             }
         }
 
-        return view('admin.common.district', $this->data);
+        return $this->view('admin.common.district');
     }
 
 

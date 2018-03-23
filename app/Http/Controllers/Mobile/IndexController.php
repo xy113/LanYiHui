@@ -9,11 +9,11 @@ class IndexController extends BaseController
 {
     public function index(){
 
-        $this->appends([
+        $this->assign([
             'focus_imgs'=>BlockItem::where('block_id', 10)->get(),
             'newslist'=>PostItem::where(['status'=>1,'catid'=>15])->orderBy('aid', 'DESC')->limit(5)->get()
         ]);
 
-        return view('mobile.index', $this->data);
+        return $this->view('mobile.index');
     }
 }

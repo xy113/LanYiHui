@@ -31,7 +31,7 @@ class LoginController extends Controller
      */
     public function index(){
 
-        return view('company.login', $this->data);
+        return $this->view('company.login');
     }
 
 

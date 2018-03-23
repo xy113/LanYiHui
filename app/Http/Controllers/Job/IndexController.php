@@ -20,7 +20,7 @@ class IndexController extends BaseController
             ->select(['j.job_id', 'j.title', 'j.type', 'j.salary', 'j.welfare', 'j.created_at', 'j.company_id', 'c.company_name'])
             ->orderBy('j.job_id', 'DESC')->paginate(20);
 
-        $this->appends([
+        $this->assign([
             'q'=>$q,
             'salary_ranges'=>trans('job.salary_ranges'),
             'pagination'=>($q ? $itemlist->appends(['q'=>$q])->links() : $itemlist->links()),
@@ -30,6 +30,6 @@ class IndexController extends BaseController
             })
         ]);
 
-        return view('job.index', $this->data);
+        return $this->view('job.index');
     }
 }

@@ -14,7 +14,7 @@ class CollectionController extends Controller
     public function index($type = 'article'){
 
         $q = $this->request->get('q');
-        $this->appends([
+        $this->assign([
             'menu' => 'collection',
             'tab' => $type,
             'q' => $q
@@ -22,15 +22,15 @@ class CollectionController extends Controller
         $condition = $q ? [['title', 'LIKE', $q]] : [];
 
         $collections = Collection::where('uid', $this->uid)->where('data_type', $type)->where($condition)->paginate(20);
-        $this->appends(['pagination'=>$collections->appends(['q'=>$q])->links()]);
+        $this->assign(['pagination'=>$collections->appends(['q'=>$q])->links()]);
 
         $itemlist = [];
         foreach ($collections as $c) {
-            $itemlist[$c->id] = $c->toArray();
+            $itemlist[$c->id] = $c;
         }
-        $this->appends(['itemlist' => $itemlist]);
+        $this->assign(['itemlist' => $itemlist]);
 
-        return view('member.collection_'.$type, $this->data);
+        return $this->view('member.collection_'.$type);
     }
 
     /**

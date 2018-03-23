@@ -30,15 +30,15 @@ class IndexController extends BaseController
         }else {
             $company = Company::where('company_id', $this->company_id)->first();
             if ($company) {
-                $this->appends(['company'=>$company]);
+                $this->assign(['company'=>$company]);
             }
 
             $content = CompanyContent::where('company_id', $this->company_id)->first();
             if ($content) {
-                $this->appends(['content'=>$content]);
+                $this->assign(['content'=>$content]);
             }
 
-            return view('company.index', $this->data);
+            return $this->view('company.index');
         }
     }
 }

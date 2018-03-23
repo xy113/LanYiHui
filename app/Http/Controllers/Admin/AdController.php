@@ -35,7 +35,7 @@ class AdController extends BaseController
 
             $ad_types = trans('common.ad_types');
             $ads = Ad::orderBy('id', 'ASC')->paginate(20);
-            $this->appends(['pagination'=>$ads->links(), 'ad_types'=>$ad_types]);
+            $this->assign(['pagination'=>$ads->links(), 'ad_types'=>$ad_types]);
 
             $this->data['itemlist'] = [];
             $ads->map(function ($ad) use ($ad_types){
@@ -43,7 +43,7 @@ class AdController extends BaseController
                 $this->data['itemlist'][$ad->id] = $ad;
             });
 
-            return view('admin.common.ad_list', $this->data);
+            return $this->view('admin.common.ad_list');
         }
     }
 
@@ -64,7 +64,7 @@ class AdController extends BaseController
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
             $id = intval($this->request->get('id'));
-            $this->appends([
+            $this->assign([
                 'id'=>$id,
                 'ad'=>[
                     'title'=>'',
@@ -96,7 +96,7 @@ class AdController extends BaseController
                 }
             }
 
-            return view('admin.common.ad_edit', $this->data);
+            return $this->view('admin.common.ad_edit');
         }
     }
 }

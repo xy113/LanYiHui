@@ -18,23 +18,25 @@ class BaseController extends Controller
     {
         parent::__construct($request);
 
+        $this->assign([
+            'company_id'=>$this->company_id,
+            'company_name'=>$this->company_name
+        ]);
         $this->middleware(function (Request $request, $next){
-            $this->company_id = $request->cookie('company_id');
-            $this->company_name = $request->cookie('company_name');
-            $this->appends([
-                'company_id'=>$this->company_id,
-                'company_name'=>$this->company_name
-            ]);
+            $company_id = $request->cookie('company_id');
+            $company_name = $request->cookie('company_name');
+
             if ($this->company_id && $this->company_name) {
+                $this->company_id = $company_id;
+                $this->company_name = $company_name;
+                $this->assign([
+                    'company_id'=>$this->company_id,
+                    'company_name'=>$this->company_name
+                ]);
                 return $next($request);
             }else {
                 return redirect()->action('Company\LoginController@index');
             }
         });
-
-        $this->appends([
-            'company_id'=>$this->company_id,
-            'company_name'=>$this->company_name
-        ]);
     }
 }

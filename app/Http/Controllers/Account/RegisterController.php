@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Cookie;
 
 class RegisterController extends BaseController
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(){
 
-        return view('account.register', $this->data);
+        return $this->view('account.register');
     }
 
     public function save(){

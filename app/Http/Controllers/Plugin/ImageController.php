@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Plugin;
 
 use App\Models\Material;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ImageController extends Controller
@@ -26,6 +25,7 @@ class ImageController extends Controller
                 'thumburl'=>storage_url($image->thumb)
             ];
         }
-        return view('plugin.image', $data);
+        $this->assign($data);
+        return $this->view('plugin.image');
     }
 }

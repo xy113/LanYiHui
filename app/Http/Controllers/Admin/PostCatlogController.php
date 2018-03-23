@@ -14,7 +14,7 @@ class PostCatlogController extends BaseController
     public function index(){
 
         $this->data['catloglist'] = PostCatlog::getTree();
-        return view('admin.post.catlog_list', $this->data);
+        return $this->view('admin.post.catlog_list');
     }
 
     /**
@@ -33,7 +33,7 @@ class PostCatlogController extends BaseController
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
             $catid = $this->request->get('catid');
-            $this->appends([
+            $this->assign([
                 'catid'=>$catid,
                 'catlog'=>[
                     'name'=>'',
@@ -54,7 +54,7 @@ class PostCatlogController extends BaseController
 
             $this->data['catloglist'] = PostCatlog::getTree();
 
-            return view('admin.post.catlog_edit', $this->data);
+            return $this->view('admin.post.catlog_edit');
         }
     }
 
@@ -92,13 +92,13 @@ class PostCatlogController extends BaseController
             return $this->showSuccess(trans('ui.update_succeed'));
         }else {
 
-            $this->appends([
+            $this->assign([
                 'catid'=>$catid,
                 'catlog'=>PostCatlog::where('catid', $catid)->first(),
                 'catloglist'=>PostCatlog::getTree(false)
             ]);
 
-            return view('admin.post.catlog_delete', $this->data);
+            return $this->view('admin.post.catlog_delete');
         }
     }
 
@@ -123,7 +123,7 @@ class PostCatlogController extends BaseController
         }else {
 
             $this->data['catloglist'] = PostCatlog::getTree(false);
-            return view('admin.post.catlog_merge', $this->data);
+            return $this->view('admin.post.catlog_merge');
         }
     }
 

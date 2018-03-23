@@ -6,6 +6,6 @@ class MemberController extends BaseController
 {
     public function index(){
 
-        return view('mobile.member.index', $this->data);
+        return $this->view('mobile.member.index');
     }
 }

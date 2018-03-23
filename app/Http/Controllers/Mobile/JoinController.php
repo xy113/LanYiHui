@@ -47,7 +47,7 @@ class JoinController extends Controller
             ]);
             return ajaxReturn();
         }else {
-            return view('mobile.enroll', $this->data);
+            return $this->view('mobile.enroll');
         }
     }
 }

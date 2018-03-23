@@ -12,8 +12,8 @@
     <div class="avatar-div">
         <div class="avatar"><img id="avatar-image" src="{{avatar($uid)}}"></div>
         <div class="avatar-content">
-            <a class="button upload-button">
-                <span>上传头像</span>
+            <a id="picker">
+                修改头像
             </a>
         </div>
         <div class="avatar-content">支持JPG,JPEG,GIF,PNG格式</div>
@@ -83,25 +83,56 @@
         </form>
     </div>
     <script type="text/javascript">
-        var dist = new DistrictSelector({
-            province:'{{$memberinfo['province']}}',
-            city:'{{$memberinfo['city']}}',
-            district:'{{$memberinfo['district']}}'
-        });
-        $("#J-file").change(function(){
-            var loading;
-            $("#upload-avatar-form").ajaxSubmit({
-                dataType:'json',
-                beforeSend:function(){
-                    loading = DSXUI.showloading('照片上传中...');
-                },
-                success:function(json){
-                    if(json.errcode === 0){
-                        loading.close();
-                        $("#avatar-image").attr('src', json.data.avatar+'#'+Math.random());
-                    }
-                }
+        (function () {
+            new DistrictSelector({
+                province:'{{$memberinfo['province']}}',
+                city:'{{$memberinfo['city']}}',
+                district:'{{$memberinfo['district']}}'
             });
+        })();
+    </script>
+    <link href="{{asset('webuploader/webuploader.css')}}" rel="stylesheet" type="text/css">
+    <script src="{{asset('webuploader/webuploader.min.js')}}" type="text/javascript"></script>
+    <script type="text/javascript">
+        var spinner = null;
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: '{{asset('webuploder/Uploader.swf')}}',
+            // 文件接收服务端。
+            server: "{{url('/member/settings/set_avatar')}}",
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#picker',
+            // 只允许选择图片文件。
+            multiple:false,
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,png',
+                mimeTypes: 'image/*'
+            },
+            fileVal:"file",
+            formData:{'_token':'{{csrf_token()}}'}
+        });
+
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on( 'uploadStart', function( file, percentage ) {
+            if (!spinner) spinner = DSXUI.showSpinner();
+        });
+
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on( 'uploadSuccess', function( file , response) {
+            setTimeout(function () {
+                spinner.close();
+                $("#avatar-image").attr('src', '{{avatar($uid)}}&'+Math.random());
+            }, 500);
+        });
+
+        // 文件上传失败，显示上传出错。
+        uploader.on( 'uploadError', function( file, reason ) {
+            alert(JSON.stringify(reason));
         });
     </script>
 @stop

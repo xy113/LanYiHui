@@ -13,24 +13,24 @@ class PostController extends BaseController
     }
 
     public function detail($aid){
-        $this->appends(['aid'=>$aid]);
+        $this->assign(['aid'=>$aid]);
 
         PostItem::where('aid', $aid)->increment('view_num', 1);
         $article = PostItem::where('aid',$aid)->first();
-        $this->appends(['article'=>$article]);
+        $this->assign(['article'=>$article]);
 
         $content = PostContent::where('aid', $aid)->first();
-        $this->appends(['content'=>$content]);
+        $this->assign(['content'=>$content]);
 
-        $this->appends(['hotnews'=>PostItem::where('status', 1)->orderBy('view_num', 'DESC')->limit(5)->get()]);
+        $this->assign(['hotnews'=>PostItem::where('status', 1)->orderBy('view_num', 'DESC')->limit(5)->get()]);
 
         $commentList = PostComment::where('aid', $aid)->limit(5)->get();
-        $this->appends([
+        $this->assign([
             'commentList'=>$commentList,
             'commentCount'=>$commentList->count()
         ]);
 
-        return view('mobile.'.$article['type'], $this->data);
+        return $this->view('mobile.'.$article['type']);
     }
 
     public function itemlist(){
@@ -39,10 +39,10 @@ class PostController extends BaseController
         if ($catid) $condition[] = ['catid', '=', $catid];
 
         $itemlist = PostItem::where($condition)->orderBy('aid', 'DESC')->paginate(10);
-        $this->appends([
+        $this->assign([
             'catid'=>$catid,
             'itemlist'=>$itemlist
         ]);
-        return view('mobile.post.list', $this->data);
+        return $this->view('mobile.post.list');
     }
 }

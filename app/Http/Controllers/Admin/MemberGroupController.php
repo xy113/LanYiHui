@@ -40,7 +40,7 @@ class MemberGroupController extends BaseController
                 $this->data['grouplist'][$g->type][$g->gid] = $g;
             });
 
-            return view('admin.member.group', $this->data);
+            return $this->view('admin.member.group');
         }
     }
 }

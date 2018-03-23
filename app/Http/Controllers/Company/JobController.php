@@ -16,11 +16,11 @@ class JobController extends BaseController
         }else {
 
             $itemlist = Job::where(['company_id'=>$this->company_id])->orderBy('job_id', 'DESC')->paginate(20);
-            $this->appends([
+            $this->assign([
                 'itemlist'=>$itemlist,
                 'pagination'=>$itemlist->links()
             ]);
-            return view('company.job', $this->data);
+            return $this->view('company.job');
         }
     }
 
@@ -44,19 +44,37 @@ class JobController extends BaseController
                 if ($job_id) {
                     $job['updated_at'] = time();
                     Job::where(['company_id'=>$this->company_id,'job_id'=>$job_id])->update($job);
-                    return $this->showSuccess(trans('ui.update_succeed'));
+                    return $this->showSuccess(trans('ui.update_succeed'), null, [
+                        [
+                            'text'=>trans('common.reedit'),
+                            'url'=>url('/admin/job/publish?job_id='.$job_id)
+                        ],
+                        [
+                            'text'=>trans('common.back_list'),
+                            'url'=>url('/admin/job')
+                        ]
+                    ]);
                 }else {
                     $job['created_at'] = time();
                     $job['company_id'] = $this->company_id;
                     Job::insertGetId($job);
-                    return $this->showSuccess(trans('ui.save_succeed'));
+                    return $this->showSuccess(trans('ui.save_succeed'), null, [
+                        [
+                            'text'=>trans('common.continue_add'),
+                            'url'=>url('/admin/job/publish')
+                        ],
+                        [
+                            'text'=>trans('common.back_list'),
+                            'url'=>url('/admin/job')
+                        ]
+                    ]);
                 }
             }else {
                 return $this->showError(trans('ui.invalid_parameter'));
             }
         }else {
 
-            $this->appends([
+            $this->assign([
                 'job'=>[
                     'job_id'=>0,
                     'company_id'=>$this->company_id,
@@ -82,11 +100,11 @@ class JobController extends BaseController
                 $job = Job::where('company_id', $this->company_id)->where('job_id', $job_id)->first();
                 if ($job) {
                     $job->welfare = unserialize($job->welfare);
-                    $this->appends(['job'=>$job]);
+                    $this->assign(['job'=>$job]);
                 }
             }
 
-            return view('company.job_publish', $this->data);
+            return $this->view('company.job_publish');
         }
     }
 }

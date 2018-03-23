@@ -40,15 +40,15 @@
                 <div class="image"><img src="{{asset('images/mobile/jiaru.png')}}"></div>
                 <div class="title">加入联谊会</div>
             </li>
-            <li data-link="/mobile/enroll">
+            <li data-link="/mobile/daren">
                 <div class="image"><img src="{{asset('images/mobile/daren.png')}}"></div>
                 <div class="title">联谊会达人</div>
             </li>
-            <li data-link="/mobile/enroll">
+            <li data-link="/mobile/company">
                 <div class="image"><img src="{{asset('images/mobile/hezuo.png')}}"></div>
                 <div class="title">合作伙伴</div>
             </li>
-            <li data-link="/mobile/enroll">
+            <li data-link="/mobile/pages/detail/51.html">
                 <div class="image"><img src="{{asset('images/mobile/zuzhi.png')}}"></div>
                 <div class="title">组织架构</div>
             </li>

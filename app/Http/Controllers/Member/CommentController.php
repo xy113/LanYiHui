@@ -12,10 +12,10 @@ class CommentController extends Controller
      */
     public function index(){
 
-        $this->appends([
+        $this->assign([
             'menu' => 'comment'
         ]);
 
-        return view('member.comment', $this->data);
+        return $this->view('member.comment');
     }
 }

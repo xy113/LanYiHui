@@ -16,7 +16,7 @@ class SettingsController extends BaseController
         Settings::all()->map(function ($setting){
             $this->data['settings'][$setting->skey] = $setting->svalue;
         });
-        return view('admin.settings.'.$type, $this->data);
+        return $this->view('admin.settings.'.$type);
     }
 
     /**

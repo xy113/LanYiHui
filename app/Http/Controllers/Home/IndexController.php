@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Models\BlockItem;
 use App\Models\Job;
-use App\Models\Member;
+use App\Models\MemberArchive;
 use App\Models\PostItem;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -17,11 +17,11 @@ class IndexController extends Controller
      */
     public function index(){
 
-        $this->appends([
+        $this->assign([
             'focus_imgs'=>BlockItem::where('block_id', 10)->get(),
             'newslist'=>PostItem::where('status', 1)->limit(6)->orderBy('aid', 'DESC')->get(),
             'articleCount'=>PostItem::where('status', 1)->count(),
-            'memberCount'=>Member::count(),
+            'memberCount'=>MemberArchive::where('status', 1)->count(),
             'jobCount'=>Job::count()
         ]);
 
@@ -32,9 +32,11 @@ class IndexController extends Controller
             $item->welfares = unserialize($item->welfare);
             return get_object_vars($item);
         });
-        $this->appends(['jobList'=>$jobList, 'salary_ranges'=>trans('job.salary_ranges')]);
+        $this->assign(['jobList'=>$jobList, 'salary_ranges'=>trans('job.salary_ranges')]);
 
-        return view('home.index', $this->data);
+        $darenlist = MemberArchive::where('status', 1)->limit(5)->get();
+        $this->assign(['darenlist'=>$darenlist]);
+
+        return $this->view('home.index');
     }
-
 }

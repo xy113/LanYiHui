@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Models\Member;
 use App\Models\MemberInfo;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class SettingsController extends BaseController
 {
@@ -18,12 +19,13 @@ class SettingsController extends BaseController
             MemberInfo::where('uid', $this->uid)->update($memberinfo);
             return $this->showSuccess(trans('ui.update_succeed'));
         }else {
-            $this->appends([
+            $this->assign([
                 'menu'=>'userinfo',
                 'memberinfo'=>MemberInfo::where('uid', $this->uid)->first()->toArray(),
                 'sex_items'=>trans('member.sex_items')
             ]);
-            return view('member.userinfo', $this->data);
+
+            return $this->view('member.userinfo');
         }
     }
 
@@ -35,24 +37,52 @@ class SettingsController extends BaseController
         if ($this->isOnSubmit()) {
 
         }else {
-            $this->appends([
+            $this->assign([
                 'menu'=>'security',
                 'member'=>Member::where('uid', $this->uid)->first()->toArray(),
             ]);
 
-            return view('member.security', $this->data);
+            return $this->view('member.security');
         }
     }
 
     /**
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function verify(){
         if ($this->isOnSubmit()) {
 
         }else {
 
-            return view('member.verify', $this->data);
+            return $this->view('member.verify');
         }
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function set_avatar(){
+
+        $avatarPath = storage_public_path('avatar/'.$this->uid);
+        @mkdir($avatarPath, 0777, true);
+        $source = storage_public_path($this->request->file('file')->store('tmp'));
+
+        $image = Image::make($source);
+        $width = $image->width();
+        $height = $image->height();
+        if ($width > $height) {
+            $x = ($width - $height)/2;
+            $image = $image->crop($height, $height, intval($x), 0);
+        }else {
+            $y = ($height - $width)/2;
+            $image = $image->crop($width, $width, 0, intval($y));
+        }
+
+        $image->resize(300, 300)->save($avatarPath.'/big.png');
+        $image->resize(150, 150)->save($avatarPath.'/middle.png');
+        $image->resize(50, 50)->save($avatarPath.'/small.png');
+        @unlink($source);
+
+        return ajaxReturn();
     }
 }

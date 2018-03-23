@@ -9,6 +9,6 @@ class IndexController extends BaseController
      */
     public function index(){
 
-        return view('member.index', $this->data);
+        return $this->view('member.index');
     }
 }

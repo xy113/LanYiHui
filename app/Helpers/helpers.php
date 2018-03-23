@@ -502,7 +502,8 @@ function image_url($path){
  * @return string
  */
 function avatar($uid, $size = 'big'){
-    return action('Plugin\AvatarController@index', ['uid'=>$uid, 'size'=>$size]);
+    $code = base64_encode(serialize(['uid'=>$uid, 'size'=>$size]));
+    return url('avatar/'.$code);
 }
 
 /**

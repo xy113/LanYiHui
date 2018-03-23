@@ -63,66 +63,20 @@
             </div>
             <div class="daren-wrap">
                 <ul>
-                    <li>
-                        <div class="hd" >
-                            <div class="bg bg-cover" style="background-image: url({{asset('images/cont/user_img1.jpg')}})">
-                                <img src="{{avatar($uid)}}" class="avatar">
+                    @foreach ($darenlist as $k=>$item)
+                        <li>
+                            <div class="hd" >
+                                <div class="bg bg-cover" style="background-image: url({{asset('images/cont/user_img'.($k+1).'.jpg')}})">
+                                    <img src="{{avatar($item['uid'])}}" class="avatar">
+                                </div>
+                                <div class="info">
+                                    <div class="name">{{$item['username']}}</div>
+                                    <div class="star"><span class="iconfont icon-favorfill"></span>9645</div>
+                                    <div class="university">{{$item['university']}}</div>
+                                </div>
                             </div>
-                            <div class="info">
-                                <div class="name">贵州大师兄</div>
-                                <div class="star"><span class="iconfont icon-favorfill"></span>9645</div>
-                                <div class="university">中央名族大学</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="hd" >
-                            <div class="bg bg-cover" style="background-image: url({{asset('images/cont/user_img2.jpg')}})">
-                                <img src="{{avatar($uid)}}" class="avatar">
-                            </div>
-                            <div class="info">
-                                <div class="name">贵州大师兄</div>
-                                <div class="star"><span class="iconfont icon-favorfill"></span>9645</div>
-                                <div class="university">中央名族大学</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="hd" >
-                            <div class="bg bg-cover" style="background-image: url({{asset('images/cont/user_img3.jpg')}})">
-                                <img src="{{avatar($uid)}}" class="avatar">
-                            </div>
-                            <div class="info">
-                                <div class="name">贵州大师兄</div>
-                                <div class="star"><span class="iconfont icon-favorfill"></span>9645</div>
-                                <div class="university">中央名族大学</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="hd" >
-                            <div class="bg bg-cover" style="background-image: url({{asset('images/cont/user_img4.jpg')}})">
-                                <img src="{{avatar($uid)}}" class="avatar">
-                            </div>
-                            <div class="info">
-                                <div class="name">贵州大师兄</div>
-                                <div class="star"><span class="iconfont icon-favorfill"></span>9645</div>
-                                <div class="university">中央名族大学</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="hd" >
-                            <div class="bg bg-cover" style="background-image: url({{asset('images/cont/user_img5.jpg')}})">
-                                <img src="{{avatar($uid)}}" class="avatar">
-                            </div>
-                            <div class="info">
-                                <div class="name">贵州大师兄</div>
-                                <div class="star"><span class="iconfont icon-favorfill"></span>9645</div>
-                                <div class="university">中央名族大学</div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

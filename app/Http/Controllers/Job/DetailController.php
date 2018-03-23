@@ -22,13 +22,13 @@ class DetailController extends BaseController
         $company = Company::where('company_id', $job->company_id)->first();
         $content = CompanyContent::where('company_id', $job->company_id)->first();
 
-        $this->appends([
+        $this->assign([
             'job'=>$job,
             'company'=>$company,
             'content'=>$content,
             'salary_ranges'=>trans('job.salary_ranges')
         ]);
 
-        return view('job.detail', $this->data);
+        return $this->view('job.detail');
     }
 }

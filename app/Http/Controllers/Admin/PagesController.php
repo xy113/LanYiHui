@@ -29,7 +29,7 @@ class PagesController extends BaseController
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
             $catid = $this->request->get('catid');
-            $this->appends([
+            $this->assign([
                 'catid'=>$catid,
                 'categorylist'=>[],
                 'pagelist'=>[],
@@ -48,7 +48,7 @@ class PagesController extends BaseController
                 $this->data['pagelist'][$page->pageid] = $page;
             });
 
-            return view('admin.pages.list', $this->data);
+            return $this->view('admin.pages.list');
         }
     }
 
@@ -62,7 +62,7 @@ class PagesController extends BaseController
             return $this->save($newpage, $pageid);
         }else {
             $pageid = $this->request->get('pageid');
-            $this->appends([
+            $this->assign([
                 'catid'=>$this->request->get('catid'),
                 'pageid'=>$pageid,
                 'page'=>[
@@ -77,7 +77,7 @@ class PagesController extends BaseController
 
             if ($pageid) {
                 $page = Pages::where('pageid', $pageid)->first();
-                $this->appends([
+                $this->assign([
                     'catid'=>$page->catid,
                     'page'=>$page
                 ]);
@@ -87,7 +87,7 @@ class PagesController extends BaseController
                 $this->data['categorylist'][$c->pageid] = $c;
             });
 
-            return view('admin.pages.publish', $this->data);
+            return $this->view('admin.pages.publish');
         }
     }
 
@@ -147,7 +147,7 @@ class PagesController extends BaseController
                 $this->data['categorylist'][$c->pageid] = $c;
             });
 
-            return view('admin.pages.category', $this->data);
+            return $this->view('admin.pages.category');
         }
     }
 }

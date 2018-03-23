@@ -18,6 +18,6 @@ class BaseController extends Controller
     {
         parent::__construct($request);
         $this->middleware(['member.auth']);
-        $this->appends(['menu'=>'']);
+        $this->assign(['menu'=>'']);
     }
 }

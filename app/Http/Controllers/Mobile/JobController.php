@@ -20,7 +20,7 @@ class JobController extends Controller
             ->select(['j.job_id', 'j.title', 'j.type', 'j.salary', 'j.place', 'j.welfare', 'j.created_at', 'j.company_id', 'c.company_name','c.company_logo'])
             ->orderBy('j.job_id', 'DESC')->paginate(10);
 
-        $this->appends([
+        $this->assign([
             'q'=>$q,
             'salary_ranges'=>trans('job.salary_ranges'),
             'pagination'=>($q ? $itemlist->appends(['q'=>$q])->links() : $itemlist->links()),
@@ -30,7 +30,7 @@ class JobController extends Controller
             })
         ]);
 
-        return view('mobile.job.list', $this->data);
+        return $this->view('mobile.job.list');
     }
 
     public function detail($job_id){
@@ -41,7 +41,7 @@ class JobController extends Controller
         $company = Company::where('company_id', $job->company_id)->first();
         $content = CompanyContent::where('company_id', $job->company_id)->first();
 
-        $this->appends([
+        $this->assign([
             'job'=>$job,
             'welfares'=>unserialize($job->welfare),
             'company'=>$company,
@@ -49,6 +49,6 @@ class JobController extends Controller
             'salary_ranges'=>trans('job.salary_ranges')
         ]);
 
-        return view('mobile.job.detail', $this->data);
+        return $this->view('mobile.job.detail');
     }
 }

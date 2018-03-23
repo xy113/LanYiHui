@@ -23,7 +23,7 @@ class PostController extends BaseController
         $condition = $queryParams = [];
         $searchType = intval($this->request->input('searchType'));
         $queryParams['searchType'] = $searchType;
-        $this->appends([
+        $this->assign([
             'searchType'=>$searchType,
             'title'=>'',
             'username'=>'',
@@ -109,7 +109,7 @@ class PostController extends BaseController
             $this->data['itemlist'][$item->aid] = get_object_vars($item);
         });
 
-        return view('admin.post.list', $this->data);
+        return $this->view('admin.post.list');
     }
 
     /**
@@ -182,7 +182,7 @@ class PostController extends BaseController
         $catid = $this->request->get('catid');
         $type = $this->request->input('type');
         $type = in_array($type, array('image','video', 'voice')) ? $type : 'article';
-        $this->appends([
+        $this->assign([
             'aid'=>$aid,
             'catid'=>$catid,
             'type'=>$type,
@@ -216,7 +216,7 @@ class PostController extends BaseController
             $item = PostItem::where('aid', $aid)->first()->toArray();
             $item['created_at'] = $item['created_at'] ? @date('Y-m-d H:i:s', $item['created_at']) : @date('Y-m-d H:i:s');
             $item['type'] = in_array($item['type'], array('image','video')) ? $item['type'] : 'article';
-            $this->appends([
+            $this->assign([
                 'type'=>$item['type'],
                 'catid'=>$item['catid'],
                 'item'=>$item
@@ -232,7 +232,7 @@ class PostController extends BaseController
 
         }
         $this->data['catloglist'] = PostCatlog::getTree();
-        return view('admin.post.publish', $this->data);
+        return $this->view('admin.post.publish');
     }
 
     /**

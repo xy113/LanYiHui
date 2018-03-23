@@ -40,7 +40,7 @@ class MenuController extends BaseController
                 $this->data['menulist'][$menu->id] = $menu;
             });
 
-            return view('admin.common.menu_list', $this->data);
+            return $this->view('admin.common.menu_list');
         }
     }
 
@@ -52,13 +52,13 @@ class MenuController extends BaseController
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
             $menuid = $this->request->get('menuid');
-            $this->appends([
+            $this->assign([
                 'menuid'=>$menuid,
                 'menu'=>Menu::where('id', $menuid)->first(),
                 'itemlist'=>Menu::where('menuid', $menuid)->get()
             ]);
 
-            return view('admin.common.menu_items', $this->data);
+            return $this->view('admin.common.menu_items');
         }
     }
 }

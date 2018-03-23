@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Member;
+use App\Models\MemberArchive;
 use App\Models\MemberGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -96,7 +97,7 @@ class MemberController extends BaseController
         });
 
         $this->data['member_status'] = trans('member.member_status');
-        return view('admin.member.list', $this->data);
+        return $this->view('admin.member.list');
     }
 
     /**
@@ -191,5 +192,95 @@ class MemberController extends BaseController
         $target = intval($_GET['target']);
         member_update_data(array('uid'=>array('IN', $uids)), array('gid'=>$target));
         $this->showSuccess('update_succeed', U('a=member_list&gid='.$target));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function archive(){
+        if ($this->isOnSubmit()) {
+            $members = $this->request->post('members');
+            $eventType = $this->request->post('eventType');
+            if ($eventType === 'delete') {
+                foreach ($members as $id) {
+                    MemberArchive::where('id', $id)->delete();
+                }
+            }
+
+            if ($eventType === 'pass') {
+                foreach ($members as $id) {
+                    MemberArchive::where('id', $id)->update(['status'=>1]);
+                }
+            }
+
+            if ($eventType === 'refuse') {
+                foreach ($members as $id) {
+                    MemberArchive::where('id', $id)->update(['status'=>-1]);
+                }
+            }
+            return ajaxReturn();
+
+        }else {
+
+            $condition = $params = [];
+            $fullname = $this->request->get('fullname');
+            $this->data['fullname'] = $fullname;
+            if ($fullname) {
+                $condition[] = ['fullname', 'LIKE', "%$fullname%"];
+                $params['fullname'] = $fullname;
+            }
+
+            $phone = $this->request->get('phone');
+            $this->data['phone'] = $phone;
+            if ($phone) {
+                $condition[] = ['phone', '=', $phone];
+                $params['phone'] = $phone;
+            }
+
+            $university = $this->request->get('university');
+            $this->data['university'] = $university;
+            if ($university) {
+                $condition[] = ['university', '=', $university];
+                $params['university'] = $university;
+            }
+
+            $sex = $this->request->get('sex');
+            $sex = is_null($sex) ? 'all' : $sex;
+            $this->data['sex'] = $sex;
+            $params['sex'] = $sex;
+            if ($sex !== 'all') {
+                $condition[] = ['sex', '=', $sex];
+            }
+
+            $enrollyear = $this->request->get('enrollyear');
+            $this->data['enrollyear'] = $enrollyear;
+            if ($enrollyear) {
+                $condition[] = ['enrollyear', '=', $enrollyear];
+                $params['enrollyear'] = $enrollyear;
+            }
+
+            $status = $this->request->get('status');
+            $status = is_null($status) ? 'all' : $status;
+            $this->data['status'] = $status;
+            $params['status'] = $status;
+            if ($status !== 'all') {
+                $condition[] = ['status', '=', $status];
+            }
+
+            $itemlist = MemberArchive::where($condition)->orderBy('id', 'ASC')->paginate(20);
+            $this->assign([
+                'pagination'=>$itemlist->links(),
+                'itemlist'=>[]
+            ]);
+
+            $verify_status = trans('member.verify_status');
+            $itemlist->map(function ($item) use ($verify_status) {
+                $item->status_title = $verify_status[$item->status];
+                $this->data['itemlist'][$item->id] = $item;
+            });
+
+            $this->assign(['verify_status'=>$verify_status]);
+            return $this->view('admin.member.archive');
+        }
     }
 }

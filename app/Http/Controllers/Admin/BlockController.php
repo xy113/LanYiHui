@@ -28,7 +28,7 @@ class BlockController extends BaseController
                 $this->data['itemlist'][$block->block_id] = $block;
             });
 
-            return view('admin.block.blocks', $this->data);
+            return $this->view('admin.block.blocks');
         }
     }
 
@@ -86,7 +86,7 @@ class BlockController extends BaseController
                 $this->data['itemlist'][$item->id] = $item;
             });
 
-            return view('admin.block.items', $this->data);
+            return $this->view('admin.block.items');
         }
     }
 
@@ -107,7 +107,7 @@ class BlockController extends BaseController
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
 
-            $this->appends([
+            $this->assign([
                 'id'=>$id,
                 'block_id'=>$block_id,
                 'item'=>[
@@ -129,7 +129,7 @@ class BlockController extends BaseController
                 }
             }
 
-            return view('admin.block.edit_item', $this->data);
+            return $this->view('admin.block.edit_item');
         }
     }
 

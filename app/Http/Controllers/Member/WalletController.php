@@ -48,7 +48,7 @@ class WalletController extends Controller
             $params['pay_type'] = $pay_type;
         }
 
-        $this->appends([
+        $this->assign([
             'menu' => 'wallet',
             'wallet' => Wallet::getData($this->uid),
             'itemlist' => [],
@@ -61,16 +61,16 @@ class WalletController extends Controller
         $itemlist = Trade::where($condition)->where(function ($query){
             $query->where('payer_uid', $this->uid)->orWhere('payee_uid', $this->uid);
         })->orderBy('trade_id', 'DESC')->paginate(20);
-        $this->appends(['pagination'=>$itemlist->appends($params)->links(), 'totalCount'=>$itemlist->total()]);
+        $this->assign(['pagination'=>$itemlist->appends($params)->links(), 'totalCount'=>$itemlist->total()]);
 
         $trade_status = trans('member.trade_status');
         if ($itemlist) {
             foreach ($itemlist as $item) {
                 $item->trade_status_name = $trade_status[$item->trade_status];
-                $this->data['itemlist'][$item->trade_id] = $item->toArray();
+                $this->data['itemlist'][$item->trade_id] = $item;
             }
         }
 
-        return view('member.wallet', $this->data);
+        return $this->view('member.wallet');
     }
 }

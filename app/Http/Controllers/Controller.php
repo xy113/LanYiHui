@@ -44,7 +44,7 @@ class Controller extends BaseController
             if ($uid && $username) {
                 $this->uid = $uid;
                 $this->username = $username;
-                $this->appends([
+                $this->assign([
                     'uid'=>$this->uid,
                     'username'=>$this->username,
                     'islogined'=>1
@@ -87,20 +87,34 @@ class Controller extends BaseController
     /**
      * @param array $array
      * @param bool $replace
+     * @param string $prefix
      * @return $this
      */
-    protected function appends($array = [], $replace = true){
+    protected function assign($array = [], $replace = true, $prefix=''){
         foreach ($array as $key=>$value) {
             if (is_string($key)) {
-                if (!$replace) {
-                    if (array_key_exists($key, $this->data)){
-                        continue;
+                if (array_key_exists($key, $this->data)){
+                    if ($replace) {
+                        $this->data[$key] = $value;
+                    }else {
+                        $this->data[$prefix.$key] = $value;
                     }
+                }else {
+                    $this->data[$key] = $value;
                 }
-                $this->data[$key] = $value;
             }
         }
         return $this;
+    }
+
+    /**
+     * @param $view
+     * @param array $data
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    protected function view($view, $data = []) {
+        if (is_array($data) && !empty($data)) $this->assign($data);
+        return view($view, $this->data);
     }
 
     /**
@@ -145,7 +159,7 @@ class Controller extends BaseController
             unset($newlinks);
         }
         $forward = $forward ? $forward : ($links ? $links[0]['url'] : $_SERVER['HTTP_REFERER']);
-        $this->appends([
+        $this->assign([
             'msg'=>$msg,
             'type'=>$type,
             'forward'=>$forward,

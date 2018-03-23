@@ -17,12 +17,12 @@ class IndexController extends Controller
         $catid = $this->request->input('catid');
         if ($catid) $condition['catid'] = $catid;
         $itemlist = PostItem::where($condition)->orderBy('aid', 'DESC')->paginate(10);
-        $this->appends([
+        $this->assign([
             'catid'=>$catid,
             'itemlist'=>$itemlist,
             'pagination'=>$itemlist->appends($catid ? ['catid'=>$catid] : [])->links(),
         ]);
 
-        return view('post.index', $this->data);
+        return $this->view('post.index');
     }
 }

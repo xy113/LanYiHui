@@ -37,7 +37,7 @@ class WeixinController extends BaseController
             return $this->showSuccess(trans('ui.update_succeed'));
         }else {
 
-            $this->appends([
+            $this->assign([
                 'menulist'=>[],
                 'menu_types'=>trans('weixin.menu_types')
             ]);
@@ -49,7 +49,7 @@ class WeixinController extends BaseController
                     $this->data['menulist'][$menu->fid][$menu->id] = $menu;
                 });
 
-            return view('admin.weixin.menu', $this->data);
+            return $this->view('admin.weixin.menu');
         }
     }
 
@@ -180,7 +180,7 @@ class WeixinController extends BaseController
             return ajaxReturn();
         }else {
 
-            $this->appends([
+            $this->assign([
                 'fid'=>$fid,
                 'menu'=>[
                     'fid'=>$fid,
@@ -195,7 +195,7 @@ class WeixinController extends BaseController
 
             $id && $this->data['menu'] = WeixinMenu::where('id', $id)->first();
 
-            return view('admin.weixin.edit_menu', $this->data);
+            return $this->view('admin.weixin.edit_menu');
         }
     }
 
@@ -215,7 +215,7 @@ class WeixinController extends BaseController
         }else {
             $type = $this->request->get('type');
             $type = $type ? $type : 'image';
-            $this->appends([
+            $this->assign([
                 'material_types'=>trans('weixin.material_types'),
                 'type'=>$type,
                 'itemlist'=>[]
@@ -258,7 +258,7 @@ class WeixinController extends BaseController
             return $this->showSuccess(trans('ui.delete_succeed'));
         }else {
 
-            $this->appends([
+            $this->assign([
                 'itemlist'=>[],
                 'pagination'=>''
             ]);
@@ -281,7 +281,7 @@ class WeixinController extends BaseController
                     }
                 }
 
-                return view('admin.weixin.news', $this->data);
+                return $this->view('admin.weixin.news');
             }else {
                 return $json;
             }

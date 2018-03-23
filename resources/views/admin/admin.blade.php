@@ -6,8 +6,8 @@
     <meta name="render" content="webkit">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="icon" href="{{asset('images/common/favicon.png')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/admin.css')}}">
+    <link href="{{asset('images/common/favicon.png')}}" rel="icon">
+    <link href="{{asset('css/admin.css')}}" rel="stylesheet" type="text/css">
     <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/common.js')}}" type="text/javascript"></script>
 </head>
@@ -43,8 +43,9 @@
                     <dd><a><i class="iconfont icon-peoplefill"></i>用户管理</a></dd>
                     <dt>
                         <ul>
-                            <li><a rel="item" data-action="/admin/member">会员列表</a></li>
+                            <li><a rel="item" data-action="/admin/member">用户列表</a></li>
                             <li><a rel="item" data-action="/admin/membergroup">分组管理</a></li>
+                            <li><a rel="item" data-action="/admin/member/archive">联谊会会员</a></li>
                         </ul>
                     </dt>
                 </dl>
@@ -55,6 +56,16 @@
                             <li><a rel="item" data-action="/admin/menu">菜单管理</a></li>
                             <li><a rel="item" data-action="/admin/ad">广告管理</a></li>
                             <li><a rel="item" data-action="/admin/block">内容板块</a></li>
+                        </ul>
+                    </dt>
+                </dl>
+                <dl>
+                    <dd><a><i class="iconfont icon-formfill"></i>信息管理</a></dd>
+                    <dt>
+                        <ul>
+                            <li><a rel="item" data-action="/admin/company">企业管理</a></li>
+                            <li><a rel="item" data-action="/admin/job">职位管理</a></li>
+                            <li><a rel="item" data-action="/admin/resume">简历管理</a></li>
                         </ul>
                     </dt>
                 </dl>

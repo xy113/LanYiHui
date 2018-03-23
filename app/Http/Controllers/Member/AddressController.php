@@ -27,7 +27,7 @@ class AddressController extends Controller
             }
         }else {
             $address_id = $this->request->get('address_id');
-            $this->appends([
+            $this->assign([
                 'menu' => 'address',
                 'address_id' => $address_id,
                 'address' => [
@@ -45,14 +45,14 @@ class AddressController extends Controller
 
             if ($address_id) {
                 $address = Address::where('address_id', $address_id)->first();
-                if ($address) $this->appends(['address' => $address->toArray()]);
+                if ($address) $this->assign(['address' => $address]);
             }
 
             foreach (Address::all() as $addr) {
-                $this->data['itemlist'][$addr->address_id] = $addr->toArray();
+                $this->data['itemlist'][$addr->address_id] = $addr;
             }
 
-            return view('member.address', $this->data);
+            return $this->view('member.address');
         }
     }
 

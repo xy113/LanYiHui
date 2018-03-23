@@ -11,7 +11,7 @@
                     {!! nl2br(setting('membership_desc')) !!}
                 </div>
                 <div class="bottom">
-                    <a href="/enroll/enroll" class="button">申请入会</a>
+                    <a href="{{url('/join/enroll')}}" class="button">申请入会</a>
                 </div>
             </div>
         </div>

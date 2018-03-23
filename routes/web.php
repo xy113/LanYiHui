@@ -20,6 +20,7 @@ Route::group(['namespace' => 'Member', 'middleware' => 'member.auth', 'prefix' =
     Route::any('/settings/userinfo', 'SettingsController@userinfo');
     Route::any('/settings/security', 'SettingsController@security');
     Route::any('/settings/verify', 'SettingsController@verify');
+    Route::any('/settings/set_avatar', 'SettingsController@set_avatar');
 
     Route::any('/wallet', 'WalletController@index');
     Route::any('/address', 'AddressController@index');
@@ -30,9 +31,9 @@ Route::group(['namespace' => 'Member', 'middleware' => 'member.auth', 'prefix' =
     Route::any('/comment', 'CommentController@index');
 });
 
+Route::get('/avatar/{code}', 'Plugin\AvatarController@index');
 Route::group(['namespace'=>'Plugin', 'prefix'=>'plugin'], function (){
     Route::get('/image', 'ImageController@index');
-    Route::get('/avatar', 'AvatarController@index');
 });
 
 Route::group(['namespace' => 'Account', 'prefix'=>'account'], function (){
@@ -66,7 +67,7 @@ Route::group(['namespace'=>'Job', 'prefix'=>'job'], function (){
     Route::get('/detail/{id}.html', 'DetailController@index');
 });
 
-Route::group(['namespace'=>'Enroll', 'prefix'=>'enroll', 'middleware'=>'member.auth'], function (){
+Route::group(['namespace'=>'Join', 'prefix'=>'join', 'middleware'=>'member.auth'], function (){
     Route::get('/', 'IndexController@index');
     Route::any('/enroll', 'IndexController@enroll');
 });
@@ -104,6 +105,7 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         //用户管理
         Route::get('/member', 'MemberController@index');
         Route::post('member/delete', 'MemberController@delete');
+        Route::any('/member/archive', 'MemberController@archive');
         Route::any('/membergroup', 'MemberGroupController@index');
         //菜单管理
         Route::any('/menu', 'MenuController@index');
@@ -161,6 +163,14 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         Route::get('/link', 'LinkController@index');
         Route::post('/link/save', 'LinkController@save');
         Route::post('/link/setimage', 'LinkController@setimage');
+
+        //企业管理
+        Route::any('/company', 'CompanyController@index');
+        Route::any('/company/add', 'CompanyController@add');
+        //职位
+        Route::any('/job', 'JobController@index');
+        Route::any('/job/publish', 'JobController@publish');
+        Route::any('/resume', 'ResumeController@index');
     });
 });
 
@@ -180,4 +190,17 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::any('/register', 'SignController@signup');
 
     Route::get('/member', 'MemberController@index');
+
+    Route::get('/pages/list', 'PagesController@index');
+    Route::get('/pages/detail/{pageid}.html', 'PagesController@detail');
+
+    Route::get('/company', 'CompanyController@index');
+    Route::get('/company/detail/{id}.html', 'CompanyController@detail');
+
+    Route::get('/daren', 'DarenController@index')->middleware(['mobile.auth']);
+    Route::get('/space/{uid}', 'SpaceController@index')->middleware(['mobile.auth']);
+
+    Route::get('/resume', 'ResumeController@index');
+
+    Route::get('/favorite', 'FavoriteController@index');
 });

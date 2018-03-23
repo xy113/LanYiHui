@@ -15,7 +15,7 @@ class ExpressController extends BaseController
         Express::orderBy('id', 'ASC')->get()->map(function ($item){
             $this->data['itemlist'][$item->id] = $item;
         });
-        return view('admin.common.express', $this->data);
+        return $this->view('admin.common.express');
     }
 
     /**

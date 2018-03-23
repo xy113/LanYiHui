@@ -54,9 +54,10 @@ class SignController extends Controller
             }
         }else {
 
-            return view('mobile.login', $this->appends([
+            $this->assign([
                 'redirect'=>$this->request->input('redirect')
-            ])->data);
+            ]);
+            return $this->view('mobile.login');
         }
     }
 
@@ -100,9 +101,10 @@ class SignController extends Controller
             return ajaxReturn(['uid'=>$uid])->cookie(Cookie::forever('uid', $uid))
                 ->cookie(Cookie::forever('username', $username));
         }else {
-            return view('mobile.register', $this->appends([
+            $this->assign([
                 'redirect'=>$this->request->input('redirect')
-            ])->data);
+            ]);
+            return $this->view('mobile.register');
         }
     }
 }

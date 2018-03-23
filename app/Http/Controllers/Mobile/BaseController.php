@@ -10,7 +10,7 @@ class BaseController extends Controller
     function __construct(Request $request)
     {
         parent::__construct($request);
-        $this->appends([
+        $this->assign([
             'tab'=>'home'
         ]);
     }

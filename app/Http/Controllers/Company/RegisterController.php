@@ -14,7 +14,7 @@ class RegisterController extends Controller
      */
     public function index(){
 
-        return view('company.register', $this->data);
+        return $this->view('company.register');
     }
 
     /**

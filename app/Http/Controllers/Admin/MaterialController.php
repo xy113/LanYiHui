@@ -65,7 +65,7 @@ class MaterialController extends BaseController
             $this->data['itemlist'][$m->id] = $m;
         });
 
-        return view('admin.common.material', $this->data);
+        return $this->view('admin.common.material');
     }
 
     /**
