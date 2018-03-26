@@ -16,6 +16,12 @@ class JoinController extends Controller
     {
         parent::__construct($request);
         $this->middleware(['mobile.auth']);
+        $this->middleware(function (Request $req, $next){
+            if (MemberArchive::where('uid', $this->uid)->exists()){
+                return redirect()->to('/mobile/member/archive');
+            }
+            return $next($req);
+        })->only('enroll');
     }
 
     /**

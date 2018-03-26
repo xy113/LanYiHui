@@ -52,7 +52,7 @@ h1:after,h2:after,h3:after,h4:after,h5:after{
 .input-text,select, .select,textarea,.textarea{
     box-sizing:border-box; resize:none; outline:none; -webkit-shape-outside: none;
     border:1px #CCC solid; border-radius:1px; width:200px; padding:0 5px; font-size:12px;
-    height:28px; vertical-align:middle;
+    height:28px; vertical-align:middle; -webkit-appearance: none; -moz-appearance: none;
 }
 textarea,.textarea{height: 100px; vertical-align: middle; padding: 5px;}
 .input-text:hover,textarea:hover,select:hover{border-color:#0086B6; background-color:#EFFAF7;}

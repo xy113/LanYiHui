@@ -190,6 +190,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::any('/register', 'SignController@signup');
 
     Route::get('/member', 'MemberController@index');
+    Route::get('/member/archive', 'MemberController@archive')->middleware('mobile.auth');
 
     Route::get('/pages/list', 'PagesController@index');
     Route::get('/pages/detail/{pageid}.html', 'PagesController@detail');
@@ -200,7 +201,11 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/daren', 'DarenController@index')->middleware(['mobile.auth']);
     Route::get('/space/{uid}', 'SpaceController@index')->middleware(['mobile.auth']);
 
-    Route::get('/resume', 'ResumeController@index');
+    Route::get('/resume', 'ResumeController@index')->middleware(['mobile.auth']);
+    Route::any('/resume/edit', 'ResumeController@edit')->middleware(['mobile.auth']);
+    Route::get('/resume/delete', 'ResumeController@delete')->middleware(['mobile.auth']);
+    Route::get('/resume/detail/{id}.html', 'ResumeController@detail')->middleware(['mobile.auth']);
 
-    Route::get('/favorite', 'FavoriteController@index');
+    Route::get('/favorite', 'FavoriteController@index')->middleware(['mobile.auth']);
+    Route::any('/feedback', 'FeedbackController@index')->middleware(['mobile.auth']);
 });

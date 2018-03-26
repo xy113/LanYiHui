@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="tableview">
-        <div class="row">
+        <div class="row" data-link="{{url('/mobile/member/archive')}}">
             <div class="cell cell-icon"><span class="iconfont icon-yonghu"></span></div>
             <div class="cell cell-text">会员资料</div>
         </div>
@@ -22,7 +22,7 @@
             <div class="cell cell-icon"><span class="iconfont icon-favor"></span></div>
             <div class="cell cell-text">我的收藏</div>
         </div>
-        <div class="row">
+        <div class="row" data-link="{{url('/mobile/feedback')}}">
             <div class="cell cell-icon"><span class="iconfont icon-fankui"></span></div>
             <div class="cell cell-text">意见反馈</div>
         </div>
