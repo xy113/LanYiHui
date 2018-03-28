@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Mobile;
 
-use App\Models\Member;
 use App\Models\MemberArchive;
 use App\Models\PostItem;
 

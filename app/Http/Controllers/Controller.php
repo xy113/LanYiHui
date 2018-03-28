@@ -11,6 +11,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class Controller extends BaseController
 {
@@ -45,9 +46,9 @@ class Controller extends BaseController
                 $this->uid = $uid;
                 $this->username = $username;
                 $this->assign([
-                    'uid'=>$this->uid,
-                    'username'=>$this->username,
-                    'islogined'=>1
+                    'uid'=>$uid,
+                    'username'=>$username,
+                    'islogined'=>true
                 ]);
                 try {
                     $member = Session::get('member');
@@ -125,30 +126,29 @@ class Controller extends BaseController
     }
 
     /**
-     * 显示系统信息
-     * @param string $msg 提示信息
-     * @param string $type 信息类型
-     * @param string $forward 跳转页面
-     * @param array $links 可选链接
-     * @param string $tips 提示信息
-     * @param bool $autoredirect 是否自动跳转
+     * @param string $msg
+     * @param string $type
+     * @param string $forward
+     * @param array $links
+     * @param string $tips
+     * @param bool $autoredirect
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function showMessage($msg='', $type='success', $forward='', $links=array(), $tips='', $autoredirect=false){
+    protected function showMessage($msg='', $type='success', $forward=null, $links=[], $tips='', $autoredirect=false){
 
-        $type = in_array($type, array('error', 'warning', 'information')) ? $type : 'success';
+        $type = in_array($type, ['error', 'warning', 'information']) ? $type : 'success';
         if (empty($links)) {
-            $links = array(
-                array(
+            $links = [
+                [
                     'text'=>trans('common.go_back'),
-                    'url'=>$_SERVER['HTTP_REFERER']
-                )
-            );
+                    'url'=>URL::previous()
+                ]
+            ];
         }else {
-            $newlinks = array();
+            $newlinks = [];
             foreach ($links as $link){
                 if (isset($link['target'])){
-                    $link['target'] = in_array($link['target'], array('_blank','_top','_self')) ? $link['target'] : '';
+                    $link['target'] = in_array($link['target'], ['_blank','_top','_self']) ? $link['target'] : '';
                 }else {
                     $link['target'] = '';
                 }
@@ -156,18 +156,17 @@ class Controller extends BaseController
                 $newlinks[] = $link;
             }
             $links = $newlinks;
-            unset($newlinks);
         }
-        $forward = $forward ? $forward : ($links ? $links[0]['url'] : $_SERVER['HTTP_REFERER']);
+        $forward = $forward ? $forward : ($links ? $links[0]['url'] : URL::previous());
         $this->assign([
             'msg'=>$msg,
             'type'=>$type,
             'forward'=>$forward,
-            'links'=>$links,
             'tips'=>$tips,
+            'links'=>$links,
             'autoredirect'=>$autoredirect
         ]);
-        return view($this->messageView, $this->data);
+        return $this->view($this->messageView);
     }
 
     /**
@@ -178,7 +177,7 @@ class Controller extends BaseController
      * @param bool $autoredirect
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function showSuccess($msg, $forward='', $links=array(), $tips='', $autoredirect=false){
+    protected function showSuccess($msg, $forward='', $links=[], $tips='', $autoredirect=false){
         return $this->showMessage($msg,'success',$forward,$links,$tips,$autoredirect);
     }
 
@@ -190,7 +189,7 @@ class Controller extends BaseController
      * @param bool $autoredirect
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function showError($msg, $forward='', $links=array(), $tips='', $autoredirect=false){
+    protected function showError($msg, $forward='', $links=[], $tips='', $autoredirect=false){
         return $this->showMessage($msg,'error',$forward,$links,$tips,$autoredirect);
     }
 
@@ -202,7 +201,7 @@ class Controller extends BaseController
      * @param bool $autoredirect
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function showWarning($msg, $forward='', $links=array(), $tips='', $autoredirect=false){
+    protected function showWarning($msg, $forward='', $links=[], $tips='', $autoredirect=false){
         return $this->showMessage($msg,'warning',$forward,$links,$tips,$autoredirect);
     }
 
@@ -214,25 +213,7 @@ class Controller extends BaseController
      * @param bool $autoredirect
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function showInformation($msg, $forward='', $links=array(), $tips='', $autoredirect=false){
+    protected function showInformation($msg, $forward='', $links=[], $tips='', $autoredirect=false){
         return $this->showMessage($msg,'information',$forward,$links,$tips,$autoredirect);
-    }
-
-    /**
-     * @param string $message
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    protected function notFound($message=''){
-        !$message && $message = 'page_not_found';
-        return $this->showMessage($message,'error');
-    }
-
-    /**
-     * 无权限提示
-     * @param string $message
-     */
-    protected function noPermission($message=''){
-        !$message && $message = 'no_permission';
-        $this->showMessage($message,'error');
     }
 }
