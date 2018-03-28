@@ -86,4 +86,22 @@ class ResumeController extends BaseController
 
         return $this->view('mobile.resume.detail');
     }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function get(){
+        $id = $this->request->get('id');
+        $resume = Resume::where(['id'=>$id, 'uid'=>$this->uid])->first();
+        return ajaxReturn($resume);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function batchget(){
+
+        $itemlist = Resume::where('uid', $this->uid)->get();
+        return ajaxReturn($itemlist);
+    }
 }

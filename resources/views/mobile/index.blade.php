@@ -22,13 +22,13 @@
         <ul class="wrapper">
             <li data-link="/mobile/post/list?catid=15">
                 <div class="image"><img src="{{asset('images/mobile/news.png')}}"></div>
-                <div class="title">联谊会动态</div>
+                <div class="title">盘联新闻</div>
             </li>
-            <li>
+            <li data-link="/mobile/recruit?catid=1">
                 <div class="image"><img src="{{asset('images/mobile/zhaoxin.png')}}"></div>
                 <div class="title">部门招新</div>
             </li>
-            <li>
+            <li data-link="/mobile/recruit?catid=2">
                 <div class="image"><img src="{{asset('images/mobile/zhaomu.png')}}"></div>
                 <div class="title">活动招募</div>
             </li>

@@ -170,7 +170,13 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         //职位
         Route::any('/job', 'JobController@index');
         Route::any('/job/publish', 'JobController@publish');
+        //简历管理
         Route::any('/resume', 'ResumeController@index');
+        Route::get('/resume/detail', 'ResumeController@detail');
+        //联谊会招聘
+        Route::any('/recruit', 'RecruitController@index');
+        Route::any('/recruit/publish', 'RecruitController@publish');
+        Route::any('/recruit/catlog', 'RecruitController@catlog');
     });
 });
 
@@ -205,6 +211,12 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::any('/resume/edit', 'ResumeController@edit')->middleware(['mobile.auth']);
     Route::get('/resume/delete', 'ResumeController@delete')->middleware(['mobile.auth']);
     Route::get('/resume/detail/{id}.html', 'ResumeController@detail')->middleware(['mobile.auth']);
+    Route::get('/resume/json/get', 'ResumeController@get')->middleware(['mobile.auth']);
+    Route::get('/resume/json/batchget', 'ResumeController@batchget')->middleware(['mobile.auth']);
+
+    Route::get('/recruit', 'RecruitController@index');
+    Route::get('/recruit/detail/{id}.html', 'RecruitController@detail');
+    Route::any('/recruit/enroll', 'RecruitController@enroll')->middleware('member.auth');
 
     Route::get('/favorite', 'FavoriteController@index')->middleware(['mobile.auth']);
     Route::any('/feedback', 'FeedbackController@index')->middleware(['mobile.auth']);

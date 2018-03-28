@@ -1,5 +1,5 @@
 @import "common.css";
-body,html{font-size: 16px; background-color: #f2f2f2;}
+body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 .tabbar{
     position: relative;
     height: 49px;
@@ -1009,7 +1009,7 @@ body,html{font-size: 16px; background-color: #f2f2f2;}
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
-    padding-top: 67%;
+    padding-top: 60%;
     position: relative;
     display: block;
 }
@@ -1032,13 +1032,24 @@ body,html{font-size: 16px; background-color: #f2f2f2;}
 }
 
 .mine-header .content .name{
-    background-color: rgba(55, 55, 55, 0.5);
+    background-color: rgba(55, 55, 55, 0.6);
     border-radius: 50px;
     padding: 3px 20px;
     font-size: 16px;
     color: #fff;
     text-align: center;
     display: inline-block;
+}
+
+.mine-header .content .signname{
+    background-color: rgba(55, 55, 55, 0.6);
+    border-radius: 50px;
+    padding: 3px 20px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
 }
 
 /*会员档案*/
@@ -1205,6 +1216,123 @@ body,html{font-size: 16px; background-color: #f2f2f2;}
     height: 160px;
 }
 
+/*招新*/
+.recruit {
+    display: block;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.recruit .item-list{
+    display: block;
+}
+
+.recruit .item-list li{
+    display: block;
+    padding: 15px 0;
+    border-bottom: 1px #e5e5e5 solid;
+}
+
+.recruit .item-list li .image{
+    padding-top: 50%;
+    display: block;
+    overflow: hidden;
+}
+
+.recruit .item-list li .image img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.recruit .item-list li .title{
+    font-size: 18px;
+    display: block;
+    line-height: 1.3;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.recruit .item-list li .data{
+    color: #777;
+    font-size: 12px;
+}
+
+.recruit .item-list li .data i{
+    float: right;
+    font-style: normal;
+}
+.recruit .item-list li .data span{
+    margin-right: 10px;
+}
+
+.recruit .item-title{
+    font-size: 22px;
+    color: #222;
+    padding-top: 10px;
+}
+
+.recruit .item-data{
+    display: block;
+    padding: 15px 0;
+    border-bottom: 1px #e5e5e5 solid;
+    color: #666;
+}
+
+.recruit .item-data i{
+    font-style: normal;
+    float: right;
+    color: #888;
+    font-size: 13px;
+}
+
+.recruit .item-data span{
+    margin-right: 10px;
+}
+
+.recruit .item-content{
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: justify;
+    padding: 20px 0;
+}
+
+.recruit .item-content *{
+    max-width: 100%;
+}
+
+.recruit .resume-choose{
+    display: block;
+    padding: 10px 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+.recruit .resume-list{
+    display: block;
+    padding: 10px 30px;
+}
+
+.recruit .resume-list li{
+    display: block;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.recruit .enroll-button{
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.recruit .enroll-button .button{
+    display: inline-block;
+    width: 80%;
+    font-size: 16px;
+    height: 46px;
+    line-height: 46px;
+}
+
 /*底部*/
 .bottom-bar{
     height: 46px;
@@ -1227,5 +1355,27 @@ body,html{font-size: 16px; background-color: #f2f2f2;}
     line-height: 46px;
     text-align: center;
     color: #fff;
+    font-size: 16px;
+}
+
+/*个人空间*/
+.space-content{
+    display: inline-block;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.space-content h3.title{
+    font-size: 18px;
+    color: #000;
+}
+
+.space-content .artilelist{
+    display: block;
+}
+
+.space-content .artilelist li{
+    display: block;
+    padding: 5px 0;
     font-size: 16px;
 }

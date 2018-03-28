@@ -66,6 +66,7 @@
                             <li><a rel="item" data-action="/admin/company">企业管理</a></li>
                             <li><a rel="item" data-action="/admin/job">职位管理</a></li>
                             <li><a rel="item" data-action="/admin/resume">简历管理</a></li>
+                            <li><a rel="item" data-action="/admin/recruit">联谊会招聘</a></li>
                         </ul>
                     </dt>
                 </dl>
