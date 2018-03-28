@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Pinyin;
 use App\Models\PostCatlog;
 use App\Models\PostItem;
 
@@ -13,7 +14,28 @@ class PostCatlogController extends BaseController
      */
     public function index(){
 
-        $this->data['catloglist'] = PostCatlog::getTree();
+        if ($this->isOnSubmit()) {
+            $catloglist = $this->request->post('catloglist');
+            if ($catloglist) {
+                $pinyin = new Pinyin();
+                foreach ($catloglist as $catid=>$catlog) {
+                    if ($catlog['name']) {
+                        if (!$catlog['identifer']) $catlog['identifer'] = $pinyin->getPinyin($catlog['name']);
+                        if ($catid > 0) {
+                            PostCatlog::where('catid', $catid)->update($catlog);
+                        }else {
+                            PostCatlog::insert($catlog);
+                        }
+                    }
+                }
+                PostCatlog::updateCache();
+            }
+            return $this->showSuccess(trans('ui.save_succeed'));
+        }else {
+            $this->assign([
+                'catloglist'=> PostCatlog::getTree()
+            ]);
+        }
         return $this->view('admin.post.catlog_list');
     }
 
@@ -30,6 +52,7 @@ class PostCatlogController extends BaseController
             }else {
                 PostCatlog::insert($catlog);
             }
+            PostCatlog::updateCache();
             return $this->showSuccess(trans('ui.save_succeed'));
         }else {
             $catid = $this->request->get('catid');
@@ -135,6 +158,7 @@ class PostCatlogController extends BaseController
         $icon = $this->request->post('icon');
         if ($catid && $icon){
             PostCatlog::where('catid', $catid)->update(['icon'=>$icon]);
+            PostCatlog::updateCache();
         }
         return ajaxReturn();
     }

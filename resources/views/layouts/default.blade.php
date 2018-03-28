@@ -37,10 +37,11 @@
             </div>
             <ul class="nav">
                 <li><a href="{{url('/')}}">首页</a></li>
-                <li><a href="/post/list?catid=15">动态</a></li>
-                <li><a href="/post/list?catid=16">活动</a></li>
-                <li><a href="/join">招新</a></li>
-                <li><a href="/job">人才</a></li>
+                <li><a href="{{url('/post/list?catid=15')}}">动态</a></li>
+                <li><a href="{{url('/post/list?catid=16')}}">活动</a></li>
+                <li><a href="{{url('/join')}}">招新</a></li>
+                <li><a href="{{url('/job')}}">人才</a></li>
+                <li><a href="{{url('/mobile')}}">手机版</a></li>
             </ul>
         </div>
     </div>

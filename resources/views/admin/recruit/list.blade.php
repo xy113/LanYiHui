@@ -38,7 +38,7 @@
                 @foreach($itemlist as $item)
                     <tr>
                         <td class="center"><input title="" type="checkbox" class="checkbox checkmark itemCheckBox" name="items[]" value="{{$item['id']}}"></td>
-                        <td><img src="{{avatar($item['uid'], 'small')}}" width="50" height="50"></td>
+                        <td><img src="{{image_url($item['image'])}}" width="50" height="50"></td>
                         <th><a href="{{url('/recruit/detail/'.$item['id'].'.html')}}" target="_blank">{{$item['title']}}</a></th>
                         <td>{{$item['num']}}</td>
                         <td>{{$item['typename']}}</td>

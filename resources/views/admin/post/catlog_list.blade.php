@@ -6,7 +6,7 @@
         <h2>文章管理 > 分类管理</h2>
     </div>
     <div class="content-div">
-        <form method="post" action="">
+        <form method="post">
             {{csrf_field()}}
             <input type="hidden" name="formsubmit" value="yes">
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="listtable">

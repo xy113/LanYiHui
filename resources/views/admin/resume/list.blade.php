@@ -39,7 +39,7 @@
                     <tr>
                         <td class="center"><input title="" type="checkbox" class="checkbox checkmark itemCheckBox" name="items[]" value="{{$item['id']}}"></td>
                         <td><img src="{{avatar($item['uid'], 'small')}}" width="50" height="50"></td>
-                        <th><a href="{{url('admin/resume/detail?id='.$item['id'])}}" target="_blank">{{$item['title']}}</a></th>
+                        <th><a href="{{url('admin/resume/detail/'.$item['id'].'.html')}}" target="_blank">{{$item['title']}}</a></th>
                         <td>{{$item['name']}}</td>
                         <td>@if($item['gender'])男@else女@endif</td>
                         <td>{{$item['phone']}}</td>

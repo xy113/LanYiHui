@@ -22,7 +22,9 @@ use App\Models\Settings;
  */
 function setting($name=null, $value=''){
     static $_settings;
-    if (!is_array($_settings)) $_settings = Settings::getCache();
+    if (!is_array($_settings)) {
+        $_settings = Settings::getCache();
+    }
     if (is_null($name)) {
         return $_settings;
     }else {

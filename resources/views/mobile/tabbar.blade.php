@@ -12,23 +12,23 @@
                 </div>
         @endif
         @if ($tab === 'grow')
-                <div class="item">
+                <div class="item" data-link="{{url('/mobile/activity')}}">
                     <div class="item-icon item-grow-active"></div>
-                    <div class="item-title item-title-active">成长</div>
+                    <div class="item-title item-title-active">近期活动</div>
                 </div>
         @else
-                <div class="item">
+                <div class="item" data-link="{{url('/mobile/activity')}}">
                     <div class="item-icon item-grow"></div>
-                    <div class="item-title">成长</div>
+                    <div class="item-title">近期活动</div>
                 </div>
         @endif
         @if ($tab === 'com')
-                <div class="item">
+                <div class="item" data-link="{{url('/mobile/forum')}}">
                     <div class="item-icon item-com-active"></div>
                     <div class="item-title item-title-active">交流</div>
                 </div>
         @else
-                <div class="item">
+                <div class="item" data-link="{{url('/mobile/forum')}}">
                     <div class="item-icon item-com"></div>
                     <div class="item-title">交流</div>
                 </div>

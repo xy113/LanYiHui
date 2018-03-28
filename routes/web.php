@@ -164,6 +164,9 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         Route::post('/link/save', 'LinkController@save');
         Route::post('/link/setimage', 'LinkController@setimage');
 
+        //用户反馈
+        Route::any('/feedback', 'FeedbackController@index');
+
         //企业管理
         Route::any('/company', 'CompanyController@index');
         Route::any('/company/add', 'CompanyController@add');
@@ -172,16 +175,22 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         Route::any('/job/publish', 'JobController@publish');
         //简历管理
         Route::any('/resume', 'ResumeController@index');
-        Route::get('/resume/detail', 'ResumeController@detail');
+        Route::get('/resume/detail/{id}.html', 'ResumeController@detail');
         //联谊会招聘
         Route::any('/recruit', 'RecruitController@index');
         Route::any('/recruit/publish', 'RecruitController@publish');
         Route::any('/recruit/catlog', 'RecruitController@catlog');
+        //讨论区
+        Route::any('/forum/board', 'ForumController@board');
+        Route::any('/forum/itemlist', 'ForumController@itemlist');
+        Route::any('/forum/seticon', 'ForumController@seticon');
     });
 });
 
+//移动版
 Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/', 'IndexController@index');
+    Route::get('/activity', 'ActivityController@index');
 
     Route::get('/post/detail/{aid}.html', 'PostController@detail');
     Route::get('/post/list', 'PostController@itemlist');
@@ -220,4 +229,11 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
 
     Route::get('/favorite', 'FavoriteController@index')->middleware(['mobile.auth']);
     Route::any('/feedback', 'FeedbackController@index')->middleware(['mobile.auth']);
+
+    //交流
+    Route::get('/forum', 'ForumController@index');
+    Route::get('/forum/board/{boardid}', 'ForumController@board');
+    Route::get('/forum/topic/{tid}', 'ForumController@topic');
+    Route::any('/forum/publish', 'ForumController@publish');
+    Route::any('/forum/reply', 'ForumController@reply');
 });

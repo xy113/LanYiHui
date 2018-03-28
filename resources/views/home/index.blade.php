@@ -40,15 +40,15 @@
                     <ul>
                         <li>
                             <h3>{{$memberCount}}</h3>
-                            <p>会员数</p>
+                            <p>会员</p>
                         </li>
                         <li>
                             <h3>{{$articleCount}}</h3>
-                            <p>文章数</p>
+                            <p>文章</p>
                         </li>
                         <li>
                             <h3>{{$jobCount}}</h3>
-                            <p>职位数</p>
+                            <p>职位</p>
                         </li>
                     </ul>
                 </div>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="info">
                                     <div class="name">{{$item['username']}}</div>
-                                    <div class="star"><span class="iconfont icon-favorfill"></span>9645</div>
+                                    <div class="star"><span class="iconfont icon-favorfill"></span>{{$item['stars']}}</div>
                                     <div class="university">{{$item['university']}}</div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
         <div class="blank"></div>
         <div class="area">
             <div class="title-div">
-                <a class="more">更多职位></a>
+                <a href="{{url('/job')}}" class="more">更多职位></a>
                 <strong>最新职位</strong>
             </div>
             <div class="job-wrapper">

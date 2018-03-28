@@ -40,7 +40,7 @@ class WxApi
                 $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$this->appid."&secret=".$this->appsecret;
                 $res = Http::curlGet($url);
                 $data = json_decode($res, true);
-                if ($data['access_token']) {
+                if (isset($data['access_token'])) {
                     $data['expires_time'] = time()+7000;
                     $data['create_time'] = date('Y-m-d H:i:s');
                     Cache::forever('weixin_access_token', $data);
@@ -69,7 +69,7 @@ class WxApi
                 $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=".$this->getAccessToken();
                 $res = Http::curlGet($url);
                 $data = json_decode($res, true);
-                if ($data['ticket']){
+                if (isset($data['ticket'])){
                     $data['expires_time'] = time()+7000;
                     $data['create_time'] = date('Y-m-d H:i:s');
                     Cache::forever('weixin_jsapi_ticket', $data);

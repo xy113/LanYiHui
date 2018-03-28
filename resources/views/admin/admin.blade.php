@@ -70,6 +70,15 @@
                         </ul>
                     </dt>
                 </dl>
+                <dl>
+                    <dd><a><i class="iconfont icon-markfill"></i>讨论区</a></dd>
+                    <dt>
+                        <ul>
+                            <li><a rel="item" data-action="/admin/forum/board">版面管理</a></li>
+                            <li><a rel="item" data-action="/admin/forum/itemlist">话题管理</a></li>
+                        </ul>
+                    </dt>
+                </dl>
                 <!--
                 <dl>
                     <dd><a><i class="iconfont icon-presentfill"></i>商品管理</a></dd>
@@ -143,6 +152,7 @@
                             <li><a rel="item" data-action="/admin/district">地区管理</a></li>
                             <li><a rel="item" data-action="/admin/express">快递管理</a></li>
                             <li><a rel="item" data-action="/admin/link">友情链接</a></li>
+                            <li><a rel="item" data-action="/admin/feedback">用户反馈</a></li>
                         </ul>
                     </dt>
                 </dl>

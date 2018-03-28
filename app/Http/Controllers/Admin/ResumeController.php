@@ -35,8 +35,8 @@ class ResumeController extends BaseController
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function detail(){
-        $id = $this->request->input('id');
+    public function detail($id){
+
         $this->assign(['resume'=>Resume::where('id', $id)->first()]);
 
         return $this->view('admin.resume.detail');

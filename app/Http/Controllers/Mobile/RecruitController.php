@@ -56,6 +56,7 @@ class RecruitController extends Controller
                     'created_at'=>time(),
                     'recruit_id'=>$recruit_id
                 ]);
+                RecruitItem::where('id', $recruit_id)->increment('enrolment');
             }
             return ajaxReturn();
         }else {

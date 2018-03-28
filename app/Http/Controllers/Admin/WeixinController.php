@@ -6,14 +6,15 @@ use App\Models\WeixinMenu;
 use App\WeChat\WxApi\WxMaterialApi;
 use App\WeChat\WxApi\WxMenuApi;
 use App\WeChat\WxApi\WxNewsApi;
-use Illuminate\Http\Request;
 
 class WeixinController extends BaseController
 {
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function menu(){
+
         if ($this->isOnSubmit()) {
             $delete = $this->request->post('delete');
             if ($delete) {
