@@ -7,7 +7,7 @@
 @section('content')
     <div class="console-title">
         <div class="float-right">
-            <form name="search" method="get" action="/admin/post/index">
+            <form name="search" method="get">
                 <input type="hidden" name="searchType" value="0">
                 <input type="text" title="" class="input-text" name="q" value="{{$q or ''}}" placeholder="关键字">
                 <label><button type="submit" class="button">快速搜索</button></label>

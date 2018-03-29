@@ -75,7 +75,7 @@
                     <dt>
                         <ul>
                             <li><a rel="item" data-action="/admin/forum/board">版面管理</a></li>
-                            <li><a rel="item" data-action="/admin/forum/itemlist">话题管理</a></li>
+                            <li><a rel="item" data-action="/admin/forum/topic">话题管理</a></li>
                         </ul>
                     </dt>
                 </dl>

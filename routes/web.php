@@ -182,7 +182,7 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         Route::any('/recruit/catlog', 'RecruitController@catlog');
         //讨论区
         Route::any('/forum/board', 'ForumController@board');
-        Route::any('/forum/itemlist', 'ForumController@itemlist');
+        Route::any('/forum/topic', 'ForumController@topic');
         Route::any('/forum/seticon', 'ForumController@seticon');
     });
 });
@@ -233,7 +233,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     //交流
     Route::get('/forum', 'ForumController@index');
     Route::get('/forum/board/{boardid}', 'ForumController@board');
-    Route::get('/forum/topic/{tid}', 'ForumController@topic');
-    Route::any('/forum/publish', 'ForumController@publish');
-    Route::any('/forum/reply', 'ForumController@reply');
+    Route::get('/forum/topic/{tid}', 'ForumController@topic')->middleware(['mobile.auth']);
+    Route::any('/forum/publish', 'ForumController@publish')->middleware(['mobile.auth']);
+    Route::any('/forum/reply', 'ForumController@reply')->middleware(['mobile.auth']);
 });
