@@ -47,6 +47,7 @@
                         <div class="float-right">{{$pagination}}</div>
                         <label><input type="checkbox" class="checkbox checkall checkmark"> {{trans('common.selectall')}}</label>
                         <label><button type="button" class="btn btn-action" data-action="delete">删除</button></label>
+                        <label><button type="button" class="btn" data-action="refresh">刷新</button></label>
                     </td>
                 </tr>
                 </tfoot>
