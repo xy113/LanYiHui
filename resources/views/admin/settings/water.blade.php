@@ -13,7 +13,7 @@
                     <td class="cell-name" width="90">开启图片水印:</td>
                     <td width="320">
                         <label><input name="settings[water_mark]" value="1" type="radio" class="radio"@if ($settings['water_mark']) checked="checked"@endif> 是</label>
-                        <label><input name="settings[water_mark]" value="0" type="radio" class="radio"@if ($settings['water_mark']) checked="checked"@endif> 否</label>
+                        <label><input name="settings[water_mark]" value="0" type="radio" class="radio"@if (!$settings['water_mark']) checked="checked"@endif> 否</label>
                     </td>
                     <td>是否启用图片水印</td>
                 </tr>

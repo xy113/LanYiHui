@@ -5,8 +5,8 @@
     <title>@yield('title', '用户中心')</title>
     <meta name="keywords" content="@yield('keywords', setting('keywords'))">
     <meta name="description" content="@yield('description', setting('description'))">
-    <link rel="icon" href="{{asset('images/common/favicon.png')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/member.css')}}">
+    <link href="{{asset('images/common/favicon.png')}}" rel="icon">
+    <link href="{{asset('css/member.css')}}" rel="stylesheet" type="text/css">
     <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/common.js')}}" type="text/javascript"></script>
 </head>
@@ -16,11 +16,11 @@
     <div class="area header">
         <strong class="logo"><img src="{{asset('images/common/grzx_logo.png')}}"></strong>
         <div class="right-menu">
-            <a href="/">网站首页</a>
-            <a href="/member/setting">账户中心</a>
-            <a href="/member/wallet">财务中心</a>
-            <a href="/admin">后台管理</a>
-            <a href="/account/logout">退出登录</a>
+            <a href="{{url('/')}}">网站首页</a>
+            <a href="{{url('member/settings/userinfo')}}">账户中心</a>
+            <a href="{{url('member/wallet')}}">财务中心</a>
+            <a href="{{url('admin')}}">后台管理</a>
+            <a href="{{url('account/logout')}}">退出登录</a>
         </div>
     </div>
 </div>
@@ -32,12 +32,20 @@
                 <dd><a><i class="iconfont icon-peoplefill"></i>我的账户</a></dd>
                 <dt>
                     <ul>
-                        <li><a href="/member/settings/userinfo"@if($menu==='userinfo') class="cur"@endif>账户设置</a></li>
-                        <li><a href="/member/settings/security"@if($menu==='security') class="cur"@endif>安全中心</a></li>
-                        <li><a href="/member/wallet"@if($menu==='wallet') class="cur"@endif>我的钱包</a></li>
-                        <li><a href="/member/address"@if($menu==='address') class="cur"@endif>收货地址</a></li>
-                        <li><a href="/member/collection/article"@if($menu==='collection') class="cur"@endif>我的收藏</a></li>
-                        <li><a href="/member/comment"@if($menu==='comment') class="cur"@endif>我的评论</a></li>
+                        <li><a href="{{url('member/settings/userinfo')}}"@if($menu==='userinfo') class="cur"@endif>账户设置</a></li>
+                        <li><a href="{{url('member/settings/security')}}"@if($menu==='security') class="cur"@endif>安全中心</a></li>
+                        <li><a href="{{url('member/settings/archive')}}"@if($menu==='archive') class="cur"@endif>会员资料</a></li>
+                        <li><a href="{{url('member/resume')}}"@if($menu==='resume') class="cur"@endif>我的简历</a></li>
+                        <li><a href="{{url('member/collection/article')}}"@if($menu==='collection') class="cur"@endif>我的收藏</a></li>
+                    </ul>
+                </dt>
+            </dl>
+            <dl>
+                <dd><a><i class="iconfont icon-formfill"></i>信息管理</a></dd>
+                <dt>
+                    <ul>
+                        <li><a href="{{url('member/post')}}"@if($menu==='post') class="cur"@endif>我的文章</a></li>
+                        <li><a href="{{url('member/topic')}}"@if($menu==='topic') class="cur"@endif>我的话题</a></li>
                     </ul>
                 </dt>
             </dl>

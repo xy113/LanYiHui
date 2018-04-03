@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Models\Member;
+use App\Models\MemberArchive;
 use App\Models\MemberInfo;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -25,7 +26,7 @@ class SettingsController extends BaseController
                 'sex_items'=>trans('member.sex_items')
             ]);
 
-            return $this->view('member.userinfo');
+            return $this->view('member.settings.userinfo');
         }
     }
 
@@ -42,19 +43,7 @@ class SettingsController extends BaseController
                 'member'=>Member::where('uid', $this->uid)->first()->toArray(),
             ]);
 
-            return $this->view('member.security');
-        }
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function verify(){
-        if ($this->isOnSubmit()) {
-
-        }else {
-
-            return $this->view('member.verify');
+            return $this->view('member.settings.security');
         }
     }
 
@@ -84,5 +73,22 @@ class SettingsController extends BaseController
         @unlink($source);
 
         return ajaxReturn();
+    }
+
+    public function archive(){
+
+        if ($this->isOnSubmit()) {
+
+        }else {
+
+            $archive = MemberArchive::where('uid', $this->uid)->first();
+            $this->assign([
+                'archive'=>$archive,
+                'menu'=>'archive',
+                'verify_status'=>trans('member.verify_status')
+            ]);
+
+            return $this->view('member.settings.archive');
+        }
     }
 }

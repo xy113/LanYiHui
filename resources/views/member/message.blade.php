@@ -5,7 +5,10 @@
 @stop
 
 @section('content')
-    <div class="area sysmessage">
+    <div class="console-title">
+        <h2>系统提示</h2>
+    </div>
+    <div class="sysmessage" style="margin-top: 30px;">
         <h3 class="{{$type or 'success'}}">{{$msg or ''}}</h3>
         @if($autoredirect)
             <div class="tips">{!! trans('ui.auto_redirect') !!}</div>

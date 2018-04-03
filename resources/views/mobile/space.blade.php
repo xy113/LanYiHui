@@ -10,20 +10,28 @@
         </div>
     </div>
 
-    <div>
-        <ul>
-            <li>学校：{{$archive['university']}}</li>
-            <li>年份：{{$archive['enrollyear']}}</li>
-            <li>专业：{{$archive['major']}}</li>
+    <div class="space-tabs">
+        <ul id="tabs">
+            <li class="active">Ta的文章</li>
+            <li>Ta的话题</li>
         </ul>
     </div>
-
-    <div class="space-content">
-        <h3 class="title">Ta的文章</h3>
-        <ul class="artilelist">
+    <div class="space-content" id="contents">
+        <ul class="itemlist" style="display: block;">
             @foreach ($articlelist as $item)
-                <li><a href="{{post_mobile_url($item['aid'])}}">{{$item['title']}}</a></li>
+                <li data-link="{{post_mobile_url($item['aid'])}}">{{$item['title']}}</li>
+            @endforeach
+        </ul>
+        <ul class="itemlist">
+            @foreach ($topiclist as $item)
+                <li data-link="{{url('mobile/forum/topic/'.$item['tid'])}}">{{$item['title']}}</li>
             @endforeach
         </ul>
     </div>
+    <script type="text/javascript">
+        $("#tabs>li").on('click', function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            $("#contents>ul").eq($(this).index()).show().siblings().hide();
+        })
+    </script>
 @stop

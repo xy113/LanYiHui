@@ -22,7 +22,7 @@ ul,li,p,form,dd,dl,dt,h1,h2,h3,h4,h5{
     margin:0;
     list-style:none;
 }
-a,a:link,a:visited,a:active{
+a:link,a:visited,a:active{
     color:#3c3c3c;
     text-decoration:none;
     cursor:pointer;
@@ -130,3 +130,8 @@ h1:after,h2:after,h3:after,h4:after,h5:after{
 .sysmessage .tips{text-align:center; font-size:12px; height:30px; line-height:30px; margin-top:20px;}
 .sysmessage .links{text-align:center; font-size:14px; height:30px; line-height:30px; margin-top:20px;}
 .sysmessage .links a{margin:0 3px;}
+
+#footer{clear:both; padding:10px 0 30px; margin-top:30px; color:#333;}
+#footer .bottomNav{text-align:center; color:#f0f0f0;}
+#footer .bottomNav a{color:#333; margin:0 3px;}
+#footer .copyright{color:#999; text-align:center; line-height:30px;}

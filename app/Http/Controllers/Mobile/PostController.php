@@ -45,4 +45,20 @@ class PostController extends BaseController
         ]);
         return $this->view('mobile.post.list');
     }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getjson(){
+        $condition = [['status', '=', 1]];
+        $catid = $this->request->input('catid');
+        if ($catid) $condition[] = ['catid', '=', $catid];
+
+        $itemlist = PostItem::where($condition)->orderBy('aid', 'DESC')->paginate(10)->map(function ($item){
+            $item->image = image_url($item->image);
+            $item->created_at = @date('Y-m-d H:i', $item->created_at);
+            return $item;
+        });
+        return ajaxReturn($itemlist);
+    }
 }

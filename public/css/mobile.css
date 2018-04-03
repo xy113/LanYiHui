@@ -1359,25 +1359,44 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 }
 
 /*个人空间*/
+.space-tabs{
+    display: block;
+    background-color: #fff;
+    border-bottom: 1px #e7e7e7 solid;
+}
+.space-tabs ul{
+    display: flex;
+}
+
+.space-tabs ul li{
+    flex: 1;
+    padding: 10px 0;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+}
+.space-tabs ul li.active{
+    color: #ff0000;
+    border-bottom: 2px #FF0000 solid;
+}
+
 .space-content{
-    display: inline-block;
+    display: block;
     padding: 10px;
     background-color: #fff;
 }
 
-.space-content h3.title{
-    font-size: 18px;
-    color: #000;
+.space-content .itemlist{
+    display: none;
 }
 
-.space-content .artilelist{
+.space-content .itemlist li{
     display: block;
-}
-
-.space-content .artilelist li{
-    display: block;
-    padding: 5px 0;
+    padding: 15px 0;
     font-size: 16px;
+    border-bottom: 1px #e7e7e7 dotted;
 }
 
 /*近期活动*/
@@ -1702,4 +1721,52 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     background-color: #fff;
     padding: 10px;
     display: block;
+}
+
+/*我的收藏*/
+.favor-tabs-wrapper{
+    display: block;
+    height: 49px;
+    position: relative;
+}
+
+.favor-tabs-fixed{
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
+    height: 49px;
+    border-bottom: 1px #e7e7e7 solid;
+}
+
+.favor-tabs-fixed ul{
+    display: flex;
+    height: 100%;
+}
+
+.favor-tabs-fixed ul li{
+    flex: 1;
+    height: 49px;
+    line-height:49px;
+    display: block;
+    text-align: center;
+}
+
+.favor-tabs-fixed ul li.active{
+    color: #FF0000;
+    border-bottom: 2px #FF0000 solid;
+}
+
+.favor-wrapper{
+    display: block;
+    padding: 0 15px;
+    background-color: #fff;
+}
+
+.favor-wrapper ul{}
+.favor-wrapper ul li{
+    font-size: 16px;
+    height: 46px;
+    line-height: 46px;
+    overflow: hidden;
+    border-bottom: 1px #e5e5e5 solid;
 }

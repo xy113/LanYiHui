@@ -19,7 +19,7 @@ Route::group(['namespace' => 'Member', 'middleware' => 'member.auth', 'prefix' =
     Route::get('/', 'IndexController@index');
     Route::any('/settings/userinfo', 'SettingsController@userinfo');
     Route::any('/settings/security', 'SettingsController@security');
-    Route::any('/settings/verify', 'SettingsController@verify');
+    Route::any('/settings/archive', 'SettingsController@archive');
     Route::any('/settings/set_avatar', 'SettingsController@set_avatar');
 
     Route::any('/wallet', 'WalletController@index');
@@ -29,6 +29,13 @@ Route::group(['namespace' => 'Member', 'middleware' => 'member.auth', 'prefix' =
     Route::any('/collection/delete', 'CollectionController@delete');
     Route::any('/collection/{type}', 'CollectionController@index');
     Route::any('/comment', 'CommentController@index');
+
+    Route::any('/post','PostController@index');
+    Route::any('/post/publish', 'PostController@publish');
+
+    Route::any('/topic', 'TopicController@index');
+    Route::any('/resume', 'ResumeController@index');
+    Route::any('/resume/add', 'ResumeController@add');
 });
 
 Route::get('/avatar/{code}', 'Plugin\AvatarController@index');
@@ -194,6 +201,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
 
     Route::get('/post/detail/{aid}.html', 'PostController@detail');
     Route::get('/post/list', 'PostController@itemlist');
+    Route::get('/post/getjson', 'PostController@getjson');
 
     Route::get('/job/list', 'JobController@itemlist');
     Route::get('/job/detail/{id}.html', 'JobController@detail');
@@ -228,6 +236,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::any('/recruit/enroll', 'RecruitController@enroll')->middleware('member.auth');
 
     Route::get('/favorite', 'FavoriteController@index')->middleware(['mobile.auth']);
+    Route::get('/favorite/getjson', 'FavoriteController@getjson')->middleware(['mobile.auth']);
     Route::any('/feedback', 'FeedbackController@index')->middleware(['mobile.auth']);
 
     //交流

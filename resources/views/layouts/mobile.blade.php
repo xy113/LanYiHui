@@ -14,9 +14,19 @@
     @yield('styles')
     <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/common.js')}}" type="text/javascript"></script>
-    <script src="{{asset('js/angular.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/jquery.mobile.touch.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/vue.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/vue-resource@1.5.0')}}" type="text/javascript"></script>
     @yield('scripts')
+    <script type="text/javascript">
+        var g_config = {
+            baseUrl : '{{url('/')}}',
+
+        }
+        window.redirect = function (url) {
+            window.location.href = url;
+        }
+    </script>
 </head>
 <body>
 <div class="page">
@@ -24,10 +34,12 @@
 </div>
 
 <script type="text/javascript">
-    $("[data-link]").on('tap', function () {
-        if ($(this).attr('data-link')){
-            window.location.href = $(this).attr('data-link');
-        }
+    $(document).ready(function () {
+        $("[data-link]").on('tap', function () {
+            if ($(this).attr('data-link')){
+                window.location.href = $(this).attr('data-link');
+            }
+        });
     });
 </script>
 </body>

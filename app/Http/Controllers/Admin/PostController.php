@@ -313,6 +313,7 @@ class PostController extends BaseController
             }else {
                 PostContent::insert([
                     'aid'=>$aid,
+                    'uid'=>$this->uid,
                     'content'=>$content,
                     'created_at'=>time()
                 ]);
@@ -362,6 +363,7 @@ class PostController extends BaseController
             if ($media && $media['original_url']){
                 if ($source = VideoParser::parse($media['original_url'])) {
                     $media['aid'] = $aid;
+                    $media['uid'] = $this->uid;
                     $media['media_source'] = $source->swf;
                     $media['media_thumb'] = $source->img;
                     $media['media_link'] = $source->url;
