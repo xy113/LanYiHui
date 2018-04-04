@@ -1056,7 +1056,7 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 .member-archive{
     display: block;
     background-color: #fff;
-    padding: 20px 0;
+    padding: 5px 0 20px;
 }
 
 .member-archive .row{
@@ -1072,7 +1072,13 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     width: 120px;
     min-width: 120px;
     max-width: 120px;
+    padding: 0 0px 0 30px;
 }
+/*.member-archive .row .label:after{*/
+    /*content: "";*/
+    /*padding-left: 100%;*/
+    /*display: inline-block;*/
+/*}*/
 
 .member-archive .row .content{
     flex: 1;
@@ -1080,6 +1086,10 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     display: block;
     margin-left: 10px;
     position: relative;
+    text-align: left;
+}
+.member-archive .row .content:before{
+    content: ': ';
 }
 
 .member-archive .noaccess{
@@ -1769,4 +1779,41 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     line-height: 46px;
     overflow: hidden;
     border-bottom: 1px #e5e5e5 solid;
+}
+
+.setting-box{
+    position: relative;
+    padding: 5px 0 10px 0;
+    background-color: #fff;
+    text-align: center;
+    width: 96%;
+    margin: 5px auto;
+}
+.setting-box .avatar{
+    width: 25%;
+    border-radius: 50%;
+    border: 5px #FFF solid;
+    margin: auto;
+    display: block;
+}
+.setting-box > span{
+    font-size: 14px;
+    color: #aaaaaa;
+}
+.setting-box .title{
+    width: 100%;
+    text-align: left;
+    padding: 5px 10px 0px;
+}
+.setting-box .edit-link{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: lightseagreen;
+}
+.setting-box .webuploader-pick{
+    background-color: inherit;
+    color: lightseagreen;
+    padding: 5px 10px;
 }

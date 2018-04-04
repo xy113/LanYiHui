@@ -11,6 +11,7 @@
     <meta name="_token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('images/common/favicon.png')}}">
     <link rel="stylesheet" href="{{asset('css/mobile.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/iconfont.css')}}" type="text/css">
     @yield('styles')
     <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/common.js')}}" type="text/javascript"></script>

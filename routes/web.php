@@ -42,7 +42,7 @@ Route::get('/avatar/{code}', 'Plugin\AvatarController@index');
 Route::group(['namespace'=>'Plugin', 'prefix'=>'plugin'], function (){
     Route::get('/image', 'ImageController@index');
 });
-
+Route::get('test','Controller@test');
 Route::group(['namespace' => 'Account', 'prefix'=>'account'], function (){
     Route::get('/login', 'LoginController@index');
     Route::post('/login/check', 'LoginController@check');
@@ -214,6 +214,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
 
     Route::get('/member', 'MemberController@index');
     Route::get('/member/archive', 'MemberController@archive')->middleware('mobile.auth');
+    Route::any('/member/edit', 'MemberController@edit')->middleware('mobile.auth');
 
     Route::get('/pages/list', 'PagesController@index');
     Route::get('/pages/detail/{pageid}.html', 'PagesController@detail');
