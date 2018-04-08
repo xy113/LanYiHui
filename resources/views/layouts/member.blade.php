@@ -34,7 +34,7 @@
                     <ul>
                         <li><a href="{{url('member/settings/userinfo')}}"@if($menu==='userinfo') class="cur"@endif>账户设置</a></li>
                         <li><a href="{{url('member/settings/security')}}"@if($menu==='security') class="cur"@endif>安全中心</a></li>
-                        <li><a href="{{url('member/settings/archive')}}"@if($menu==='archive') class="cur"@endif>会员资料</a></li>
+                        <li><a href="{{url('member/settings/archive')}}"@if($menu==='archive') class="cur"@endif>会员档案</a></li>
                         <li><a href="{{url('member/resume')}}"@if($menu==='resume') class="cur"@endif>我的简历</a></li>
                         <li><a href="{{url('member/collection/article')}}"@if($menu==='collection') class="cur"@endif>我的收藏</a></li>
                     </ul>

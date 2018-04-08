@@ -2,10 +2,7 @@
 
 @section('content')
     <div class="console-title">
-        <ul class="tab">
-            <li class="on"><a>基本信息</a></li>
-            <li><a href="/member/settings/security">安全设置</a></li>
-        </ul>
+        <h2>账号设置</h2>
     </div>
     <div class="blank"></div>
     <div class="avatar-div">

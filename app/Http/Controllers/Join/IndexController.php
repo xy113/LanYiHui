@@ -16,7 +16,7 @@ class IndexController extends BaseController
         parent::__construct($request);
         $this->middleware(function (Request $req, $next){
             if (MemberArchive::where('uid', $this->uid)->exists()){
-                return redirect()->to('/member');
+                return redirect()->to('member/settings/archive');
             }
             return $next($req);
         })->except(['index']);

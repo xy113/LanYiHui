@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Home;
 
 use App\Models\BlockItem;
+use App\Models\Company;
 use App\Models\Job;
 use App\Models\MemberArchive;
 use App\Models\PostItem;
 use App\Http\Controllers\Controller;
+use App\Models\Resume;
 use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
@@ -22,7 +24,9 @@ class IndexController extends Controller
             'newslist'=>PostItem::where('status', 1)->limit(6)->orderBy('aid', 'DESC')->get(),
             'articleCount'=>PostItem::where('status', 1)->count(),
             'memberCount'=>MemberArchive::where('status', 1)->count(),
-            'jobCount'=>Job::count()
+            'jobCount'=>Job::count(),
+            'companyCount'=>Company::count(),
+            'resumeCount'=>Resume::count()
         ]);
 
         $jobList = DB::table('job AS j')->leftJoin('company AS c', 'c.company_id', '=', 'j.company_id')

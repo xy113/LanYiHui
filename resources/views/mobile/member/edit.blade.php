@@ -2,6 +2,10 @@
 
 @section('title', '修改信息')
 
+@section('styles')
+    <link rel="stylesheet" href="{{asset('css/iconfont.css')}}" type="text/css">
+@stop
+
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{asset('css/date.css')}}">
     <div class="resume">

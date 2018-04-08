@@ -50,6 +50,14 @@
                             <h3>{{$jobCount}}</h3>
                             <p>职位</p>
                         </li>
+                        <li>
+                            <h3>{{$companyCount}}</h3>
+                            <p>企业</p>
+                        </li>
+                        <li>
+                            <h3>{{$resumeCount}}</h3>
+                            <p>简历</p>
+                        </li>
                     </ul>
                 </div>
             </div>

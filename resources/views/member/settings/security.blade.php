@@ -2,10 +2,7 @@
 
 @section('content')
     <div class="console-title">
-        <ul class="tab">
-            <li><a href="/member/settings/userinfo">基本信息</a></li>
-            <li class="on"><a>安全设置</a></li>
-        </ul>
+        <h2>安全中心</h2>
     </div>
     <div id="userinfo-table-wrap">
         <table width="100%" cellpadding="0" cellspacing="0" border="0" class="formtable">
