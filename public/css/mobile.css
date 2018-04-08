@@ -81,6 +81,7 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 .form-wrap{
     display: block;
     background-color: #fff;
+    padding: 1rem;
 }
 
 .form-wrap .form-group{
@@ -92,7 +93,7 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     text-align: right;
     float: left;
     padding-top: 10px;
-    font-size: 16px;
+    font-size: 14px;
     flex: 1;
     width: 72px;
     min-width: 72px;
@@ -101,7 +102,7 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 
 .form-wrap .form-group .content{
     flex: 1;
-    font-size: 16px;
+    font-size: 14px;
     display: block;
     margin-left: 10px;
     margin-right: 10px;
@@ -110,18 +111,18 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 
 .form-wrap .form-group .input-text{
     width: 100%;
-    height: 40px;
+    height: 36px;
     border-radius: 5px;
     padding: 0 10px;
-    font-size: 16px;
+    font-size: 14px;
     -webkit-appearance: none;
     -moz-appearance: none;
 }
 
 .form-wrap .form-group .button{
-    height: 40px;
-    line-height: 40px;
-    font-size: 16px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
     text-align: center;
     width: 140px;
 }
@@ -130,9 +131,9 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     -webkit-appearance: none;
     -moz-appearance: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     width: 100%;
-    height: 200px;
+    height: 180px;
 }
 
 .global-menus{
@@ -1153,7 +1154,6 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 .resume{
     display: block;
     background-color: #fff;
-    padding: 0 15px;
 }
 
 .resume .resume-list{
@@ -1162,7 +1162,7 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 
 .resume .resume-list li{
     display: block;
-    padding: 15px 0;
+    padding: 15px;
     border-bottom: 1px #e7e7e7 solid;
 }
 
@@ -1184,7 +1184,7 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 .resume .resume-detail{
     display: block;
     background-color: #fff;
-    padding: 20px 0;
+    padding: 20px;
 }
 
 .resume .resume-detail .row{
@@ -1816,4 +1816,46 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     background-color: inherit;
     color: lightseagreen;
     padding: 5px 10px;
+}
+
+.list-box{
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #f8f8f8;
+}
+.list-box .notice{
+    text-align: center;
+    font-size: 14px;
+    color: #dddddd;
+    padding: 5px;
+}
+.list-box .resume-li{
+    position: relative;
+    font-size: 12px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #eeeeee;
+    color: #888888;
+}
+.list-box .resume-li .mainInfo{
+    margin: 0.5rem 0;
+    font-size: 14px;
+    color: #555555;
+}
+
+.list-box .resume-li > a{
+    position: absolute;
+    right: 0rem;
+    top: 0;
+    color: lightseagreen;
+    font-size: 13px;
+    padding: 0.5rem;
+}
+
+.list-box .add-btn{
+    color: lightseagreen;
+    font-size:0.8rem;
+    text-align: center;
+    padding: 0.5rem;
+    display: block;
 }

@@ -71,7 +71,7 @@
             setM:bmonth,
             setD:bday,
             curdate:false
-        })
+        });
 
         $("#submit").on('click', function () {
             var name = $.trim($("#name").val());

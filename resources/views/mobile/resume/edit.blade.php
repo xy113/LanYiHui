@@ -8,63 +8,106 @@
             {{csrf_field()}}
             <input type="hidden" name="formsubmit" value="yes">
             <div class="form-wrap">
-                <div class="form-group">
-                    <div class="label">简历名称</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[title]" id="title" value="{{$resume['title']}}" placeholder="简历名称"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">姓名</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[name]" id="name" value="{{$resume['name']}}" placeholder="你的姓名"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">性别</div>
-                    <div class="content" style="padding-top: 7px">
-                        <label><input type="radio" class="radio" name="resume[gender]" value="0"@if($resume['gender']==0) checked="checked"@endif> 女</label>
-                        <label><input type="radio" class="radio" name="resume[gender]" value="1"@if($resume['gender']==1) checked="checked"@endif> 男</label>
+                <div class="list-box">
+                    <h4>基本信息</h4>
+                    <div>
+                        <div class="form-group">
+                            <div class="label">简历名称</div>
+                            <div class="content"><input type="text" class="input-text" name="resume[title]" id="title" value="{{$resume['title']}}" placeholder="简历名称"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">姓名</div>
+                            <div class="content"><input type="text" class="input-text" name="resume[name]" id="name" value="{{$resume['name']}}" placeholder="你的姓名"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">性别</div>
+                            <div class="content" style="padding-top: 7px">
+                                <label><input type="radio" class="radio" name="resume[gender]" value="0"@if($resume['gender']==0) checked="checked"@endif> 女</label>
+                                <label><input type="radio" class="radio" name="resume[gender]" value="1"@if($resume['gender']==1) checked="checked"@endif> 男</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">年龄</div>
+                            <div class="content"><input type="text" class="input-text" name="resume[age]" id="age" value="{{$resume['age']}}" placeholder="你的年龄"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">电话</div>
+                            <div class="content"><input type="text" class="input-text" name="resume[phone]" id="phone" value="{{$resume['phone']}}" placeholder="电话号码"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">邮箱</div>
+                            <div class="content"><input type="text" class="input-text" name="resume[email]" id="email" value="{{$resume['email']}}" placeholder="电子邮箱"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">最高学历</div>
+                            <div class="content"><input type="text" class="input-text" name="resume[education]" id="education" value="{{$resume['education']}}" placeholder="最高学历"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">工作经验</div>
+                            <div class="content"><input type="text" class="input-text" name="resume[work_exp]" id="work_exp" value="{{$resume['work_exp']}}" placeholder="工作经验，单位:年"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">个人介绍</div>
+                            <div class="content">
+                                <textarea class="textarea" name="resume[introduction]" id="introduction" placeholder="简单简绍一下你自己">{{$resume['introduction']}}</textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="label">年龄</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[age]" id="age" value="{{$resume['age']}}" placeholder="你的年龄"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">电话</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[phone]" id="phone" value="{{$resume['phone']}}" placeholder="电话号码"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">邮箱</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[email]" id="email" value="{{$resume['email']}}" placeholder="电子邮箱"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">毕业学校</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[university]" id="university" value="{{$resume['university']}}" placeholder="毕业学校"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">毕业年份</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[graduation_year]" id="graduation_year" value="{{$resume['graduation_year']}}" placeholder="毕业年份"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">最高学历</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[education]" id="education" value="{{$resume['education']}}" placeholder="最高学历"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">所学专业</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[major]" id="major" value="{{$resume['major']}}" placeholder="所学专业"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">工作经验</div>
-                    <div class="content"><input type="text" class="input-text" name="resume[work_exp]" id="work_exp" value="{{$resume['work_exp']}}" placeholder="工作经验，单位:年"></div>
-                </div>
-                <div class="form-group">
-                    <div class="label">工作经历</div>
-                    <div class="content">
-                        <textarea class="textarea" name="resume[work_history]" id="work_history" placeholder="填写你的就业经历">{{$resume['work_history']}}</textarea>
+                <div class="list-box">
+                    <h4>教育经历</h4>
+                    <div>
+                        @forelse ($edus as $edu)
+                            <div class="resume-li">
+                                <a href="{{url('/mobile/resume/edu?id='.$edu->id.'&resume='.$resume['id'])}}" class="iconfont icon-edit">编辑</a>
+                                <div>{{$edu->end_time}}年毕业</div>
+                                <div class="mainInfo">{{$edu->school}}</div>
+                                <div>
+                                    @switch($edu->degree)
+                                        @case('1')
+                                        小学
+                                        @break
+                                        @case('2')
+                                        初中
+                                        @break
+                                        @case('3')
+                                        高中
+                                        @break
+                                        @case('4')
+                                        本科
+                                        @break
+                                        @case('5')
+                                        硕士
+                                        @break
+                                        @case('6')
+                                        博士
+                                        @break
+                                        @default
+                                        其他
+                                        @endswitch
+                                    ·{{$edu->major}}
+                                </div>
+                            </div>
+                        @empty
+                            <p class="notice">暂无教育经历</p>
+                        @endforelse
+                            <a href="{{url('/mobile/resume/edu?resume='.$resume['id'])}}" class="add-btn iconfont icon-add"> 添加</a>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="label">个人介绍</div>
-                    <div class="content">
-                        <textarea class="textarea" name="resume[introduction]" id="introduction" placeholder="简单简绍一下你自己">{{$resume['introduction']}}</textarea>
+                <div class="list-box">
+                    <h4>工作经历</h4>
+                    <div>
+                        @forelse($works as $work)
+                            <div class="resume-li">
+                                <a href="{{url('/mobile/resume/work?id='.$work['id'].'&resume='.$resume['id'])}}" class="iconfont icon-edit">编辑</a>
+                                <div>{{$work->start_time}} - {{$work->end_time}}</div>
+                                <div class="mainInfo">{{$work->job}}·{{$work->company}}</div>
+                                <div>{{$work->experience}}</div>
+                            </div>
+                            @empty
+                            <p class="notice">暂无工作经历</p>
+                        @endforelse
+                        <a href="{{url('/mobile/resume/work?&resume='.$resume['id'])}}" class="add-btn iconfont icon-add"> 添加</a>
                     </div>
                 </div>
                 <div class="form-group">

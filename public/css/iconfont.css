@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';  /* project id 616205 */
-  src: url('//at.alicdn.com/t/font_616205_ykqqjopwjzxxyldi.eot');
-  src: url('//at.alicdn.com/t/font_616205_ykqqjopwjzxxyldi.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_616205_ykqqjopwjzxxyldi.woff') format('woff'),
-  url('//at.alicdn.com/t/font_616205_ykqqjopwjzxxyldi.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_616205_ykqqjopwjzxxyldi.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_616205_8pc4e6olkw2sxlxr.eot');
+  src: url('//at.alicdn.com/t/font_616205_8pc4e6olkw2sxlxr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_616205_8pc4e6olkw2sxlxr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_616205_8pc4e6olkw2sxlxr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_616205_8pc4e6olkw2sxlxr.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -16,4 +16,5 @@
 }
 
 .icon-edit:before { content: "\e623"; }
+.icon-add:before { content: "\e612"; }
 
