@@ -53,6 +53,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="label"></div>
+                        <div class="content">
+                            <button type="button" id="submit" class="button">保存</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="list-box">
                     <h4>教育经历</h4>
@@ -108,12 +114,6 @@
                             <p class="notice">暂无工作经历</p>
                         @endforelse
                         <a href="{{url('/mobile/resume/work?&resume='.$resume['id'])}}" class="add-btn iconfont icon-add"> 添加</a>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="label"></div>
-                    <div class="content">
-                        <button type="button" id="submit" class="button">保存</button>
                     </div>
                 </div>
             </div>
