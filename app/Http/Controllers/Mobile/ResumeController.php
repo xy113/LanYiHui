@@ -81,10 +81,12 @@ class ResumeController extends BaseController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function detail($id){
-
+        $resume = Resume::where(['uid'=>$this->uid, 'id'=>$id])->first();
         $this->assign([
             'id'=>$id,
-            'resume'=>Resume::where(['uid'=>$this->uid, 'id'=>$id])->first()
+            'resume'=>$resume,
+            'edus'=>$resume->edus,
+            'works'=>$resume->works
         ]);
 
         return $this->view('mobile.resume.detail');

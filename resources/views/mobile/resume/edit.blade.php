@@ -151,39 +151,15 @@
                 return false;
             }
 
-            var university = $.trim($("#university").val());
-            if (!university) {
-                DSXUI.error('请填写毕业院校');
-                return false;
-            }
-
-            var graduation_year = $.trim($("#graduation_year").val());
-            if (!graduation_year) {
-                DSXUI.error('请填写毕业年份');
-                return false;
-            }
-
             var education = $.trim($("#education").val());
             if (!education) {
                 DSXUI.error('请填写学历');
                 return false;
             }
 
-            var major = $.trim($("#major").val());
-            if (!major) {
-                DSXUI.error('请填写专业');
-                return false;
-            }
-
             var work_exp = $.trim($("#work_exp").val());
             if (!work_exp) {
                 DSXUI.error('请填写工作经验');
-                return false;
-            }
-
-            var work_history = $.trim($("#work_history").val());
-            if (!work_history) {
-                DSXUI.error('请填写工作经历');
                 return false;
             }
 
