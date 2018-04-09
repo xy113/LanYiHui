@@ -13,7 +13,7 @@ class ResumeController extends BaseController
      */
     public function index(){
 
-        $itemlist = Resume::where('uid', $this->uid)->get();
+        $itemlist = Resume::where(['uid'=> $this->uid, 'status'=>'1'])->get();
         $this->assign(['itemlist'=>$itemlist]);
 
         return $this->view('mobile.resume.index');
@@ -29,10 +29,12 @@ class ResumeController extends BaseController
             $resume = $this->request->post('resume');
             if ($id) {
                 $resume['updated_at'] = time();
+                $resume['status'] = '1';
                 Resume::where(['uid'=>$this->uid, 'id'=>$id])->update($resume);
             }else {
                 $resume['created_at'] = time();
                 $resume['uid'] = $this->uid;
+                $resume['status'] = '1';
                 Resume::insert($resume);
             }
             return ajaxReturn();
@@ -53,6 +55,10 @@ class ResumeController extends BaseController
                     'work_exp'=>'',
                     'work_history'=>'',
                     'introduction'=>''
+                ],
+                'edus'=>[
+                ],
+                'works'=>[
                 ]
             ]);
 
@@ -60,6 +66,16 @@ class ResumeController extends BaseController
                 $resume = Resume::where(['uid'=>$this->uid,'id'=>$id])->first();
                 $edus = $resume->edus;
                 if ($resume) $this->assign(['resume'=>$resume,'edus'=>$edus,'works'=>$resume->works]);
+            }else{
+                $old = Resume::where(['uid'=>$this->uid,'status'=>'0'])->first();
+                if ($old){
+                    return redirect('/mobile/resume/edit?id='.$old['id']);
+                }else{
+                    $resume = new Resume;
+                    $resume['uid'] = $this->uid;
+                    $resume->save();
+                    return redirect('/mobile/resume/edit?id='.$resume['id']);
+                }
             }
 
             return $this->view('mobile.resume.edit');
