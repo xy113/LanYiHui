@@ -447,26 +447,30 @@ function rejectNullValues($array){
 }
 
 /**
- * @param null $data
+ * @param array $data
  * @return \Illuminate\Http\JsonResponse
  */
-function ajaxReturn($data = null){
-    $return = array('errcode'=>0,'errmsg'=>'success');
-    if (!is_null($data)) $return['data'] = $data;
-    //return response(json_encode($return, JSON_UNESCAPED_UNICODE))->header('Content-type', 'application/json');
+function ajaxReturn($data = []){
+    $return = [
+        'errcode'=>0,
+        'errmsg'=>'success'
+    ];
+    if ($data) $return['data'] = $data;
     return response()->json($return);
 }
 
 /**
  * @param $errcode
  * @param $errmsg
- * @param null $data
+ * @param array $data
  * @return \Illuminate\Http\JsonResponse
  */
-function ajaxError($errcode, $errmsg, $data=null){
-    $return = array('errcode'=>$errcode,'errmsg'=>$errmsg);
-    if (!is_null($data)) $return['data'] = $data;
-    //return response(json_encode($return, JSON_UNESCAPED_UNICODE))->header('Content-type', 'application/json');
+function ajaxError($errcode, $errmsg, array $data=[]){
+    $return = [
+        'errcode'=>$errcode,
+        'errmsg'=>$errmsg
+    ];
+    if ($data) $return['data'] = $data;
     return response()->json($return);
 }
 
