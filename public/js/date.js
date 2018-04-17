@@ -624,7 +624,7 @@
             datetime = true;
         }
         if(opts.setY){
-            initY = parseInt(opts.setY);
+            initY = parseInt((opts.setY).substr(1,2));
         }
         if(opts.setM){
             initM = parseInt(opts.setM);
@@ -685,7 +685,6 @@
         }
 
         function resetInitDete() {
-
             if (opts.curdate) {
                 return false;
             } else if (that.val() === "") {
@@ -693,7 +692,7 @@
             }
 
             initY = parseInt(that.val().substr(2, 2));
-            if (opts.beginyear < 2000) {
+            if (parseInt(that.val().substr(0,4)) > 1999) {
                 initY = initY + 100;
             }
             initM = parseInt(that.val().substr(5, 2));
