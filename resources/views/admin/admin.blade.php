@@ -79,6 +79,14 @@
                         </ul>
                     </dt>
                 </dl>
+                <dl>
+                    <dd><a><i class="iconfont icon-vipcard"></i>校友录管理</a></dd>
+                    <dt>
+                        <ul>
+                            <li><a rel="item" data-action="/admin/schoolfellow/school">学校列表</a></li>
+                        </ul>
+                    </dt>
+                </dl>
                 <!--
                 <dl>
                     <dd><a><i class="iconfont icon-presentfill"></i>商品管理</a></dd>

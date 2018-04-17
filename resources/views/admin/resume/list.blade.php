@@ -43,8 +43,8 @@
                         <td>{{$item['name']}}</td>
                         <td>@if($item['gender'])男@else女@endif</td>
                         <td>{{$item['phone']}}</td>
-                        <td>{{$item['university']}}</td>
-                        <td>{{$item['major']}}</td>
+                        <td>{{$item->edus()->orderBy('id', 'ASC')->first()['school']?$item->edus()->orderBy('id', 'ASC')->first()['school']:'暂无'}}</td>
+                        <td>{{$item->edus()->orderBy('id', 'ASC')->first()['major']?$item->edus()->orderBy('id', 'ASC')->first()['major']:'暂无'}}</td>
                         <td>{{$item['work_exp']}}</td>
                         <td>{{$item['views']}}</td>
                     </tr>
@@ -57,6 +57,7 @@
                         <label><input type="checkbox" class="checkbox checkall checkmark"> {{trans('common.selectall')}}</label>
                         <label><button type="button" class="btn btn-action" data-action="delete">删除</button></label>
                         <label><button type="button" class="btn" onclick="DSXUtil.reFresh()">刷新</button></label>
+                        {{$itemlist->currentPage()}}
                     </td>
                 </tr>
                 </tfoot>

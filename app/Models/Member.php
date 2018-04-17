@@ -21,4 +21,21 @@ class Member extends BaseModel
         MemberField::where('uid', $uid)->delete();
         MemberInfo::where('uid', $uid)->delete();
     }
+
+    public function schools()
+    {
+        return $this->belongsToMany('App\Models\School','schoolfellow','uid','school_id');
+    }
+    public function apply(){
+        return $this->belongsToMany('App\Models\School','schoolfellow','uid','school_id')->withPivot('degree', 'major','created_at')->wherePivot('status','0');
+    }
+    public function refused(){
+        return $this->belongsToMany('App\Models\School','schoolfellow','uid','school_id')->wherePivot('status','-1');
+    }
+    public function entered(){
+        return $this->belongsToMany('App\Models\School','schoolfellow','uid','school_id')->withPivot('degree', 'major','created_at')->wherePivot('status','1');
+    }
+    public function info(){
+        return $this->hasOne('App\Models\MemberInfo','uid','uid');
+    }
 }

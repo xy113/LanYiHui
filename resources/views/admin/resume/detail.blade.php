@@ -49,20 +49,46 @@
             <td>{{$resume['email']}}</td>
         </tr>
         <tr>
-            <td>毕业学校</td>
-            <td>{{$resume['university']}}</td>
-        </tr>
-        <tr>
-            <td>毕业年份</td>
-            <td>{{$resume['graduation_year']}}</td>
-        </tr>
-        <tr>
             <td>最高学历</td>
             <td>{{$resume['education']}}</td>
         </tr>
         <tr>
-            <td>所选专业</td>
-            <td>{{$resume['major']}}</td>
+            <td>教育经历</td>
+            <td>
+                @forelse ($edus as $edu)
+                    <div style="border-bottom: 1px solid #ccc">
+                        <div>{{$edu->end_time}}年毕业</div>
+                        <div class="mainInfo">{{$edu->school}}</div>
+                        <div>
+                            @switch($edu->degree)
+                                @case('1')
+                                小学
+                                @break
+                                @case('2')
+                                初中
+                                @break
+                                @case('3')
+                                高中
+                                @break
+                                @case('4')
+                                本科
+                                @break
+                                @case('5')
+                                硕士
+                                @break
+                                @case('6')
+                                博士
+                                @break
+                                @default
+                                其他
+                            @endswitch
+                             | {{$edu->major}}
+                        </div>
+                    </div>
+                @empty
+                    暂无
+                @endforelse
+            </td>
         </tr>
         <tr>
             <td>工作经验</td>
@@ -70,7 +96,17 @@
         </tr>
         <tr>
             <td>就职经历</td>
-            <td>{{$resume['work_history']}}</td>
+            <td>
+                @forelse($works as $work)
+                    <div style="border-bottom: 1px solid #ccc">
+                        <div>{{$work->start_time}} - {{$work->end_time}}</div>
+                        <div class="mainInfo">{{$work->job}} | {{$work->company}}</div>
+                        <div>{{$work->experience}}</div>
+                    </div>
+                @empty
+                    暂无
+                @endforelse
+            </td>
         </tr>
         <tr>
             <td>个人介绍</td>

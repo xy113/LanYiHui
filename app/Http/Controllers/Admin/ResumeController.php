@@ -21,8 +21,7 @@ class ResumeController extends BaseController
             }
             return ajaxReturn();
         }else {
-            $items = Resume::orderBy('id', 'DESC')->paginate(20);
-
+            $items = Resume::where('status','1')->orderBy('id', 'DESC')->paginate(20);
             $this->assign([
                 'itemlist'=>$items,
                 'pagination'=>$items->links()
@@ -36,8 +35,12 @@ class ResumeController extends BaseController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function detail($id){
-
-        $this->assign(['resume'=>Resume::where('id', $id)->first()]);
+        $resume = Resume::where('id', $id)->first();
+        $this->assign([
+            'resume'=>$resume,
+            'edus'=>$resume->edus,
+            'works'=>$resume->works
+        ]);
 
         return $this->view('admin.resume.detail');
     }

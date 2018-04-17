@@ -126,7 +126,12 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         Route::any('/block/itemlist', 'BlockController@itemlist');
         Route::any('/block/edit_item', 'BlockController@edit_item');
         Route::any('/block/setimage', 'BlockController@setimage');
-
+        //校友录管理
+        Route::get('/schoolfellow/school', 'SchoolmateController@index');
+        Route::post('/schoolfellow/school/edit', 'SchoolmateController@editSchool');
+        Route::post('/schoolfellow/school/deal', 'SchoolmateController@dealSchool');
+        Route::get('/schoolfellow/detail','SchoolmateController@schoolfellow');
+        Route::any('/schoolfellow/application', 'SchoolmateController@application');
         //文章管理
         Route::get('/post/index', 'PostController@index');
         Route::get('/post/publish', 'PostController@publish');
@@ -206,6 +211,8 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/job/list', 'JobController@itemlist');
     Route::get('/job/detail/{id}.html', 'JobController@detail');
 
+    Route::post('/background/upload','ImageController@upload');
+
     Route::any('/join/index', 'JoinController@index');
     Route::any('/join/enroll', 'JoinController@enroll');
 
@@ -215,6 +222,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/member', 'MemberController@index');
     Route::get('/member/archive', 'MemberController@archive')->middleware('mobile.auth');
     Route::any('/member/edit', 'MemberController@edit')->middleware('mobile.auth');
+    Route::any('/member/userinfo', 'MemberController@info')->middleware('mobile.auth');
 
     Route::get('/pages/list', 'PagesController@index');
     Route::get('/pages/detail/{pageid}.html', 'PagesController@detail');
@@ -248,4 +256,14 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/forum/topic/{tid}', 'ForumController@topic')->middleware(['mobile.auth']);
     Route::any('/forum/publish', 'ForumController@publish')->middleware(['mobile.auth']);
     Route::any('/forum/reply', 'ForumController@reply')->middleware(['mobile.auth']);
+
+    Route::any('/forum/schoolfellow', 'ForumController@schoolfellow')->middleware(['mobile.auth']);
+    Route::any('/forum/schoolfellow/application','ForumController@applyPage')->middleware(['mobile.auth']);
+    Route::post('/forum/schoolfellow/apply','ForumController@apply')->middleware(['mobile.auth']);
+    Route::post('/getSchool','ForumController@getSchool')->middleware(['mobile.auth']);
+    Route::get('/forum/schoolfellow/list','ForumController@schoolfellowList')->middleware(['mobile.auth']);
+    Route::get('/forum/schoolfellow/member','ForumController@schoolfellow')->middleware(['mobile.auth']);
+    Route::post('/forum/schoolfellow/delete','ForumController@schoolfellowDelete')->middleware(['mobile.auth']);
+    Route::any('/message','MessageController@index')->middleware(['mobile.auth']);
+    Route::any('/test','ForumController@test');
 });
