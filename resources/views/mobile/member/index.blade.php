@@ -1,7 +1,9 @@
 @extends('layouts.mobile')
 
 @section('title', '个人中心')
-
+@section('styles')
+<link rel="stylesheet" href="{{asset('css/iconfont.css')}}" type="text/css">
+@stop
 @section('content')
     <div class="mine-header"  style="background-image: {{$background}}" onclick="">
         <div class="content">
@@ -12,7 +14,7 @@
     </div>
     <div class="tableview">
         <div class="row" data-link="{{url('/mobile/member/userinfo')}}">
-            <div class="cell cell-icon"><span class="iconfont icon-yonghu"></span></div>
+            <div class="cell cell-icon"><span class="iconfont icon-userinfo"></span></div>
             <div class="cell cell-text">个人信息</div>
         </div>
         <div class="row" data-link="{{url('/mobile/member/archive')}}">
@@ -26,6 +28,10 @@
         <div class="row" data-link="{{url('/mobile/favorite')}}">
             <div class="cell cell-icon"><span class="iconfont icon-favor"></span></div>
             <div class="cell cell-text">我的收藏</div>
+        </div>
+        <div class="row" data-link="{{url('/mobile/message')}}">
+            <div class="cell cell-icon"><span class="iconfont icon-lyb"></span></div>
+            <div class="cell cell-text">我的留言</div>
         </div>
         <div class="row" data-link="{{url('/mobile/feedback')}}">
             <div class="cell cell-icon"><span class="iconfont icon-fankui"></span></div>
