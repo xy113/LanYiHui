@@ -11,7 +11,6 @@ class Message extends BaseModel
 {
     protected $table = 'message';
     protected $primaryKey = 'id';
-    public $timestamps = true;
     public function school(){
         return $this->hasOne('App\Models\School');
     }
@@ -25,6 +24,9 @@ class Message extends BaseModel
         return $this->hasOne('App\Models\Message','id','parent_id');
     }
     public function reply(){
-        return $this->hasMany('App\Models\Message','id','reply_id');
+        return $this->hasOne('App\Models\Message','id','reply_id');
+    }
+    public function children(){
+        return $this->hasMany('App\Models\Message','parent_id','id');
     }
 }

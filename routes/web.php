@@ -264,6 +264,8 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/forum/schoolfellow/list','ForumController@schoolfellowList')->middleware(['mobile.auth']);
     Route::get('/forum/schoolfellow/member','ForumController@schoolfellow')->middleware(['mobile.auth']);
     Route::post('/forum/schoolfellow/delete','ForumController@schoolfellowDelete')->middleware(['mobile.auth']);
-    Route::any('/message','MessageController@index')->middleware(['mobile.auth']);
+    Route::get('/message','MessageController@index')->middleware(['mobile.auth']);
+    Route::post('/leaveMessage','MessageController@leaveMessage')->middleware(['mobile.auth']);
+    Route::post('/message/del','MessageController@delMessage')->middleware(['mobile.auth']);
     Route::any('/test','ForumController@test');
 });

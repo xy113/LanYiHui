@@ -104,7 +104,13 @@
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     },
                     success:function (res) {
-                        console.log(res);
+                        if(res.err_code==0){
+                            DSXUI.success('申请成功',function () {
+                                window.location = '{{url('/mobile/forum/schoolfellow/list')}}'
+                            })
+                        }else {
+                            DSXUI.error(res.msg);
+                        }
                     },
                     error:function (err) {
 
