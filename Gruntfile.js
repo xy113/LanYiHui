@@ -10,14 +10,15 @@ module.exports = function(grunt){
             release: {//任务四：合并压缩a.js和b.js
                 files: {
                     'public/js/common.js': [
-                        'js/jquery.common.js',
-                        'js/jquery.confirm.js',
-                        'js/jquery.marquee.js',
-                        'js/DSXValidate.js',
-                        'js/DSXUtil.js',
-                        'js/DSXDialog.js',
-                        'js/DSXUI.js',
-                        'js/boot.js',
+                        'resources/assets/js/jquery.common.js',
+                        'resources/assets/js/jquery.confirm.js',
+                        'resources/assets/js/jquery.marquee.js',
+                        'resources/assets/js/DSXValidate.js',
+                        'resources/assets/js/DSXUtil.js',
+                        'resources/assets/js/DSXDialog.js',
+                        'resources/assets/js/DistrictSelector.js',
+                        'resources/assets/js/DSXUI.js',
+                        'resources/assets/js/boot.js',
                     ]
                 }
             }
@@ -29,4 +30,4 @@ module.exports = function(grunt){
 
     // 默认任务
     grunt.registerTask('default', ['uglify:release']);
-}
+};

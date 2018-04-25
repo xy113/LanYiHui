@@ -16,8 +16,8 @@
     <div class="header">
         <strong class="logo">后台管理中心</strong>
         <div class="right-menu">
-            <a href="/" target="_blank">网站首页</a>
-            <a href="/admin/logout">退出登录</a>
+            <a href="{{url('/')}}" target="_blank">网站首页</a>
+            <a href="{{url('admin/logout')}}">退出登录</a>
         </div>
     </div>
 </div>
@@ -80,44 +80,13 @@
                     </dt>
                 </dl>
                 <dl>
-                    <dd><a><i class="iconfont icon-vipcard"></i>校友录管理</a></dd>
+                    <dd><a><i class="iconfont icon-group_fill"></i>校友录管理</a></dd>
                     <dt>
                         <ul>
                             <li><a rel="item" data-action="/admin/schoolfellow/school">学校列表</a></li>
                         </ul>
                     </dt>
                 </dl>
-                <!--
-                <dl>
-                    <dd><a><i class="iconfont icon-presentfill"></i>商品管理</a></dd>
-                    <dt>
-                        <ul>
-                            <li><a rel="item" data-action="/admin/item/index">商品列表</a></li>
-                            <li><a rel="item" data-action="/admin/itempush/index">商品推送</a></li>
-                            <li><a rel="item" data-action="/admin/itemcatlog/index">商品分类</a></li>
-                            <li><a rel="item" data-action="/admin/itemcatlog/merge">合并分类</a></li>
-                        </ul>
-                    </dt>
-                </dl>
-                <dl>
-                    <dd><a><i class="iconfont icon-shopfill"></i>店铺管理</a></dd>
-                    <dt>
-                        <ul>
-                            <li><a rel="item" data-action="/admin/shop/index">店铺列表</a></li>
-                            <li><a rel="item" data-action="/admin/shop/pending">等待审核</a></li>
-                        </ul>
-                    </dt>
-                </dl>
-                <dl>
-                    <dd><a><i class="iconfont icon-rechargefill"></i>交易管理</a></dd>
-                    <dt>
-                        <ul>
-                            <li><a rel="item" data-action="/admin/order/index">订单记录</a></li>
-                            <li><a rel="item" data-action="/admin/trade/index">交易记录</a></li>
-                        </ul>
-                    </dt>
-                </dl>
-                -->
                 <dl>
                     <dd><a><i class="iconfont icon-newsfill"></i>文章管理</a></dd>
                     <dt>
@@ -169,7 +138,7 @@
     </div>
 </div>
 <div class="mainframe">
-    <div class="main-content"><iframe name="mainframe" id="mainframe" src="/admin/index/wellcome" frameborder="0" style="width: 100%; height: 100%; position: absolute; display: block;"></iframe></div>
+    <div class="main-content"><iframe name="mainframe" id="mainframe" src="{{url('admin/index/wellcome')}}" frameborder="0" style="width: 100%; height: 100%; position: absolute; display: block;"></iframe></div>
 </div>
 <script type="text/javascript">
     $("#menus dl").each(function () {

@@ -39,9 +39,9 @@
                         <td><a href="{{url('admin/schoolfellow/application?id='.$item['id'])}}">{{$item->apply()->count()}}</a></td>
                         <td>@if($item['status']=='0')未认证@else已认证@endif</td>
                         <td>
-                            <input type="button" value="查看" ONCLICK="check({{$item['id']}})">
+                            <input type="button" value="查看" onclick="check({{$item['id']}})">
                             <input type="button" value="修改" onclick="edit('{{$item['id']}}','{{$item['name']}}')">
-                            <input type="button" value="申请列表" ONCLICK="application({{$item['id']}})">
+                            <input type="button" value="申请列表" onclick="application({{$item['id']}})">
                             @if($item['status'] == 0)
                                 <input type="button" value="认证" onclick="rz({{$item['id']}},'1')">
                             @else
@@ -54,8 +54,7 @@
                 <tfoot>
                 <tr>
                     <td colspan="10">
-                        {{--<div class="float-right">{{$pagination}}</div>--}}
-                        {{$school->links()}}
+                        <div class="float-right">{{$school->links()}}</div>
                         <label><input type="checkbox" class="checkbox checkall checkmark"> {{trans('common.selectall')}}</label>
                         <label><button type="button" class="btn btn-action" data-action="delete">删除</button></label>
                         <label><button type="button" class="btn" onclick="DSXUtil.reFresh()">刷新</button></label>

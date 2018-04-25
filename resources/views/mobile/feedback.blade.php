@@ -9,18 +9,15 @@
                 {{csrf_field()}}
                 <input type="hidden" name="formsubmit" value="yes">
                 <div class="form-group">
-                    <div class="label">主题</div>
                     <div class="content"><input type="text" class="input-text" name="title" id="title" placeholder="你要反馈的主题"></div>
                 </div>
                 <div class="form-group">
-                    <div class="label">内容</div>
                     <div class="content">
                         <textarea class="textarea" name="message" id="message" placeholder="简单描述一下你要反应的问题"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="label"></div>
-                    <div class="content"><button type="button" class="button" id="submit">提交</button></div>
+                    <div class="content"><button type="button" class="button long-button" id="submit">提交</button></div>
                 </div>
             </form>
         </div>

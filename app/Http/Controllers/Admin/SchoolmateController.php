@@ -7,18 +7,24 @@
  */
 namespace App\Http\Controllers\Admin;
 
-
 use App\Models\School;
 use App\Models\Schoolfellow;
 use Illuminate\Http\Request;
 
 class SchoolmateController extends BaseController
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(){
-        $school = School::paginate(10);
+        $school = School::paginate(20);
         $this->assign(['school'=>$school]);
         return $this->view('admin.schoolfellow.school');
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function application(){
         if ($this->isOnSubmit()){
             $req = $this->request->post('item');
@@ -41,10 +47,22 @@ class SchoolmateController extends BaseController
         }
 
     }
+
+    /**
+     *
+     */
     public function applicationManager(){
 
     }
+
+    /**
+     *
+     */
     public function schoolManager(){}
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function schoolfellow(){
         $id = $this->request->get('id');
         $school = School::find($id);
@@ -52,10 +70,18 @@ class SchoolmateController extends BaseController
         $this->assign(['members'=>$members,'school'=>$school]);
         return $this->view('admin.schoolfellow.schoolfellow');
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail(){
         return $this->view('admin.schoolfellow.school');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function editSchool(Request $request){
         $req = $request->all();
         $school = School::find($req['id']);
@@ -64,6 +90,10 @@ class SchoolmateController extends BaseController
         return ajaxReturn();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function dealSchool(Request $request){
         $req = $request->all();
         $school = School::find($req['id']);
