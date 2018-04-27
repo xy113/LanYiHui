@@ -3,52 +3,78 @@
 @section('title', '联谊会会员')
 
 @section('content')
+    <style>
+        .tplink{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 100px;
+        }
+        #tplink{
+            position: absolute;
+            max-width: 180px;
+            background-color: #f0f0f0;
+            padding: 1rem;
+            border: 1px solid #dddddd;
+        }
+    </style>
     <div class="navigation">
         <a>后台管理</a>
         <span>></span>
         <a>联谊会会员</a>
         <span>></span>
         <a>会员列表</a>
+        <span>></span>
+        <a>会员经历</a>
     </div>
     <div class="search-container">
         <form method="get" id="searchFrom">
             <div class="row">
+                <input style="display: none;" name="id" value="{{$id}}">
                 <div class="cell">
-                    <label>姓名:</label>
-                    <div class="field"><input type="text" title="" class="input-text" name="fullname" value="{{$fullname}}"></div>
-                </div>
-                <div class="cell">
-                    <label>手机号:</label>
-                    <div class="field"><input type="text" title="" class="input-text" name="phone" value="{{$phone}}"></div>
-                </div>
-                <div class="cell">
-                    <label>所在大学:</label>
-                    <div class="field"><input type="text" title="" class="input-text" name="university" value="{{$university}}"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="cell">
-                    <label>性别:</label>
+                    <label>类型:</label>
                     <div class="field">
-                        <select class="select" name="sex" title="">
+                        <select name="part" class="select" title="">
                             <option value="all">不限</option>
-                            <option value="0"@if($sex==='0') selected="selected"@endif>女</option>
-                            <option value="1"@if($sex==='1') selected="selected"@endif>男</option>
+                            <option value="0"@if($part==='0') selected="selected"@endif>部门</option>
+                            <option value="1"@if($part==='1') selected="selected"@endif>活动</option>
+                            <option value="2"@if($part==='2') selected="selected"@endif>分会</option>
                         </select>
                     </div>
                 </div>
                 <div class="cell">
-                    <label>入学年份:</label>
-                    <div class="field"><input type="text" title="" class="input-text" name="enrollyear" value="{{$enrollyear}}"></div>
+                    <label>部门/活动:</label>
+                    <div class="field"><input type="text" title="" class="input-text" name="department" value="{{$department}}"></div>
                 </div>
                 <div class="cell">
-                    <label>认证状态:</label>
+                    <label>职务:</label>
+                    <div class="field"><input type="text" title="" class="input-text" name="role" value="{{$role}}"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell">
+                    <label>年份:</label>
+                    <div class="field"><input type="text" title="" class="input-text" name="year" value="{{$year}}"></div>
+                </div>
+                <div class="cell">
+                    <label>假期:</label>
+                    <div class="field">
+                        <select name="vacation" class="select" title="">
+                            <option value="all">不限</option>
+                            <option value="0"@if($vacation==='0') selected="selected"@endif>寒假</option>
+                            <option value="1"@if($vacation==='1') selected="selected"@endif>暑假</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="cell">
+                    <label>状态:</label>
                     <div class="field">
                         <select name="status" class="select" title="">
                             <option value="all">不限</option>
-                            <option value="0"@if($status==='0') selected="selected"@endif>等待认证</option>
-                            <option value="1"@if($status==='1') selected="selected"@endif>认证通过</option>
-                            <option value="-1"@if($status==='-1') selected="selected"@endif>审核不过</option>
+                            <option value="0"@if($status=='-1') selected="selected"@endif>未通过</option>
+                            <option value="0"@if($status=='0') selected="selected"@endif>未审核</option>
+                            <option value="1"@if($status=='1') selected="selected"@endif>修改待审核</option>
+                            <option value="1"@if($status=='1') selected="selected"@endif>已通过</option>
                         </select>
                     </div>
                 </div>
@@ -74,15 +100,14 @@
                 <thead>
                 <tr>
                     <th width="20">选</th>
-                    <th width="40">照片</th>
+                    <th width="40">头像</th>
                     <th>姓名</th>
-                    <th>手机号</th>
-                    <th>性别</th>
-                    <th>会员经历</th>
-                    <th>教育经历</th>
-                    <th>工作经历</th>
-                    <th>籍贯</th>
-                    <th>所在地</th>
+                    <th>类型</th>
+                    <th>部门/活动</th>
+                    <th>职务</th>
+                    <th>年份</th>
+                    <th>假期</th>
+                    <th width="100">详情</th>
                     <th width="80">认证状态</th>
                 </tr>
                 </thead>
@@ -91,21 +116,24 @@
                     <tr>
                         <td><input title="" type="checkbox" class="checkbox checkmark" name="members[]" value="{{$id}}" /></td>
                         <td><img src="{{avatar($item['uid'], 'middle')}}" width="30" height="30" style="border-radius:100%;"></td>
-                        <th><a>{{$item['fullname']}}</a></th>
-                        <td>{{$item['phone']}}</td>
-                        <td>@if($item['sex'])男@else女@endif</td>
-                        <td class="self-btn" onclick="experience({{$item['uid']}})">{{$item->experience()->count()}}</td>
-                        <td class="self-btn" onclick="education({{$item['uid']}})">{{$item->education()->count()}}</td>
-                        <td class="self-btn" onclick="work({{$item->work}},{{$item}})">{{$item->work()->count()}}</td>
-                        <td>{{$item['birthplace']}}</td>
-                        <td>{{$item['location']}}</td>
+                        <th><a>{{$item->archive->name}}</a></th>
+                        <td>@if($item['part']=='0')部门@elseif($item['part']==1)活动@else分会@endif</td>
+                        <td>{{$item['department']}}</td>
+                        <td>{{$item['role']}}</td>
+                        <td>{{$item['year']}}</td>
+                        <td>@if($item['vacation']=='0')寒假@else暑假@endif</td>
+                        <td title="{{$item['description']}}" class="tplink">
+                            {{$item['description']}}
+                        </td>
                         <td>
-                            @if ($item['status'] === -1)
-                                <span style="color: #FF0000">{{$item['status_title']}}</span>
-                            @elseif($item['status'] === 1)
-                                <span style="color: #578936">{{$item['status_title']}}</span>
+                            @if ($item['status'] == -1)
+                                <span style="color: #FF0000">未通过</span>
+                            @elseif($item['status'] == 1)
+                                <span>修改待审核</span>
+                            @elseif($item['status'] == 2)
+                                <span style="color: #578936">已通过</span>
                             @else
-                                <span>{{$item['status_title']}}</span>
+                                <span>未审核</span>
                             @endif
                         </td>
                     </tr>
@@ -126,44 +154,6 @@
         </form>
     </div>
     <script type="text/javascript">
-        function education(id){
-            window.location = '{{url('/admin/member/education')}}'+'?id='+id;
-        }
-        function experience(id){
-            window.location = '{{url('/admin/member/experience')}}'+'?id='+id;
-        }
-        function work(item,info) {
-            console.log(item);
-            var newDate = new Date();
-            var d = '<table style="text-align: center; padding: 10px 20px; font-size: 14px"  border="1" cellspacing="0">' +
-                '<thead>' +
-                '<tr>' +
-                '<th width="320">公司名称</th>' +
-                '<th width="220">职务</th>' +
-                '<th width="320">任职时间</th>' +
-                '<th width="420">简述</th>' +
-                '</tr>' +
-                '</thead>'+
-            '<tbody>';
-            for (var i=0; i<item.length;i++){
-                var begin = new Date();
-                var end = new Date();
-                begin.setTime(item[i].start_time*1000);
-                end.setTime(item[i].end_time*1000);
-                d+='<tr>' +
-                    '<td>'+item[i].company+'</td>' +
-                    '<td>'+item[i].job+'</td>' +
-                    '<td>'+begin.getFullYear()+'/'+(begin.getMonth()+1)+'-'+end.getFullYear()+'/'+(end.getMonth()+1)+'</td>' +
-                        '<td>'+item[i].experience+'</td>'
-                    '</tr>';
-            }
-            d+='</tbody></table>';
-            layer.open({
-                type:1,
-                title:'工作经历 - '+info.fullname,
-                content:d
-            });
-        }
         $(function () {
             $(".btn-action").on('click', function () {
                 if ($(".checkmark:checked").length === 0){
@@ -200,5 +190,22 @@
                 }
             });
         });
+
+        $(function(){
+            var x=5;
+            var y=5;
+            $(".tplink").mouseover(function(e){
+                this.myTitle=this.title;
+                this.title="";
+                var tooltip="<div id='tplink'>"+this.myTitle+"</div>";   //创建DIV元素
+                $('.content-div').append(tooltip);//追加到文档中
+                $("#tplink").css({"top": (e.pageY+y) + "px","left": (e.pageX+x) + "px"}).show();    //设置X  Y坐标， 并且显示
+            }).mouseout(function(){
+                this.title=this.myTitle;
+                $("#tplink").remove();    //移除
+            }).mousemove(function(e){
+                $("#tplink").css({"top": (e.pageY+y) + "px","left": (e.pageX+x) + "px"});
+            })
+        })
     </script>
 @stop

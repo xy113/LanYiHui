@@ -19,15 +19,18 @@
                             <div class="label">所学专业</div>
                             <div class="content"><input type="text" class="input-text" name="education[major]" id="major" value="{{$education['major']}}" placeholder="所学专业"></div>
                         </div>
-
                         <div class="form-group">
-                            <div class="label">毕业时间</div>
-                            <div class="content"><input type="text" class="input-text" name="education[end_time]" id="end_time" value="{{date('Y-m-d',$education['end_time'])}}" placeholder="毕业时间"></div>
+                            <div class="label">入学日期</div>
+                            <div class="content"><input type="text" class="input-text" name="education[start_time]" id="start_time" value="{{date('Y-m-d',$education['start_time'])}}" placeholder="毕业年份" readonly></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="label">毕业日期</div>
+                            <div class="content"><input type="text" class="input-text" name="education[end_time]" id="end_time" value="{{date('Y-m-d',$education['end_time'])}}" placeholder="毕业年份" readonly></div>
                         </div>
                         <div class="form-group">
                             <div class="label">学历</div>
                             <div class="content">
-                                <select class="input-text" id="degree_select" name="education[degree]">
+                                <select id="degree_select" name="education[degree]">
                                     <option value="0">其他</option>
                                     <option value="1">小学</option>
                                     <option value="2">初中</option>
@@ -42,7 +45,6 @@
                         <div style="display: none">
                             <input type="text" id="degree" value="{{$education['degree']}}">
                             <input type="text" name="education[id]" id="id" value="{{$education['id']}}">
-                            <input type="text" name="education[resume_id]" id="resume_id" value="{{$education['resume_id']}}">
                         </div>
                     </div>
                 </div>
@@ -53,20 +55,31 @@
                     </div>
                 </div>
             </div>
+            <div id="datePlugin"></div>
         </form>
-        <div id="datePlugin"></div>
     </div>
     <script src="{{asset('js/date.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
-        var date1 = $('#end_time').val().split('-');
-        var year1 = date1[0]?date1[0]:'2000';
-        var month1 = date1[1]?date1[1]:'1';
-        var day1 = date1[2]?date1[2]:'1';
+        var now = new Date();
+        var edate = $('#end_time').val().split('-');
+        var bdate = $('#start_time').val().split('-');
+        var byear = bdate[0]?bdate[0]:(now.getFullYear()-4).toString();
+        var bmonth = bdate[1]?bdate[1]:'9';
+        var bday = bdate[2]?bdate[2]:'1';
+        var eyear = edate[0]?edate[0]:now.getFullYear().toString();
+        var emonth = edate[1]?edate[1]:'7';
+        var eday = edate[2]?edate[2]:'1';
 
+        $('#start_time').date({
+            setY:byear,
+            setM:bmonth,
+            setD:bday,
+            curdate:false
+        });
         $('#end_time').date({
-            setY:year1,
-            setM:month1,
-            setD:day1,
+            setY:eyear,
+            setM:emonth,
+            setD:eday,
             curdate:false
         });
 
@@ -96,11 +109,6 @@
                 return false;
             }
 
-            var resume_id = $("#resume_id").val();
-            if (!resume_id) {
-                DSXUI.error('未关联简历，请返回上一步！');
-                return false;
-            }
             var spinner = null;
             $("#Form").ajaxSubmit({
                 dataType:'json',
@@ -111,7 +119,7 @@
                     setTimeout(function () {
                         spinner.close();
                         if (response.errcode === 0){
-                            window.location.href = '{{url('/mobile/resume/edit?id='.$education['resume_id'])}}';
+                            window.location.href = '{{url('/mobile/member/archive')}}';
                         }else {
                             DSXUI.error(response.errmsg);
                         }

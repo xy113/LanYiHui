@@ -7,6 +7,7 @@ use App\Models\ForumBoard;
 use App\Models\ForumMessage;
 use App\Models\ForumTopic;
 use App\Models\Member;
+use App\Models\MemberArchive;
 use App\Models\MemberInfo;
 use App\Models\School;
 use App\Models\Schoolfellow;
@@ -139,8 +140,8 @@ class ForumController extends BaseController
     public function schoolfellowDelete(){}
     public function schoolfellow(){
         $id = $this->request->get('id');
-        $school = School::find($id);
-        $members = Schoolfellow::where(['school_id'=>$id,'status'=>'1'])->orderBy('degree','ESC')->get();
+        $school = MemberArchive::where('uid',$this->uid)->first()['university'];
+        $members = MemberArchive::where('university',$school)->where('status','>',0)->get();
 //        return json_encode($members);
         $this->assign([
             'members'=>$members,
@@ -148,6 +149,17 @@ class ForumController extends BaseController
         ]);
         return $this->view('mobile.forum.schoolfellow');
     }
+//    public function schoolfellow(){
+//        $id = $this->request->get('id');
+//        $school = School::find($id);
+//        $members = Schoolfellow::where(['school_id'=>$id,'status'=>'1'])->orderBy('degree','ESC')->get();
+////        return json_encode($members);
+//        $this->assign([
+//            'members'=>$members,
+//            'school'=>$school
+//        ]);
+//        return $this->view('mobile.forum.schoolfellow');
+//    }
     public function applyPage(){
         $id = $this->uid;
 //        if(empty(MemberInfo::find($id)['name'])){

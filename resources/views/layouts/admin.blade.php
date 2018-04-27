@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/admin.css')}}">
     @yield('styles')
     <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
+    <script src="{{asset('layer/layer.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/common.js')}}" type="text/javascript"></script>
     @yield('scripts')
     <script type="text/javascript">

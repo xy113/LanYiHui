@@ -28,14 +28,14 @@
                     <div class="label">出生日期</div>
                     <div class="content">{{$archive['birthday']}}</div>
                 </div>
-                <div class="row">
-                    <div class="label">就读大学</div>
-                    <div class="content">{{$archive['university']}}</div>
-                </div>
-                <div class="row">
-                    <div class="label">入学年份</div>
-                    <div class="content">{{$archive['enrollyear']}}</div>
-                </div>
+                {{--<div class="row">--}}
+                    {{--<div class="label">就读大学</div>--}}
+                    {{--<div class="content">{{$archive['university']}}</div>--}}
+                {{--</div>--}}
+                {{--<div class="row">--}}
+                    {{--<div class="label">入学年份</div>--}}
+                    {{--<div class="content">{{$archive['enrollyear']}}</div>--}}
+                {{--</div>--}}
                 <div class="row">
                     <div class="label">籍贯</div>
                     <div class="content">{{$archive['birthplace']}}</div>
@@ -44,9 +44,88 @@
                     <div class="label">所在地</div>
                     <div class="content">{{$archive['location']}}</div>
                 </div>
+
+                <div class="list-box">
+                    <h4 style="text-align: left">会员经历</h4>
+                    <div>
+                        @forelse($experience as $exp)
+                            <div class="resume-li">
+                                <a href="{{url('/mobile/member/experience/edit').'?id='.$exp['id']}}" class="iconfont icon-edit">编辑</a>
+                                <div>{{$exp->year}} | @if($exp['vacation']=='0')寒假@else暑假@endif</div>
+                                <div class="mainInfo">{{$exp->role}} · {{$exp->department}}</div>
+                                <div>{{$exp->description}}</div>
+                            </div>
+                        @empty
+                            <p class="notice">暂无会员经历</p>
+                        @endforelse
+                            <a href="{{url('/mobile/member/experience/add')}}" class="add-btn iconfont icon-add">添加会员经历</a>
+                    </div>
+                </div>
+
+                <div class="list-box">
+                    <h4>教育经历</h4>
+                    <div>
+                        @forelse ($edus as $edu)
+                            <div class="resume-li">
+                                <a href="{{url('/mobile/member/education?id='.$edu->id)}}" class="iconfont icon-edit">编辑</a>
+                                <div>{{date('Y',$edu->start_time)}} - {{date('Y',$edu->end_time)}}</div>
+                                <div class="mainInfo">{{$edu->school}}</div>
+                                <div>
+                                    @switch($edu->degree)
+                                        @case('1')
+                                        小学
+                                        @break
+                                        @case('2')
+                                        初中
+                                        @break
+                                        @case('3')
+                                        高中
+                                        @break
+                                        @case('4')
+                                        专科
+                                        @break
+                                        @case('5')
+                                        本科
+                                        @break
+                                        @case('6')
+                                        硕士
+                                        @break
+                                        @case('7')
+                                        博士
+                                        @break
+                                        @default
+                                        其他
+                                    @endswitch
+                                    ·{{$edu->major}}
+                                </div>
+                            </div>
+                        @empty
+                            <p class="notice">暂无教育经历</p>
+                        @endforelse
+                        <a href="{{url('/mobile/member/education')}}" class="add-btn iconfont icon-add"> 添加</a>
+                    </div>
+                </div>
+
+                <div class="list-box">
+                    <h4>工作经历</h4>
+                    <div>
+                        @forelse($works as $work)
+                            <div class="resume-li">
+                                <a href="{{url('/mobile/member/work?id='.$work['id'])}}" class="iconfont icon-edit">编辑</a>
+                                <div>{{date('Y-m-d',$work->start_time)}} - {{date('Y-m-d',$work->end_time)}}</div>
+                                <div class="mainInfo">{{$work->job}}·{{$work->company}}</div>
+                                <div>{{$work->experience}}</div>
+                            </div>
+                        @empty
+                            <p class="notice">暂无工作经历</p>
+                        @endforelse
+                        <a href="{{url('/mobile/member/work')}}" class="add-btn iconfont icon-add"> 添加</a>
+                    </div>
+                </div>
+
                 <div class="row">
-                    <div class="label">联谊会职务</div>
-                    <div class="content">@if($archive['post']){{$archive['post']}}@else会员@endif</div>
+                    <div class="label">会员等级</div>
+                    <div class="content">@if($archive['post']){{$archive['post']}}@else普通会员@endif</div>
                 </div>
                 <div class="row">
                     <div class="label">人气指数</div>

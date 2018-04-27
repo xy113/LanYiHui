@@ -18,7 +18,8 @@
     </div>
     <div class="bottom-bar">
         <div class="fixed">
-            <div class="btn" data-link="{{url('/mobile/resume/edit')}}">+新增简历</div>
+            <div class="btn half primary" onclick="create()">+生成会员简历</div>
+            <div class="btn half" data-link="{{url('/mobile/resume/edit')}}">+自定义简历</div>
         </div>
     </div>
     <script type="text/javascript">
@@ -40,5 +41,32 @@
                 }
             });
         })();
+        function create() {
+            $.ajax({
+                type:'POST',
+                url:'{{url('/mobile/resume/createWithArchive')}}',
+                dataType: 'json',
+                data:{},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                success:function (res) {
+                    if(res.errcode==0){
+                        DSXUI.success('操作成功',function () {
+                            DSXUtil.reFresh()
+                        })
+                    }else if(res.errcode===1){
+                        DSXUI.error(res.msg,function () {
+                            window.location='{{url('/mobile/member/archive')}}'
+                        });
+                    }else{
+                        DSXUI.error(res.msg);
+                    }
+                },
+                error:function (err) {
+
+                }
+            })
+        }
     </script>
 @stop

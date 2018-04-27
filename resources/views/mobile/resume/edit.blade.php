@@ -40,7 +40,18 @@
                         </div>
                         <div class="form-group">
                             <div class="label">最高学历</div>
-                            <div class="content"><input type="text" class="input-text" name="resume[education]" id="education" value="{{$resume['education']}}" placeholder="最高学历"></div>
+                            <div class="content">
+                                <select  class="input-text" name="resume[education]" id="education">
+                                    <option value="0" @if($resume['education']=='0')selected @endif>其他</option>
+                                    <option value="1" @if($resume['education']=='1')selected @endif>小学</option>
+                                    <option value="2" @if($resume['education']=='2')selected @endif>初中</option>
+                                    <option value="3" @if($resume['education']=='3')selected @endif>高中</option>
+                                    <option value="4" @if($resume['education']=='4')selected @endif>专科</option>
+                                    <option value="5" @if($resume['education']=='5')selected @endif>本科</option>
+                                    <option value="6" @if($resume['education']=='6')selected @endif>硕士</option>
+                                    <option value="7" @if($resume['education']=='7')selected @endif>博士</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="label">工作经验</div>
@@ -66,7 +77,7 @@
                         @forelse ($edus as $edu)
                             <div class="resume-li">
                                 <a href="{{url('/mobile/resume/edu?id='.$edu->id.'&resume='.$resume['id'])}}" class="iconfont icon-edit">编辑</a>
-                                <div>{{$edu->end_time}}年毕业</div>
+                                <div>{{date('Y',$edu->end_time)}}年毕业</div>
                                 <div class="mainInfo">{{$edu->school}}</div>
                                 <div>
                                     @switch($edu->degree)
@@ -80,12 +91,15 @@
                                         高中
                                         @break
                                         @case('4')
-                                        本科
+                                        专科
                                         @break
                                         @case('5')
-                                        硕士
+                                        本科
                                         @break
                                         @case('6')
+                                        硕士
+                                        @break
+                                        @case('7')
                                         博士
                                         @break
                                         @default
@@ -106,7 +120,7 @@
                         @forelse($works as $work)
                             <div class="resume-li">
                                 <a href="{{url('/mobile/resume/work?id='.$work['id'].'&resume='.$resume['id'])}}" class="iconfont icon-edit">编辑</a>
-                                <div>{{$work->start_time}} - {{$work->end_time}}</div>
+                                <div>{{date('Y-m-d',$work->start_time)}} - {{date('Y-m-d',$work->end_time)}}</div>
                                 <div class="mainInfo">{{$work->job}}·{{$work->company}}</div>
                                 <div>{{$work->experience}}</div>
                             </div>

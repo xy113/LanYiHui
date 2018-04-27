@@ -40,7 +40,6 @@
                         </div>
                         <div style="display: none">
                             <input type="text" name="work[id]" id="id" value="{{$work['id']}}">
-                            <input type="text" name="work[resume_id]" id="resume_id" value="{{$work['resume_id']}}">
                         </div>
                     </div>
                 </div>
@@ -102,12 +101,6 @@
                 DSXUI.error('请填写离职时间');
                 return false;
             }
-
-            var resume_id = $("#resume_id").val();
-            if (!resume_id) {
-                DSXUI.error('未关联简历，请返回上一步！');
-                return false;
-            }
             var spinner = null;
             $("#Form").ajaxSubmit({
                 dataType:'json',
@@ -118,7 +111,7 @@
                     setTimeout(function () {
                         spinner.close();
                         if (response.errcode === 0){
-                            window.location.href = '{{url('/mobile/resume/edit?id='.$work['resume_id'])}}';
+                            window.location.href = '{{url('/mobile/member/archive')}}';
                         }else {
                             DSXUI.error(response.errmsg);
                         }

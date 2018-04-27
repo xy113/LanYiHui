@@ -21,10 +21,6 @@
     </script>
     <div class="forum-menus">
         <ul class="wrapper">
-            <li data-link="{{url('/mobile/forum/schoolfellow/list')}}">
-                <div class="image"><img src="http://localhost:8088/images/common/xiaoyou.png"></div>
-                <div class="title">校友录</div>
-            </li>
             @foreach ($boardlist as $board)
                 <li data-link="{{url('/mobile/forum/board/'.$board['boardid'])}}">
                     <div class="image"><img src="{{image_url($board['icon'])}}"></div>

@@ -21,7 +21,9 @@ class Member extends BaseModel
         MemberField::where('uid', $uid)->delete();
         MemberInfo::where('uid', $uid)->delete();
     }
-
+    public function archive(){
+        return $this->hasOne('App\Models\MemberArchive','uid','uid');
+    }
     public function schools()
     {
         return $this->belongsToMany('App\Models\School','schoolfellow','uid','school_id');

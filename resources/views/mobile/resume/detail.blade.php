@@ -27,7 +27,31 @@
             </div>
             <div class="row">
                 <div class="label">最高学历</div>
-                <div class="content">{{$resume['education']}}</div>
+                <div class="content">@switch($resume->education)
+                        @case('1')
+                        小学
+                        @break
+                        @case('2')
+                        初中
+                        @break
+                        @case('3')
+                        高中
+                        @break
+                        @case('4')
+                        专科
+                        @break
+                        @case('5')
+                        本科
+                        @break
+                        @case('6')
+                        硕士
+                        @break
+                        @case('7')
+                        本科
+                        @break
+                        @default
+                        其他
+                    @endswitch</div>
             </div>
             <div class="row">
                 <div class="label">工作经验</div>
@@ -42,7 +66,7 @@
                 <div>
                     @forelse ($edus as $edu)
                         <div class="resume-li">
-                            <div>{{$edu->end_time}}年毕业</div>
+                            <div>{{date('Y',$edu->end_time)}}年毕业</div>
                             <div class="mainInfo">{{$edu->school}}</div>
                             <div>
                                 @switch($edu->degree)
@@ -56,13 +80,16 @@
                                     高中
                                     @break
                                     @case('4')
-                                    本科
+                                    专科
                                     @break
                                     @case('5')
-                                    硕士
+                                    本科
                                     @break
                                     @case('6')
-                                    博士
+                                    硕士
+                                    @break
+                                    @case('7')
+                                    本科
                                     @break
                                     @default
                                     其他
@@ -80,7 +107,7 @@
                 <div>
                     @forelse($works as $work)
                         <div class="resume-li">
-                            <div>{{$work->start_time}} - {{$work->end_time}}</div>
+                            <div>{{date('Y-m-d',$work->start_time)}} - {{date('Y-m-d',$work->end_time)}}</div>
                             <div class="mainInfo">{{$work->job}}·{{$work->company}}</div>
                             <div>{{$work->experience}}</div>
                         </div>

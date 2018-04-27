@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Member;
 use App\Models\MemberArchive;
+use App\Models\MemberEducation;
+use App\Models\MemberExperience;
 use App\Models\MemberGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -266,7 +268,7 @@ class MemberController extends BaseController
             if ($status !== 'all') {
                 $condition[] = ['status', '=', $status];
             }
-
+//            return json_encode($condition);
             $itemlist = MemberArchive::where($condition)->orderBy('id', 'ASC')->paginate(20);
             $this->assign([
                 'pagination'=>$itemlist->links(),
@@ -281,6 +283,186 @@ class MemberController extends BaseController
 
             $this->assign(['verify_status'=>$verify_status]);
             return $this->view('admin.member.archive');
+        }
+    }
+
+    /**
+     * 教育经历审核页
+     */
+    public function education(){
+        if ($this->isOnSubmit()) {
+            $members = $this->request->post('members');
+            $eventType = $this->request->post('eventType');
+            if ($eventType === 'delete') {
+                foreach ($members as $id) {
+                    MemberEducation::where('id', $id)->delete();
+                }
+            }
+
+            if ($eventType === 'pass') {
+                foreach ($members as $id) {
+                    MemberEducation::where('id', $id)->update(['status'=>'2']);
+                }
+            }
+
+            if ($eventType === 'refuse') {
+                foreach ($members as $id) {
+                    MemberEducation::where('id', $id)->update(['status'=>'-1']);
+                }
+            }
+            return ajaxReturn();
+
+        }else {
+            $condition = $params = [];
+            $id = $this->request->get('id');
+            $this->data['uid'] = $id;
+            if ($id) {
+                $condition[] = ['uid', '=', $id];
+                $params['uid'] = $id;
+            }
+
+            $major = $this->request->get('major');
+            $this->data['major'] = $major;
+            if ($major) {
+                $condition[] = ['major', '=', $major];
+                $params['major'] = $major;
+            }
+
+            $degree = $this->request->get('degree');
+            $degree = is_null($degree) ? 'all' : $degree;
+            $this->data['degree'] = $degree;
+            $params['degree'] = $degree;
+            if($degree!='all'){
+                $condition[] = ['degree', '=', $degree];
+            }
+
+            $university = $this->request->get('university');
+            $this->data['university'] = $university;
+            if ($university) {
+                $condition[] = ['university', '=', $university];
+                $params['university'] = $university;
+            }
+
+            $status = $this->request->get('status');
+            $status = is_null($status) ? 'all' : $status;
+            $this->data['status'] = $status;
+            $params['status'] = $status;
+            if ($status !== 'all') {
+                $condition[] = ['status', '=', $status];
+            }
+//            return json_encode($condition);
+            $itemlist = MemberEducation::where($condition)->orderBy('id', 'ASC')->paginate(20);
+            $this->assign([
+                'pagination'=>$itemlist->links(),
+                'itemlist'=>[],
+                'id'=>$id
+            ]);
+
+            $verify_status = trans('member.verify_status');
+            $itemlist->map(function ($item) {
+                $this->data['itemlist'][$item->id] = $item;
+            });
+
+            $this->assign(['verify_status'=>$verify_status]);
+            return $this->view('admin.member.education');
+        }
+    }
+
+    /**
+     * 会员经历审核页
+     */
+    public function experience(){
+        if ($this->isOnSubmit()) {
+            $members = $this->request->post('members');
+            $eventType = $this->request->post('eventType');
+            if ($eventType === 'delete') {
+                foreach ($members as $id) {
+                    MemberExperience::where('id', $id)->delete();
+                }
+            }
+
+            if ($eventType === 'pass') {
+                foreach ($members as $id) {
+                    MemberExperience::where('id', $id)->update(['status'=>'2']);
+                }
+            }
+
+            if ($eventType === 'refuse') {
+                foreach ($members as $id) {
+                    MemberExperience::where('id', $id)->update(['status'=>'-1']);
+                }
+            }
+            return ajaxReturn();
+
+        }else {
+            $condition = $params = [];
+            $id = $this->request->get('id');
+            $this->data['uid'] = $id;
+            if ($id) {
+                $condition[] = ['uid', '=', $id];
+                $params['uid'] = $id;
+            }
+
+            $department = $this->request->get('department');
+            $this->data['department'] = $department;
+            if ($department) {
+                $condition[] = ['department', 'like', '%'.$department.'%'];
+                $params['department'] = $department;
+            }
+
+            $role = $this->request->get('role');
+            $this->data['role'] = $role;
+            if ($role) {
+                $condition[] = ['role', 'like', '%'.$role.'%'];
+                $params['role'] = $role;
+            }
+
+            $year = $this->request->get('year');
+            $this->data['year'] = $year;
+            if ($year) {
+                $condition[] = ['year', '=', $year];
+                $params['year'] = $year;
+            }
+
+            $part = $this->request->get('part');
+            $part = is_null($part) ? 'all' : $part;
+            $this->data['part'] = $part;
+            $params['part'] = $part;
+            if($part!='all'){
+                $condition[] = ['part', '=', $part];
+            }
+
+            $vacation = $this->request->get('vacation');
+            $vacation = is_null($vacation) ? 'all' : $vacation;
+            $this->data['vacation'] = $vacation;
+            $params['vacation'] = $part;
+            if($vacation!='all'){
+                $condition[] = ['vacation', '=', $vacation];
+            }
+
+
+            $status = $this->request->get('status');
+            $status = is_null($status) ? 'all' : $status;
+            $this->data['status'] = $status;
+            $params['status'] = $status;
+            if ($status !== 'all') {
+                $condition[] = ['status', '=', $status];
+            }
+//            return json_encode($condition);
+            $itemlist = MemberExperience::where($condition)->orderBy('id', 'ASC')->paginate(20);
+            $this->assign([
+                'pagination'=>$itemlist->links(),
+                'itemlist'=>[],
+                'id'=>$id
+            ]);
+
+            $verify_status = trans('member.verify_status');
+            $itemlist->map(function ($item) {
+                $this->data['itemlist'][$item->id] = $item;
+            });
+
+            $this->assign(['verify_status'=>$verify_status]);
+            return $this->view('admin.member.experience');
         }
     }
 }

@@ -1831,9 +1831,10 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 }
 
 .list-box{
-    padding: 1rem;
+    padding:0.5rem 1rem 0;
     margin-bottom: 1rem;
     background-color: #f8f8f8;
+    text-align: left;
 }
 .list-box .notice{
     text-align: center;
@@ -1993,4 +1994,23 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     font-size: 15px;
     font-weight: 400;
     color: #444;
+}
+.list_bq{
+    position: absolute;
+    right: 0.5rem;
+    top: 2rem;
+    font-size: 14px;
+}
+.warning{
+    color: #E6A23C;
+}
+.bottom_line{
+    border-bottom: 1px solid #eeeeee;
+}
+.half{
+    width: 50%;
+    float: left;
+}
+.primary{
+    background-color: #409eff !important;
 }

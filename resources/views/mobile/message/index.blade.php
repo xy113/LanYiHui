@@ -6,7 +6,7 @@
     <div class="mine-header">
         <div class="content">
             <img src="{{avatar($user->uid)}}" class="avatar">
-            <div class="name">{{$user->username}}</div>
+            <div class="name">{{$user->archive->fullname}}</div>
         </div>
     </div>
 
@@ -19,10 +19,10 @@
         <ul class="itemlist" style="display: block;">
             @foreach ($message as $item)
                <div class="message_box">
-                   <img src="{{avatar($item->visitor->uid)}}" class="avatar"><i class="name">{{$item->visitor->username}}</i>
+                   <img src="{{avatar($item->visitor->uid)}}" class="avatar"><i class="name">{{$item->visitor->archive->fullname}}</i>
                    <div class="msg_content">{{$item->content}}</div>
                    <div>
-                       <span onclick="showReply(this)">查看</span>
+                       <span onclick="showReply(this)">查看回复</span>
                        ({{$item->children->count()}})
                        @if($item->vid==$uid)
                            <span class="del_btn" onclick="del({{$item->id}},this)"> 删除 </span>
@@ -34,7 +34,7 @@
                    <div class="replys">
                    @foreach($item->children as $item)
                        <div class="reply_box">
-                           <img src="{{avatar($item->visitor->uid)}}" class="avatar"><i class="name">{{$item->visitor->username}}</i>
+                           <img src="{{avatar($item->visitor->uid)}}" class="avatar"><i class="name">{{$item->visitor->archive->fullname}}</i>
                            <div class="msg_content">回复<i class="name">{{$item->reply->visitor->username}}</i>：{{$item['content']}}</div>
                            <div>
                                @if($item->vid==$uid)

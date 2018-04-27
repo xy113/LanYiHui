@@ -113,6 +113,8 @@ Route::group(['namespace' => 'Admin','prefix'=>'admin'], function(){
         Route::get('/member', 'MemberController@index');
         Route::post('member/delete', 'MemberController@delete');
         Route::any('/member/archive', 'MemberController@archive');
+        Route::any('/member/education', 'MemberController@education');
+        Route::any('/member/experience', 'MemberController@experience');
         Route::any('/membergroup', 'MemberGroupController@index');
         //菜单管理
         Route::any('/menu', 'MenuController@index');
@@ -221,8 +223,15 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
 
     Route::get('/member', 'MemberController@index');
     Route::get('/member/archive', 'MemberController@archive')->middleware('mobile.auth');
+    Route::any('/member/experience/edit','MemberController@experienceEdit')->middleware('mobile.auth');
+    Route::any('/member/experience/add','MemberController@experienceAdd')->middleware('mobile.auth');
     Route::any('/member/edit', 'MemberController@edit')->middleware('mobile.auth');
     Route::any('/member/userinfo', 'MemberController@info')->middleware('mobile.auth');
+    Route::any('/member/education', 'MemberController@education')->middleware('mobile.auth');
+    Route::any('/member/work', 'MemberController@work')->middleware('mobile.auth');
+
+    Route::any('/schoolfellow/index', 'SchoolController@index')->middleware('mobile.auth');
+    Route::get('/schoolfellow/list', 'SchoolController@schoolfellow')->middleware('mobile.auth');
 
     Route::get('/pages/list', 'PagesController@index');
     Route::get('/pages/detail/{pageid}.html', 'PagesController@detail');
@@ -241,6 +250,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/resume/json/batchget', 'ResumeController@batchget')->middleware(['mobile.auth']);
     Route::any('/resume/edu', 'ResumeController@edu')->middleware(['mobile.auth']);
     Route::any('/resume/work', 'ResumeController@work')->middleware(['mobile.auth']);
+    Route::post('/resume/createWithArchive','ResumeController@createWithArchive')->middleware(['mobile.auth']);
 
     Route::get('/recruit', 'RecruitController@index');
     Route::get('/recruit/detail/{id}.html', 'RecruitController@detail');

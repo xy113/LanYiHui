@@ -13,10 +13,6 @@
         </div>
     </div>
     <div class="tableview">
-        <div class="row" data-link="{{url('/mobile/member/userinfo')}}">
-            <div class="cell cell-icon"><span class="iconfont icon-userinfo"></span></div>
-            <div class="cell cell-text">个人信息</div>
-        </div>
         <div class="row" data-link="{{url('/mobile/member/archive')}}">
             <div class="cell cell-icon"><span class="iconfont icon-yonghu"></span></div>
             <div class="cell cell-text">会员档案</div>
@@ -24,6 +20,10 @@
         <div class="row" data-link="{{url('/mobile/resume')}}">
             <div class="cell cell-icon"><span class="iconfont icon-text"></span></div>
             <div class="cell cell-text">我的简历</div>
+        </div>
+        <div class="row" data-link="{{url('/mobile/schoolfellow/index')}}">
+            <div class="cell cell-icon"><span class="iconfont icon-group_fill"></span></div>
+            <div class="cell cell-text">我的校友</div>
         </div>
         <div class="row" data-link="{{url('/mobile/favorite')}}">
             <div class="cell cell-icon"><span class="iconfont icon-favor"></span></div>

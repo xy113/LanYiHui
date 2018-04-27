@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Mobile;
 
+use App\Models\MemberArchive;
+use App\Models\MemberEducation;
 use App\Models\Resume;
 use App\Models\ResumeEdu;
 use App\Models\ResumeWork;
+use Illuminate\Http\Request;
 
 class ResumeController extends BaseController
 {
@@ -64,8 +67,8 @@ class ResumeController extends BaseController
 
             if ($id) {
                 $resume = Resume::where(['uid'=>$this->uid,'id'=>$id])->first();
-                $edus = $resume->edus;
-                if ($resume) $this->assign(['resume'=>$resume,'edus'=>$edus,'works'=>$resume->works]);
+                $edus = $resume->edus()->orderBy('end_time','ASE')->get();
+                if ($resume) $this->assign(['resume'=>$resume,'edus'=>$edus,'works'=>$resume->works()->orderBy('end_time','ASE')->get()]);
             }else{
                 $old = Resume::where(['uid'=>$this->uid,'status'=>'0'])->first();
                 if ($old){
@@ -89,6 +92,8 @@ class ResumeController extends BaseController
     public function delete(){
         $id = $this->request->get('id');
         Resume::where(['uid'=>$this->uid,'id'=>$id])->delete();
+        ResumeWork::where('resume_id',$id)->delete();
+        ResumeEdu::where('resume_id',$id)->delete();
         return ajaxReturn();
     }
 
@@ -141,7 +146,7 @@ class ResumeController extends BaseController
             $education['school'] = $edu['school'];
             $education['degree'] = $edu['degree'];
             $education['major'] = $edu['major'];
-            $education['end_time'] = $edu['end_time'];
+            $education['end_time'] = strtotime($edu['end_time']);
             $education->save();
             return ajaxReturn();
 //            return url('mobile/resume/edit?id='.$edu['resume_id']);
@@ -150,8 +155,9 @@ class ResumeController extends BaseController
                 $edu = ResumeEdu::find($id);
                 $this->assign(['education'=>$edu]);
             }else{
+                $time = strtotime('today');
                 $edu['resume_id'] = $resume_id;
-                $edu['end_time'] = '';
+                $edu['end_time'] = $time;
                 $edu['school'] = '';
                 $edu['major'] = '';
                 $edu['degree'] = '0';
@@ -175,8 +181,8 @@ class ResumeController extends BaseController
             }
             $work['company'] = $w['company'];
             $work['job'] = $w['job'];
-            $work['start_time'] = $w['start_time'];
-            $work['end_time'] = $w['end_time'];
+            $work['start_time'] = strtotime($w['start_time']);
+            $work['end_time'] = strtotime($w['end_time']);
             $work['experience'] = $w['experience'];
             $work->save();
             return ajaxReturn();
@@ -186,9 +192,10 @@ class ResumeController extends BaseController
                 $w = ResumeWork::find($id);
                 $this->assign(['work'=>$w]);
             }else{
+                $time = strtotime('today');
                 $w['resume_id'] = $resume_id;
-                $w['start_time'] = '';
-                $w['end_time'] = '';
+                $w['start_time'] = $time;
+                $w['end_time'] = $time;
                 $w['company'] = '';
                 $w['job'] = '';
                 $w['experience'] = '';
@@ -197,5 +204,55 @@ class ResumeController extends BaseController
             }
             return $this->view('mobile.resume.work');
         }
+    }
+    public function createWithArchive(){
+        $archive = MemberArchive::where('uid',$this->uid)->first();
+        if(!$archive){
+            $res['errcode']=1;
+            $res['msg']='请先填写会员信息';
+            return json_encode($res);
+        }
+        $resume = new Resume;
+        $resume['uid'] = $this->uid;
+        $resume['title'] = $archive['fullname'].'的会员简历';
+        $resume['name'] = $archive['fullname'];
+        $resume['gender'] = $archive['sex'];
+        if ($archive['birthday']){
+            $resume['age'] = ceil((strtotime('today')-strtotime($archive['birthday']))/31536000);
+        }
+        $resume['phone'] = $archive['phone'];
+        $resume['status'] = '1';
+        $resume['created_at'] = strtotime('today');
+        $resume['updated_at'] = strtotime('today');
+        if($archive->education()->count()>0){
+            $resume['education'] = MemberEducation::where('uid',$this->uid)->orderBy('degree','DESC')->first()['degree'];
+        }
+        if($archive->work()->count()>0){
+            $resume['work_exp'] = ceil((strtotime('today')-$archive->work()->orderBy('start_time','ASC')->first()['start_time'])/31536000);
+        }
+        $resume->save();
+        foreach ($archive->education as $edu){
+            if ($edu['status']>0){
+                $education = new ResumeEdu;
+                $education['resume_id'] = $resume['id'];
+                $education['school'] = $edu['school'];
+                $education['degree'] = $edu['degree'];
+                $education['major'] = $edu['major'];
+                $education['start_time'] = $edu['start_time'];
+                $education['end_time'] = $edu['end_time'];
+                $education->save();
+            }
+        }
+        foreach ($archive->work as $work){
+            $newWork = new ResumeWork();
+            $newWork['resume_id'] = $resume['id'];
+            $newWork['company'] = $work['company'];
+            $newWork['experience'] = $work['experience'];
+            $newWork['job'] = $work['job'];
+            $newWork['start_time'] = $work['start_time'];
+            $newWork['end_time'] = $work['end_time'];
+            $newWork->save();
+        }
+        return ajaxReturn();
     }
 }

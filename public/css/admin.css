@@ -221,3 +221,5 @@
 
 .footer{display: block; padding: 30px 0;}
 .footer p{display: block; text-align: center;}
+.self-btn{ cursor: pointer;color: #2e6da4 }
+.self-btn:active{ background-color: #2e6da4; color: #000000 }
