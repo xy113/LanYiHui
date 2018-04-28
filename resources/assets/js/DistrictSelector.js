@@ -44,13 +44,13 @@ function DistrictSelector(optons) {
                     var proid = $(this).find("option:selected").attr('idvalue');
                     if(proid > 0){
                         bindData(opts.city_selector, proid, opts.city, function () {
-                            if($(opts.county_selector).length > 0){
+                            if($(opts.district_selector).length > 0){
                                 $(opts.city_selector).on('change', function(e){
                                     var cityid = $(this).find("option:selected").attr('idvalue');
                                     if(cityid > 0) {
-                                        bindData(opts.county_selector, cityid, opts.county);
+                                        bindData(opts.district_selector, cityid, opts.county);
                                     }else {
-                                        $(opts.county_selector).html('<option value="">请选择</option>');
+                                        $(opts.district_selector).html('<option value="">请选择</option>');
                                     }
                                 }).change();
                             }
