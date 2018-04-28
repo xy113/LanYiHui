@@ -57,7 +57,7 @@ function DistrictSelector(optons) {
                         });
                     }else {
                         $(opts.city_selector).html('<option value="">请选择</option>');
-                        $(opts.county_selector).html('<option value="">请选择</option>');
+                        $(opts.district_selector).html('<option value="">请选择</option>');
                     }
                 }).change();
             }

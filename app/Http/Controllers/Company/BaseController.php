@@ -25,8 +25,7 @@ class BaseController extends Controller
         $this->middleware(function (Request $request, $next){
             $company_id = $request->cookie('company_id');
             $company_name = $request->cookie('company_name');
-
-            if ($this->company_id && $this->company_name) {
+            if ($company_id && $company_name) {
                 $this->company_id = $company_id;
                 $this->company_name = $company_name;
                 $this->assign([
