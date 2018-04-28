@@ -160,12 +160,13 @@ class MemberController extends BaseController
                 $edu = MemberEducation::find($id);
                 $this->assign(['education'=>$edu]);
             }else{
+                $time = strtotime('today');
                 $edu['uid'] = $this->uid;
-                $edu['start_time']='';
-                $edu['end_time'] = '';
+                $edu['start_time']=$time;
+                $edu['end_time'] = $time;
                 $edu['school'] = '';
                 $edu['major'] = '';
-                $edu['degree'] = '0';
+                $edu['degree'] = '5';
                 $edu['id'] = null;
                 $this->assign(['education'=>$edu]);
             }
@@ -213,5 +214,25 @@ class MemberController extends BaseController
             }
             return $this->view('mobile.member.work');
         }
+    }
+    public function delete(){
+        $type = $this->request->get('type');
+        $id = $this->request->get('id');
+        switch ($type){
+            case 'experience':
+                MemberExperience::where(['uid'=>$this->uid,'id'=>$id])->first()->delete();
+                break;
+            case 'education':
+                MemberEducation::where(['uid'=>$this->uid,'id'=>$id])->first()->delete();
+                break;
+            case 'work':
+                MemberWork::where(['uid'=>$this->uid,'id'=>$id])->first()->delete();
+                break;
+            default:
+                $res['errcode']=1;
+                $res['msg']='未知类型';
+                return json_encode($res);
+        }
+        return ajaxReturn();
     }
 }

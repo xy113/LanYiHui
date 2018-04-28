@@ -1835,6 +1835,17 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     margin-bottom: 1rem;
     background-color: #f8f8f8;
     text-align: left;
+    position: relative;
+}
+.list-box .info-btn{
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0.8rem 1.5rem;
+}
+.list-box .info-btn:active{
+    color: lightseagreen;
 }
 .list-box .notice{
     text-align: center;
@@ -1859,7 +1870,7 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 .list-box .resume-li > a{
     position: absolute;
     right: 0rem;
-    top: 0;
+    top: 0rem;
     color: lightseagreen;
     font-size: 13px;
     padding: 0.5rem;
@@ -2002,7 +2013,7 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
     font-size: 14px;
 }
 .warning{
-    color: #E6A23C;
+    color: #E6A23C !important;
 }
 .bottom_line{
     border-bottom: 1px solid #eeeeee;
@@ -2013,4 +2024,13 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 }
 .primary{
     background-color: #409eff !important;
+}
+.text-error{
+    color:#F56C6C !important;
+}
+.text-info{
+    color:#aaaaaa !important;
+}
+.text-primary{
+    color: lightseagreen !important;
 }

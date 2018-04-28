@@ -229,6 +229,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::any('/member/userinfo', 'MemberController@info')->middleware('mobile.auth');
     Route::any('/member/education', 'MemberController@education')->middleware('mobile.auth');
     Route::any('/member/work', 'MemberController@work')->middleware('mobile.auth');
+    Route::any('/member/deleteWithType', 'MemberController@delete')->middleware('mobile.auth');
 
     Route::any('/schoolfellow/index', 'SchoolController@index')->middleware('mobile.auth');
     Route::get('/schoolfellow/list', 'SchoolController@schoolfellow')->middleware('mobile.auth');
