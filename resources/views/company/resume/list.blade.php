@@ -3,8 +3,7 @@
 @section('content')
     <div class="page-header">
         <div class="console-title">
-            <a href="/company/job/publish" class="button float-right">发布职位</a>
-            <h2>资料设置</h2>
+            <h2>简历管理</h2>
         </div>
     </div>
     <div class="page-content">
@@ -13,10 +12,10 @@
                 <thead>
                 <tr>
                     <th width="40"><label><input type="checkbox" class="checkbox"></label></th>
-                    <th>标题</th>
-                    <th width="80">浏览数</th>
-                    <th width="80">投递数</th>
-                    <th width="140">发布时间</th>
+                    <th>简历名称</th>
+                    <th>投递岗位</th>
+                    <th width="80">状态</th>
+                    <th width="140">提交时间</th>
                     <th width="60">选项</th>
                 </tr>
                 </thead>
@@ -24,11 +23,16 @@
                 @foreach($itemlist as $item)
                     <tr>
                         <td><label><input type="checkbox" class="checkbox"></label></td>
-                        <th><a href="{{job_url($item['job_id'])}}" target="_blank">{{$item['title']}}</a></th>
-                        <td>{{$item['view_num']}}</td>
-                        <td><a href="{{url('/company/resume').'?job_id='.$item['job_id']}}">{{$item->records()->count()}}</a></td>
+                        <th><a href="{{url('/company/resume/detail').'?id='.$item['id']}}">{{$item->resume->title}}</a></th>
+                        <td>{{$item->job->title}}</td>
+                        <td>@switch($item['status'])
+                            @case('-1')<font class="error">已拒绝</font>@break
+                                @case('0')<font class="success">未查看</font>@break
+                                @case('1')<font class="info">已查看</font>@break
+                                @case('2')<font class="primary">待沟通</font>@break
+                            @endswitch</td>
                         <td>{{date('Y-m-d H:i:s', $item['created_at'])}}</td>
-                        <td><a href="{{action('Company\JobController@publish', ['job_id'=>$item['job_id']])}}">编辑</a></td>
+                        <td><a href="{{url('/company/resume/detail').'?id='.$item['id']}}">查看</a></td>
                     </tr>
                 @endforeach
                 </tbody>

@@ -2034,3 +2034,26 @@ body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 .text-primary{
     color: lightseagreen !important;
 }
+.top-select{
+    width: 100%;
+    box-sizing: border-box;
+    height: 30px;
+}
+.top-select li{
+    width: 50%;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    color: #2ab27b;
+    background-color: #efefef;
+}
+.top-select li:active{
+    background-color: #d0d0d0;
+}
+.top-select li.active{
+    background-color: #2ab27b;
+    color: #FFFFFF;
+}
+.top-select li.active:active{
+    background-color: #1aa26b;
+}

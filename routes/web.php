@@ -87,11 +87,14 @@ Route::group(['namespace'=>'Company', 'prefix'=>'company'], function (){
     Route::get('/register', 'RegisterController@index');
     Route::post('/register/save', 'RegisterController@save');
     Route::post('/register/check', 'RegisterController@check');
+    Route::get('/error','JobController@errorPage');
 
     Route::any('/security', 'SecurityController@index');
     Route::any('/job', 'JobController@index');
     Route::any('/job/publish', 'JobController@publish');
     Route::any('/resume', 'ResumeController@index');
+    Route::any('/resume/detail', 'ResumeController@detail');
+    Route::any('/resume/deal', 'ResumeController@dealResume');
 });
 
 //后台管理
@@ -212,6 +215,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
 
     Route::get('/job/list', 'JobController@itemlist');
     Route::get('/job/detail/{id}.html', 'JobController@detail');
+    Route::any('/job/enroll', 'JobController@enroll')->middleware('mobile.auth');
 
     Route::post('/background/upload','ImageController@upload');
 
@@ -238,6 +242,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/pages/detail/{pageid}.html', 'PagesController@detail');
 
     Route::get('/company', 'CompanyController@index');
+    Route::get('/partner','CompanyController@partner');
     Route::get('/company/detail/{id}.html', 'CompanyController@detail');
 
     Route::get('/daren', 'DarenController@index')->middleware(['mobile.auth']);

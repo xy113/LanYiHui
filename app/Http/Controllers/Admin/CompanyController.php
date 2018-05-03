@@ -16,11 +16,29 @@ class CompanyController extends BaseController
 
         if ($this->isOnSubmit()) {
             $items = $this->request->post('items');
+            $eventType = $this->request->post('eventType');
             if ($items) {
-                foreach ($items as $company_id) {
-                    Company::where('company_id', $company_id)->delete();
-                    CompanyContent::where('company_id', $company_id)->delete();
-                    Job::where('company_id', $company_id)->delete();
+                if($eventType == 'delete'){
+                    foreach ($items as $company_id) {
+                        Company::where('company_id', $company_id)->delete();
+                        CompanyContent::where('company_id', $company_id)->delete();
+                        Job::where('company_id', $company_id)->delete();
+                    }
+                }
+                if($eventType=='pass'){
+                    foreach ($items as $company_id){
+                        Company::where('company_id',$company_id)->update(['status'=>'2']);
+                    }
+                }
+                if($eventType=='nopass'){
+                    foreach ($items as $company_id){
+                        Company::where('company_id',$company_id)->update(['status'=>'-1']);
+                    }
+                }
+                if($eventType=='partner'){
+                    foreach ($items as $company_id){
+                        Company::where('company_id',$company_id)->update(['status'=>'3']);
+                    }
                 }
             }
             return ajaxReturn();
@@ -28,10 +46,20 @@ class CompanyController extends BaseController
             $condition = [];
             $q = $this->request->get('q');
             if ($q) $condition[] = ['company_name', 'LIKE', "%$q%"];
+
+            $status = $this->request->get('status');
+            $status = is_null($status) ? 'all' : $status;
+            $this->data['status'] = $status;
+            $params['status'] = $status;
+            if ($status !== 'all') {
+                $condition[] = ['status', '=', $status];
+            }
+
             $itemlist = Company::where($condition)->orderBy('company_id', 'DESC')->paginate(20);
 
             $this->assign([
                 'q'=>$q,
+                'status'=>$status,
                 'itemlist'=>$itemlist,
                 'pagination'=>$itemlist->appends(['q'=>$q])->links()
             ]);
@@ -48,6 +76,7 @@ class CompanyController extends BaseController
         $company_id = $this->request->get('company_id');
         if ($this->isOnSubmit()) {
             $company = $this->request->post('company');
+            $company['status'] ='1';
             if ($company_id) {
                 $company['updated_at'] = time();
                 Company::where('company_id', $company_id)->update($company);

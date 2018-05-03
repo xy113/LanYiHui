@@ -223,3 +223,22 @@
 .footer p{display: block; text-align: center;}
 .self-btn{ cursor: pointer;color: #2e6da4 }
 .self-btn:active{ background-color: #2e6da4; color: #000000 }
+
+.primary{
+    color:#409EFF;
+}
+.success{
+    color: #67C23A;
+}
+.error{
+    color: #F56C6C;
+}
+.info{
+    color: #909399;
+}
+.warning{
+    color: #E6A23C;
+}
+.default{
+    color: #1e1e1e;
+}

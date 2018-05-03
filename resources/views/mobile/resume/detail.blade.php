@@ -58,6 +58,10 @@
                 <div class="content">{{$resume['work_exp']}}年</div>
             </div>
             <div class="row">
+                <div class="label">所在地</div>
+                <div class="content">{{$resume['address']}}</div>
+            </div>
+            <div class="row">
                 <div class="label">个人介绍</div>
                 <div class="content">{!! $resume['introduction'] !!}</div>
             </div>

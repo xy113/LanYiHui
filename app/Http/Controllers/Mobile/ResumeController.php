@@ -57,7 +57,8 @@ class ResumeController extends BaseController
                     'major'=>'',
                     'work_exp'=>'',
                     'work_history'=>'',
-                    'introduction'=>''
+                    'introduction'=>'',
+                    'address'=>''
                 ],
                 'edus'=>[
                 ],
@@ -222,6 +223,7 @@ class ResumeController extends BaseController
         }
         $resume['phone'] = $archive['phone'];
         $resume['status'] = '1';
+        $resume['address'] = $archive['location'];
         $resume['created_at'] = strtotime('today');
         $resume['updated_at'] = strtotime('today');
         if($archive->education()->count()>0){

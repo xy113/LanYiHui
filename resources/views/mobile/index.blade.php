@@ -44,7 +44,7 @@
                 <div class="image"><img src="{{asset('images/mobile/daren.png')}}"></div>
                 <div class="title">联谊会达人</div>
             </li>
-            <li data-link="/mobile/company">
+            <li data-link="/mobile/partner">
                 <div class="image"><img src="{{asset('images/mobile/hezuo.png')}}"></div>
                 <div class="title">合作伙伴</div>
             </li>

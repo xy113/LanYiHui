@@ -14,9 +14,27 @@ class JobController extends BaseController
     public function index(){
         if ($this->isOnSubmit()) {
             $items = $this->request->post('items');
+            $eventType = $this->request->post('eventType');
             if ($items) {
-                foreach ($items as $job_id) {
-                    Job::where('job_id', $job_id)->delete();
+                if($eventType=='delete'){
+                    foreach ($items as $job_id) {
+                        Job::where('job_id', $job_id)->delete();
+                    }
+                }
+                if($eventType=='hidden'){
+                    foreach ($items as $job_id) {
+                        Job::where('job_id', $job_id)->update(['status'=>'1']);
+                    }
+                }
+                if($eventType=='show'){
+                    foreach ($items as $job_id) {
+                        Job::where('job_id', $job_id)->update(['status'=>'2']);
+                    }
+                }
+                if($eventType=='refuse'){
+                    foreach ($items as $job_id) {
+                        Job::where('job_id', $job_id)->update(['status'=>'-1']);
+                    }
                 }
             }
             return ajaxReturn();
@@ -25,13 +43,23 @@ class JobController extends BaseController
             $consition = [];
             $q = $this->request->input('q');
             if ($q) $consition[] = ['j.title', 'LIKE', "%$q%"];
+
+            $status = $this->request->get('status');
+            $status = is_null($status) ? 'all' : $status;
+            $this->data['status'] = $status;
+            $params['status'] = $status;
+            if ($status !== 'all') {
+                $condition[] = ['status', '=', $status];
+            }
+
             $itemlist = DB::table('job AS j')->leftJoin('company AS c', 'c.company_id', '=', 'j.company_id')
                 ->where($consition)
-                ->select(['j.job_id', 'j.title', 'j.type', 'j.salary', 'j.place','j.num', 'j.welfare', 'j.view_num', 'j.created_at', 'j.company_id', 'c.company_name','c.company_logo'])
+                ->select(['j.job_id', 'j.title', 'j.type', 'j.salary', 'j.place','j.num', 'j.welfare', 'j.view_num', 'j.created_at', 'j.company_id', 'j.status','c.company_name','c.company_logo'])
                 ->orderBy('j.job_id', 'DESC')->paginate(10);
 
             $this->assign([
                 'q'=>$q,
+                'status'=>$status,
                 'salary_ranges'=>trans('job.salary_ranges'),
                 'pagination'=>($q ? $itemlist->appends(['q'=>$q])->links() : $itemlist->links()),
                 'itemlist'=>[]
@@ -53,6 +81,7 @@ class JobController extends BaseController
         $job_id = intval($this->request->input('job_id'));
         if ($this->isOnSubmit()) {
             $job = $this->request->post('job');
+            $job['status'] = '2';
             if ($job['title'] && $job['description']){
 
                 $newwelfares = [];

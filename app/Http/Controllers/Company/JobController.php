@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Models\Company;
 use App\Models\Job;
 
 class JobController extends BaseController
@@ -30,10 +31,14 @@ class JobController extends BaseController
     public function publish(){
 
         $job_id = intval($this->request->input('job_id'));
+
         if ($this->isOnSubmit()) {
             $job = $this->request->post('job');
+            $company = Company::where('company_id',$this->company_id)->first();
+            if ($company['status']<1){
+               return redirect('company/error');
+            }
             if ($job['title'] && $job['description']){
-
                 $newwelfares = [];
                 $welfares = $this->request->post('welfares');
                 $welfare_types = trans('job.welfare_types');
@@ -57,6 +62,11 @@ class JobController extends BaseController
                 }else {
                     $job['created_at'] = time();
                     $job['company_id'] = $this->company_id;
+                    if($company['status']<3){
+                        $job['status'] = '0';
+                    }else{
+                        $job['status'] = '1';
+                    }
                     Job::insertGetId($job);
                     return $this->showSuccess(trans('ui.save_succeed'), null, [
                         [
@@ -106,5 +116,9 @@ class JobController extends BaseController
 
             return $this->view('company.job_publish');
         }
+    }
+
+    public function errorPage(){
+        return $this->view('company.wrz');
     }
 }

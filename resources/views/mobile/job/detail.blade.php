@@ -42,4 +42,9 @@
             <div class="content">{!! $content['content'] !!}</div>
         </div>
     </div>
+    <div class="bottom-bar">
+        <div class="fixed">
+            <div class="btn" data-link="{{url('/mobile/job/enroll?job_id='.$job['job_id'])}}">投递简历</div>
+        </div>
+    </div>
 @stop

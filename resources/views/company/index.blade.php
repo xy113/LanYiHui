@@ -19,6 +19,17 @@
                         <td class="tips">企业名称，至少两个字，不能含有特殊字符和符号</td>
                     </tr>
                     <tr>
+                        <td>认证状态</td>
+                        @switch($company['status'])
+                            @case('-1')<td class="error">认证失败</td><td class="warning">失败原因:{{$company['reason']}}</td>@break
+                            @case('0')<td>审核中</td><td class="info">已提交至人工审核队列，请耐心等待</td>@break
+                            @case('1')<td class="warning">复核中</td><td class="info">修改已提交，审核过程中部分功能权限不受影响</td>@break
+                            @case('2')<td class="success">已认证</td><td class="warning">修改企业名称、营业执照等相关信息重新审核</td>@break
+                            @case('3')<td class="success">合作伙伴</td>@break
+                            @default <td>未知状态</td>
+                        @endswitch
+                    </tr>
+                    <tr>
                         <td>企业LOGO</td>
                         <td>
                             <div class="bg-cover" id="pickLogo" style="width: 100px; height: 100px; background-color: #f5f5f5; background-image: url({{image_url($company['company_logo'])}});"></div>

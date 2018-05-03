@@ -58,6 +58,10 @@
                             <div class="content"><input type="text" class="input-text" name="resume[work_exp]" id="work_exp" value="{{$resume['work_exp']}}" placeholder="工作经验，单位:年"></div>
                         </div>
                         <div class="form-group">
+                            <div class="label">所在地</div>
+                            <div class="content"><input type="text" class="input-text" name="resume[address]" id="address" value="{{$resume['address']}}" placeholder="当前所在地"></div>
+                        </div>
+                        <div class="form-group">
                             <div class="label">个人介绍</div>
                             <div class="content">
                                 <textarea class="textarea" name="resume[introduction]" id="introduction" placeholder="简单简绍一下你自己">{{$resume['introduction']}}</textarea>

@@ -25,6 +25,22 @@ class CompanyController extends Controller
         return $this->view('mobile.company.list');
     }
 
+    public function partner(){
+        $condition = [];
+        $q = $this->request->get('q');
+        if ($q) $condition[] = ['company_name', 'LIKE', "%$q%"];
+        $condition[] = ['status','3'];
+        $itemlist = Company::where($condition)->orderBy('view_num', 'DESC')->orderBy('company_id', 'DESC')->paginate(20);
+
+        $this->assign([
+            'q'=>$q,
+            'itemlist'=>$itemlist,
+            'pagination'=>$itemlist->appends(['q'=>$q])->links()
+        ]);
+
+        return $this->view('mobile.company.partner');
+    }
+
     public function detail($company_id) {
 
         Company::where('company_id', $company_id)->increment('view_num');

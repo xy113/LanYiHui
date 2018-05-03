@@ -294,3 +294,103 @@
     background-position: left center;
     padding-left: 32px;
 }
+.primary{
+    color:#409EFF;
+}
+.success{
+    color: #67C23A;
+}
+.error{
+    color: #F56C6C;
+}
+.info{
+    color: #909399;
+}
+.warning{
+    color: #E6A23C;
+}
+.default{
+    color: #1e1e1e;
+}
+.resume_info{
+    font-size: 16px;
+    text-align: center;
+}
+.resume_info .resume_header{
+    width: 120px;
+    border-radius: 60px;
+    margin:1rem auto 0.5rem;
+}
+.resume_info .resume_tip{
+    text-align: left;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-size: 18px;
+    margin: 1rem 0;
+}
+.resume_info .resume_table{
+    margin:1rem auto;
+    text-align: left;
+    line-height: 2.5rem;
+}
+.resume_info .resume_table .resume_table td{
+    width: 160px;
+}
+.resume_info .resume_item{
+    text-align: left;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    border-radius: 1rem;
+    margin-top: 1rem;
+}
+.resume_info .resume_item h4 span{
+    font-size: 16px;
+    font-weight: 400;
+    float: right;
+    color: #909399;
+}
+
+.resume_info .resume_item .info{
+    font-size: 14px;
+    margin:0.5rem 0;
+}
+.resume_deal{
+    position: fixed;
+    top: 150px;
+    right: 30px;
+    padding: 1rem;
+    background-color: rgba(255,255,255,.8);
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    max-width: 200px;
+    text-align: center;
+
+}
+.resume_deal p{
+    font-size: 14px;
+    margin-bottom: 1rem;
+}
+.resume_deal button{
+    padding: 0.5rem 2rem;
+    font-size: 18px;
+    border: none;
+    border-radius: 0.2rem;
+}
+.resume_deal button.primary{
+    background-color: #409EFF;
+    color: #FFFFFF;
+}
+.resume_deal button.primary:active{
+    background-color: #2e6da4;
+    box-shadow: 0 0 5px #aaaaaa;
+}
+.resume_deal button.error{
+    background-color: #F56C6C;
+    color: #FFFFFF;
+}
+.resume_deal button.error:active{
+    background-color:#a54c4c;
+    box-shadow: 0 0 5px #aaaaaa;
+}

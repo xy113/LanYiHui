@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="top-select">
-        <li onclick="turnTo('{{url('/mobile/partner')}}')">合作伙伴</li>
-        <li class="active")>认证企业</li>
+        <li class="active">合作伙伴</li>
+        <li onclick="turnTo('{{url('/mobile/company')}}')">认证企业</li>
     </div>
     <ul class="company-list">
         @foreach ($itemlist as $item)
