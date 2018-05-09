@@ -18,8 +18,8 @@
         <div class="message">{{$message['message']}}</div>
     </div>
     @if($replyCount > 0)
-    <div class="blank"></div>
-    <div class="topic-section-title">最新回复</div>
+    {{--<div class="blank"></div>--}}
+    <div class="topic-section-title"><span>最新回复</span></div>
     <div class="topiclist">
         <ul>
             @foreach ($messagelist as $msg)
@@ -38,8 +38,8 @@
         </ul>
     </div>
     @endif
-    <div class="blank"></div>
-    <div class="topic-section-title">发表回复</div>
+    {{--<div class="blank"></div>--}}
+    <div class="topic-section-title"><span>发表回复</span></div>
     <div class="topic-reply-wrapper">
         <div class="form-wrap">
             <form method="post" id="Form" action="{{url('/mobile/forum/reply')}}">

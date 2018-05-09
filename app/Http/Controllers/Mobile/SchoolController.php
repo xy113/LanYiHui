@@ -54,7 +54,8 @@ class SchoolController extends BaseController
         if ($res>0){
             $authority = 1;
         }
-        $list = MemberEducation::where('school',$school)->orderBy('end_time')->groupBy('status')->get();
+        $list = MemberEducation::where('school',$school)->orderBy('end_time','DESC')->groupBy('uid')->get();
+//        return json_encode($list);
         $this->assign([
            'list'=>$list,
             'school'=>$school,

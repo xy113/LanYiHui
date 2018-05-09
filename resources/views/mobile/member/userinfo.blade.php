@@ -14,7 +14,6 @@
             <input type="hidden" name="formsubmit" value="yes">
             <div class="form-wrap">
                 <div class="setting-box">
-                    <div class="title">头像</div>
                     <img id="avatar-image" src="{{avatar($uid).'?'.rand(0,10000)}}" class="avatar">
                     <span id="picker"><i class="iconfont icon-edit"></i>修改</span>
                 </div>
@@ -64,6 +63,7 @@
             </div>
         </form>
         <div id="datePlugin"></div>
+        @include('mobile.tabbar', ['tab' => 'mine'])
     </div>
     <link href="{{asset('webuploader/webuploader.css')}}" rel="stylesheet" type="text/css">
     <script src="{{asset('webuploader/webuploader.min.js')}}" type="text/javascript"></script>

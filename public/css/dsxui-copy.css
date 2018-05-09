@@ -20,8 +20,8 @@ a,button{cursor:pointer;}
     vertical-align: middle;
     white-space: nowrap;
     -webkit-appearance: none;
-    background-color:#30c6b1;
-    border: 1px #30c6b1 solid;
+    background-color:#2EA2CC;
+    border: 1px #2EA2CC solid;
     color: #fff !important;
 }
 .button:hover{

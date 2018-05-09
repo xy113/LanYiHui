@@ -1,7 +1,7 @@
 <nav class="tabbar">
     <div class="bar">
         @if($tab === 'home')
-                <div class="item" data-link="{{url('/mobile')}}">
+                <div class="item active" data-link="{{url('/mobile')}}">
                     <div class="item-icon item-home-active"></div>
                     <div class="item-title item-title-active">首页</div>
                 </div>
@@ -12,7 +12,7 @@
                 </div>
         @endif
         @if ($tab === 'grow')
-                <div class="item" data-link="{{url('/mobile/activity')}}">
+                <div class="item active" data-link="{{url('/mobile/activity')}}">
                     <div class="item-icon item-grow-active"></div>
                     <div class="item-title item-title-active">近期活动</div>
                 </div>
@@ -23,7 +23,7 @@
                 </div>
         @endif
         @if ($tab === 'com')
-                <div class="item" data-link="{{url('/mobile/forum')}}">
+                <div class="item active" data-link="{{url('/mobile/forum')}}">
                     <div class="item-icon item-com-active"></div>
                     <div class="item-title item-title-active">交流</div>
                 </div>
@@ -35,7 +35,7 @@
         @endif
 
         @if($tab === 'mine')
-                <div class="item" data-link="{{url('/mobile/member')}}">
+                <div class="item active" data-link="{{url('/mobile/member')}}">
                     <div class="item-icon item-mine-active"></div>
                     <div class="item-title item-title-active">我的</div>
                 </div>

@@ -21,6 +21,7 @@
             @endforeach
         </div>
     </div>
+    @include('mobile.tabbar', ['tab' => 'mine'])
     <script type="text/javascript">
         $('.list-item').on('tap',function () {
             var name = this.getAttribute('s_name');

@@ -8,6 +8,7 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Models\Member;
+use App\Models\MemberEducation;
 use App\Models\Message;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class MessageController extends BaseController
         }
         $user = Member::find($id);
         $message = Message::where(['uid'=>$id,'level'=>'1'])->orderBy('created_at','desc')->get();
-        $this->assign(['message'=>$message,'user'=>$user,'isMe'=>$isMe,'uid'=>$this->uid]);
+        $edus = MemberEducation::where('uid',$id)->where('status','>','0')->get();
+        $this->assign(['message'=>$message,'user'=>$user,'isMe'=>$isMe,'uid'=>$this->uid,'verify_status'=>trans('member.verify_status'),'edus'=>$edus]);
         return $this->view('mobile.message.index');
     }
     public function leaveMessage(){

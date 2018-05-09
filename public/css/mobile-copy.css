@@ -1,5 +1,5 @@
 @import "common.css";
-body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
+body,html{font-size: 16px; background-color: #f2f2f2; color: #333;}
 .tabbar{
     position: relative;
     height: 49px;
@@ -8,10 +8,9 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     position: fixed;
     width: 100%;
     height: 49px;
-    /*border-top: 1px #e7e7e7 solid;*/
-    box-shadow: 0 0 10px #2e3551;
+    border-top: 1px #e7e7e7 solid;
     bottom: 0;
-    background-color: #2e3551;
+    background-color: #fff;
     display: flex;
     z-index: 1000;
 }
@@ -22,9 +21,6 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     min-width: 25%;
     max-width: 25%;
     padding: 5px 0 0;
-}
-.tabbar .bar .item.active{
-    border-top: 2px solid #2ab27b;
 }
 
 .tabbar .bar .item .item-icon{
@@ -92,7 +88,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 /*表单*/
 .form-wrap{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
     padding: 1rem;
 }
 
@@ -150,7 +146,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .global-menus{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
     margin-bottom: 10px;
 }
 
@@ -184,28 +180,24 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .global-menus .wrapper li .title{
     text-align: center;
     font-size: 14px;
-    color: #ffffff;
+    color: #222;
     display: block;
 }
 
 .content-div{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .title-div{
     display: block;
     padding: 10px;
-    font-size: 16px;
-    color: #ffffff;
+    font-size: 18px;
+    color: #222;
     font-weight: 500;
-    background-color: #5b637d;
+    border-bottom: 1px #e9e9e9 solid;
 }
-.title-div > span{
-    background-color: #2ab27b;
-    padding: 5px 10px;
-    border-radius: 15px 0;
-}
+
 .more-div{
     display: block;
 }
@@ -226,7 +218,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .article-list li{
     display: flex;
     padding: 15px 0;
-    border-bottom: 1px #5b637d solid;
+    border-bottom: 1px #e5e5e5 solid;
 }
 
 .article-list li .image{
@@ -244,20 +236,19 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     flex: 1;
     height: 80px;
     position: relative;
-    letter-spacing: 2px;
 }
 
 .article-list li .data .title{
-    font-size: 14px;
-    font-weight: 100;
+    font-size: 16px;
+    font-weight: 400;
     line-height: 1.2;
     display: block;
     margin-bottom: 7px;
-    color: #ffffff;
+    color: #222;
 }
 
 .article-list li .data .info{
-    color: #aaa;
+    color: #888;
     font-size: 12px;
     position: absolute;
     left: 0;
@@ -273,7 +264,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     right: 0;
     bottom: 0;
     font-size: 13px;
-    color: #aaa;
+    color: #888;
 }
 
 /*===新闻正文===*/
@@ -283,23 +274,23 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .articel-detail .head{
-    background-color: #394263;
+    background-color: #fff;
     padding: 20px 15px 10px;
     display: block;
 }
 
 .articel-detail .head h1{
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.2;
     display: block;
-    color: #ffffff;
+    color: #333;
     margin-bottom: 10px;
     text-align: justify;
 }
 
 .articel-detail .head p{
-    color: #aaa; font-size: 12px;
+    color: #888; font-size: 12px;
     display: block;
 }
 
@@ -310,7 +301,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .articel-detail .body .content{
-    font-size: 18px; color: #000;
+    font-size: 18px; color: #333;
     line-height: 1.5; text-align: justify;
 }
 
@@ -327,7 +318,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     left: 0; top: 0;
     width: 100%; height: 100%;
     z-index: 10;
-    background-color: #fff;
+    background-color: #333;
 }
 
 .articel-detail .body .media .play-btn{
@@ -359,7 +350,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .articel-detail .qrcode p{
     text-align: center;
     font-size: 16px; margin-top: 10px;
-    color: #ddd;
+    color: #666;
 }
 
 .articel-detail .share{
@@ -384,7 +375,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     top: -10px;
     margin-left: -50px;
     font-size: 12px;
-    color: #aaa;
+    color: #777;
 }
 
 .articel-detail .share .item-list{
@@ -405,29 +396,29 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .articel-detail .share .item-list li .title{
-    font-size: 14px; color: #aaa; display: block; text-align: center;
+    font-size: 14px; color: #777; display: block; text-align: center;
 }
 
 
 .comment{
     display: block;
     overflow: hidden;
-    background-color: #4d4266;
+    background-color: #f8f8f8;
 }
 
 .comment .title{
     display: block;
     padding: 10px 15px;
-    border-bottom: 1px #5b637d solid;
+    border-bottom: 1px #e7e7e7 solid;
 }
 
 .comment .title span{
-    background-color: #30c6b1;
+    background-color: #FE4456;
     font-size: 12px;
-    color: #394263;
+    color: #fff;
     display: inline-block;
     padding: 3px 10px;
-    border-radius: 10px 0;
+    border-radius: 5px;
 }
 
 .comment .listview{
@@ -476,7 +467,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .comment .listview .item .username{
-    font-size: 14px; color: #aaa;
+    font-size: 14px; color: #777;
     display: block; line-height: 1.0;
 }
 
@@ -492,7 +483,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .comment .listview .item .message{
     font-size: 16px;
-    color: #fff;
+    color: #333;
     line-height: 1.3;
     text-align: justify;
 }
@@ -501,7 +492,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     background-color: #e2e2e2;
     font-size: 14px; padding: 0 5px;
     height: 28px; line-height: 28px; display: block;
-    overflow: hidden; color: #ddd; margin-top: 5px;
+    overflow: hidden; color: #666; margin-top: 5px;
     border-radius: 2px;
 }
 
@@ -529,7 +520,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .join{
     display: block;
     padding: 20px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .join .title{
@@ -540,7 +531,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .join .content{
     font-size: 16px;
-    color: #fff;
+    color: #222;
     text-align: justify;
     line-height: 1.5;
     padding: 20px 0;
@@ -567,7 +558,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .enroll .form-wrapper{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
     padding: 10px;
 }
 
@@ -660,7 +651,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .job-list-wrapper{
     display: block;
     padding: 0 10px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .job-list {
@@ -699,7 +690,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .job-list li .data .company{
     font-size: 13px;
-    color: #aaa;
+    color: #777;
     display: block;
     margin-top: 5px;
 }
@@ -708,7 +699,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     position: absolute;
     left: 0;
     bottom: 0;
-    color: #ddd;
+    color: #666;
     font-size: 12px;
 }
 
@@ -717,7 +708,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     right: 0;
     bottom: 0;
     font-size: 12px;
-    color: #aaa;
+    color: #777;
 }
 
 .job-detail{
@@ -726,7 +717,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .job-detail .basic{
-    background-color: #394263;
+    background-color: #fff;
     display: block;
     padding: 10px;
     margin-bottom: 10px;
@@ -734,14 +725,14 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .job-detail .basic h1{
     font-size: 22px;
-    color: #fff;
+    color: #222;
     display: block;
     margin-bottom: 10px;
 }
 
 .job-detail .basic .attrs{
     font-size: 14px;
-    color: #aaa;
+    color: #777;
     display: block;
 }
 
@@ -753,12 +744,12 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .job-detail .basic .attrs i{
     font-style: normal;
-    color: #fff;
+    color: #222;
 }
 
 .job-detail .desc{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
     padding: 10px;
     margin-bottom: 10px;
 }
@@ -788,7 +779,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .job-detail .desc .company-data li .label{
-    color: #aaa;
+    color: #777;
     width: 60px;
     min-width: 60px;
     max-width: 60px;
@@ -799,7 +790,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .job-detail .desc .company-data li .text{
-    color: #fff;
+    color: #222;
     text-align: left;
 }
 
@@ -807,19 +798,19 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .pages{
     display: block;
     padding: 20px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .pages .title{
     font-size: 22px;
     display: block;
     text-align: center;
-    color: #fff;
+    color: #000;
 }
 
 .pages .content{
     font-size: 16px;
-    color: #fff;
+    color: #222;
     text-align: justify;
     line-height: 1.5;
     padding: 20px 0;
@@ -833,13 +824,13 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .company-list{
     display: block;
     padding: 0 15px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .company-list li{
     display: flex;
     padding: 15px 0;
-    border-bottom: 1px #5b637d solid;
+    border-bottom: 1px #e5e5e5 solid;
 }
 
 .company-list li .image{
@@ -862,7 +853,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .company-list li .data h3{
     font-size: 16px;
     font-weight: 400;
-    color: #fff;
+    color: #222;
     line-height: 1.3;
     margin-right: 60px;
 }
@@ -871,7 +862,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     display: block;
     margin-top: 5px;
     font-size: 13px;
-    color: #aaa;
+    color: #777;
 }
 
 .company-list li .data .views{
@@ -879,13 +870,13 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     top: 0;
     right: 0;
     font-size: 12px;
-    color: #ddd;
+    color: #666;
 }
 
 .company-detail{
     display: block;
     padding: 10px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .company-detail .title{
@@ -913,7 +904,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .company-detail .company-data li .label{
-    color: #aaa;
+    color: #777;
     width: 60px;
     min-width: 60px;
     max-width: 60px;
@@ -924,7 +915,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .company-detail .company-data li .text{
-    color: #fff;
+    color: #222;
     text-align: left;
 }
 
@@ -958,13 +949,13 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .daren-list{
     display: block;
     padding: 0 15px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .daren-list li{
     display: flex;
     padding: 15px 0;
-    border-bottom: 1px #5b637d solid;
+    border-bottom: 1px #e5e5e5 solid;
 }
 
 .daren-list li .image{
@@ -988,7 +979,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .daren-list li .data h3{
     font-size: 16px;
     font-weight: 500;
-    color: #fff;
+    color: #222;
     line-height: 1.3;
     margin-right: 60px;
     padding-top: 5px;
@@ -998,7 +989,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     display: block;
     margin-top: 5px;
     font-size: 13px;
-    color: #aaa;
+    color: #777;
 }
 
 .daren-list li .data .stars{
@@ -1006,7 +997,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     top: 0;
     right: 0;
     font-size: 13px;
-    color: #ddd;
+    color: #666;
     line-height: 18px;
 }
 
@@ -1068,7 +1059,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     border-radius: 50px;
     padding: 3px 20px;
     font-size: 14px;
-    color: #394263;
+    color: #fff;
     text-align: center;
     display: inline-block;
     margin-top: 10px;
@@ -1077,8 +1068,8 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 /*会员档案*/
 .member-archive{
     display: block;
-    background-color: #4d4266;
-    position: relative;
+    background-color: #fff;
+    padding: 5px 0 20px;
 }
 
 .member-archive .row{
@@ -1133,13 +1124,13 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .tableview{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .tableview .row{
     display: flex;
     padding: 18px 15px;
-    border-bottom: 1px #5b637d solid;
+    border-bottom: 1px #e9e9e9 solid;
 }
 
 .tableview .row .cell{
@@ -1167,14 +1158,14 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .tableview .row .cell-text{
     font-size: 16px;
-    color: #fff;
+    color: #222;
     padding-top: 4px;
 }
 
 /*简历*/
 .resume{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .resume .resume-list{
@@ -1184,13 +1175,13 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .resume .resume-list li{
     display: block;
     padding: 15px;
-    border-bottom: 1px #5b637d solid;
+    border-bottom: 1px #e7e7e7 solid;
 }
 
 .resume .resume-list li .title{
     font-size: 16px;
     font-weight: 500;
-    color: #fff;
+    color: #222;
 }
 
 .resume .resume-list li span{
@@ -1204,7 +1195,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .resume .resume-detail{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
     padding: 20px;
 }
 
@@ -1234,7 +1225,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .feedback{
     display: block;
     padding: 20px 10px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .feedback .form-wrap .form-group .label{
@@ -1251,7 +1242,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .recruit {
     display: block;
     padding: 10px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .recruit .item-list{
@@ -1261,7 +1252,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .recruit .item-list li{
     display: block;
     padding: 15px 0;
-    border-bottom: 1px #5b637d solid;
+    border-bottom: 1px #e5e5e5 solid;
 }
 
 .recruit .item-list li .image{
@@ -1277,7 +1268,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .recruit .item-list li .title{
-    font-size: 16px;
+    font-size: 18px;
     display: block;
     line-height: 1.3;
     font-weight: 500;
@@ -1285,7 +1276,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .recruit .item-list li .data{
-    color: #aaa;
+    color: #777;
     font-size: 12px;
 }
 
@@ -1299,21 +1290,21 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .recruit .item-title{
     font-size: 22px;
-    color: #fff;
+    color: #222;
     padding-top: 10px;
 }
 
 .recruit .item-data{
     display: block;
     padding: 15px 0;
-    border-bottom: 1px #5b637d solid;
-    color: #ddd;
+    border-bottom: 1px #e5e5e5 solid;
+    color: #666;
 }
 
 .recruit .item-data i{
     font-style: normal;
     float: right;
-    color: #aaa;
+    color: #888;
     font-size: 13px;
 }
 
@@ -1381,19 +1372,19 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .bottom-bar .btn{
     display: block;
-    color: white;
-    background-color: #30c6b1;
+    background-color: #FF0000;
     height: 46px;
     line-height: 46px;
     text-align: center;
+    color: #fff;
     font-size: 16px;
 }
 
 /*个人空间*/
 .space-tabs{
     display: block;
-    background-color: #2e3551;
-    border-bottom: 1px #5b637d solid;
+    background-color: #fff;
+    border-bottom: 1px #e7e7e7 solid;
 }
 .space-tabs ul{
     display: flex;
@@ -1406,7 +1397,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     text-align: center;
     font-size: 16px;
     font-weight: 600;
-    color: #fff;
+    color: #222;
 }
 .space-tabs ul li.active{
     color: #ff0000;
@@ -1416,7 +1407,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .space-content{
     display: block;
     padding: 10px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .space-content .itemlist{
@@ -1439,7 +1430,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .activity-list li{
     display: flex;
     padding: 15px 0;
-    border-bottom: 1px #5b637d solid;
+    border-bottom: 1px #e5e5e5 solid;
 }
 
 .activity-list li .image{
@@ -1460,17 +1451,16 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .activity-list li .data .title{
-    font-size: 14px;
-    font-weight: 100;
+    font-size: 16px;
+    font-weight: 400;
     line-height: 1.2;
     display: block;
     margin-bottom: 7px;
-    color: #ffffff;
-    letter-spacing: 1px;
+    color: #222;
 }
 
 .activity-list li .data .info{
-    color: #aaa;
+    color: #888;
     font-size: 12px;
     position: absolute;
     left: 0;
@@ -1486,7 +1476,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     right: 0;
     bottom: 0;
     font-size: 13px;
-    color: #aaa;
+    color: #888;
 }
 
 /*讨论区*/
@@ -1496,7 +1486,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     flex-direction: row;
     flex-flow: wrap;
     padding: 10px 0;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .forum-menus .wrapper li{
@@ -1521,13 +1511,13 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .forum-menus .wrapper li .title{
     text-align: center;
     font-size: 14px;
-    color: #fff;
+    color: #222;
     display: block;
 }
 
 .board-data{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
     padding: 10px;
     margin-bottom: 10px;
 }
@@ -1552,7 +1542,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 .board-data .content h3{
     font-size: 22px;
-    color: #fff;
+    color: #000;
     display: block;
     height: 30px;
     line-height: 1.3;
@@ -1576,14 +1566,14 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .board-data .content .stat i{
     font-style: normal;
-    color: #fff;
+    color: #000;
     font-weight: 500;
 }
 
 .board-tabs{
     display: block;
-    background-color: #394263;
-    border-bottom: 1px #5b637d solid;
+    background-color: #fff;
+    border-bottom: 1px #e9e9e9 solid;
 }
 
 .board-tabs ul{
@@ -1607,7 +1597,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .topic-publish{
     display: block;
     text-align: center;
-    background-color: #394263;
+    background-color: #fff;
     font-size: 16px;
     padding: 15px 0;
     margin: 0;
@@ -1615,17 +1605,18 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .topiclist{
     display: block;
-    background-color: #4d4266;
+    background-color: #fff;
 }
 
 .topiclist ul{
     display: block;
+    padding: 0 15px;
 }
 
 .topiclist ul li{
     display: block;
-    padding: 15px;
-    border-bottom: 1px #5b637d solid;
+    padding: 15px 0;
+    border-bottom: 1px #e9e9e9 solid;
 }
 
 .topiclist ul li .head{
@@ -1644,7 +1635,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .topiclist ul li .head .username{
     font-size: 13px;
-    color: #ddd;
+    color: #666;
     height: 24px;
     line-height: 24px;
 }
@@ -1652,17 +1643,17 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .topiclist ul li .title{
     display: block;
     margin: 10px 0;
-    font-size: 14px;
-    font-weight: 100;
-    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
 }
 
 .topiclist ul li .message{
     display: block;
     margin: 10px 0;
     font-size: 15px;
-    font-weight: 100;
-    color: #ddd;
+    font-weight: 400;
+    color: #444;
 }
 
 .topiclist ul li .foot{
@@ -1686,13 +1677,13 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .topic-message{
     display: block;
-    background-color: #394263;
+    background-color: #fff;
     padding: 15px;
 }
 
 .topic-message .title{
     font-size: 28px;
-    color: #fff;
+    color: #000;
     line-height: 1.3;
     display: block;
     margin-bottom: 10px;
@@ -1726,7 +1717,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .topic-message .data .attrs{
     font-size: 12px;
-    color: #aaa;
+    color: #888;
     font-weight: 300;
 }
 
@@ -1735,28 +1726,21 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .topic-message .message{
-    font-size: 16px;
-    font-weight: 100;
-    color: #fff;
+    font-size: 17px;
+    color: #333;
     padding: 20px 0 0;
 }
 
 .topic-section-title{
-    padding: 15px 15px;
-    font-size: 16px;
+    padding: 10px 15px;
+    font-size: 18px;
     display: block;
-    /*border-bottom: 1px #5b637d solid;*/
-    background-color: #5b637d;
-}
-
-.topic-section-title>span{
-    background-color: #30c6b1;
-    border-radius: 15px 0;
-    padding: 5px 10px;
+    border-bottom: 1px #e9e9e9 solid;
+    background-color: #fff;
 }
 
 .topic-reply-wrapper{
-    background-color: #394263;
+    background-color: #fff;
     padding: 10px;
     display: block;
 }
@@ -1771,7 +1755,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .favor-tabs-fixed{
     position: fixed;
     width: 100%;
-    background-color: #394263;
+    background-color: #fff;
     height: 49px;
     border-bottom: 1px #e7e7e7 solid;
 }
@@ -1797,7 +1781,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .favor-wrapper{
     display: block;
     padding: 0 15px;
-    background-color: #394263;
+    background-color: #fff;
 }
 
 .favor-wrapper ul{}
@@ -1811,7 +1795,11 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 
 .setting-box{
     position: relative;
+    padding: 5px 0 10px 0;
+    background-color: #fff;
     text-align: center;
+    width: 96%;
+    margin: 5px auto;
 }
 .setting-box .avatar{
     width: 25%;
@@ -1827,27 +1815,11 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .setting-box .title{
     width: 100%;
     text-align: left;
-    padding: 12px 20px;
-    background-color: #5b637d;
-}
-.setting-box .title span{
-    background-color: #30c6b1;
-    color: #ffffff;
-    display: inline-block;
-    padding: 5px 15px;
-    font-size: 15px;
-    border-radius: 20px 0;
-    border: none;
-}
-.setting-box .title li{
-    float: right;
-    color: #30c6b1;
-    font-size: 12px;
-    line-height: 2rem;
+    padding: 5px 10px 0px;
 }
 .setting-box .edit-link{
     position: absolute;
-    top: 5px;
+    top: 10px;
     right: 10px;
     font-size: 14px;
     color: lightseagreen;
@@ -1859,6 +1831,9 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .list-box{
+    padding:0.5rem 1rem 0;
+    margin-bottom: 1rem;
+    background-color: #f8f8f8;
     text-align: left;
     position: relative;
 }
@@ -1881,15 +1856,15 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .list-box .resume-li{
     position: relative;
     font-size: 12px;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1rem;
     margin-bottom: 0.5rem;
-    border-bottom: 1px #5b637d solid;
-    color: #cccccc;
+    border-bottom: 1px solid #eeeeee;
+    color: #888888;
 }
 .list-box .resume-li .mainInfo{
     margin: 0.5rem 0;
     font-size: 14px;
-    color: #ffffff;
+    color: #555555;
 }
 
 .list-box .resume-li > a{
@@ -1925,7 +1900,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     -moz-border-radius: 5px;
     border-radius: 5px;
     width: 100%;
-    background-color: #394263;
+    background-color: #fff;
     z-index: 10;
 
 }
@@ -1935,17 +1910,18 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 
 .schoolfellow{
+    background-color: #ffffff;
 }
 .schoolfellow h4{
-    border-bottom: 1px solid #5b637d;
+    border-bottom: 1px solid #f0f0f0;
     padding: 1rem 1rem 0.5rem;
-    background-color: #2e3551;
+    background-color: #f8f8f8;
 }
 .schoolfellow .list-item{
     font-size: 1rem;
     position: relative;
-    padding: 0.5rem 2rem;
-    background-color: #394263;
+    padding: 0.2rem 2rem;
+    background-color: #ffffff;
     line-height: 2rem;
 }
 .schoolfellow .list-item:active{
@@ -1961,7 +1937,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .le_message_box{
     padding: 0.5rem 1rem;
     text-align: center;
-    background-color: #2e3551;
+    background-color: #ffffff;
 }
 .le_message_box .le_message_input{
     line-height: 1.5rem;
@@ -1987,12 +1963,8 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 .message_box .reply_box{
     padding: 0.2rem 0.5rem;
+    border-top: 1px solid #dddddd;
     margin-top: 0.5rem;
-    background-color: #4d4165;
-    border-radius: 1rem;
-}
-.message_box .replys .reply_box .avatar{
-
 }
 .message_box .replys{
     display: none;
@@ -2003,45 +1975,36 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     color: #aaaaaa;
 }
 .message_box .msg_btn{
-    color: #30c6b1;
+    color: #2EA2CC;
 }
 .message_box .del_btn{
     color: #F56C6C;
-    float: right;
-    margin-left: 1rem;
 }
 .message_box span{
     font-size: 12px;
 }
 .message_box .name{
-    color: #fff;
-    font-size: 12px;
-    padding: 0.2rem 0rem;
+    color: #337FE5;
+    font-size: 15px;
     font-style: normal;
 }
-.message_box .visitor-box{
-    width: 20%;
-    padding-left: 1rem;
-    text-align: center;
-    float: left;
-}
-.message_box .visitor-box .avatar{
-    width: 100%;
-    border-radius: 50%;
-    border: 2px solid #fff;
+.message_box .avatar{
+    width: 24px;
+    min-width: 24px;
+    max-width: 24px;
+    height: 24px;
+    border-radius: 12px;
     flex: 1;
     margin-right: 7px;
     vertical-align: middle;
 }
 .message_box .msg_content{
+    text-indent: 25px;
     display: block;
-    padding: 0.5rem;
-    margin: 0 5%;
-    font-size: 13px;
+    margin: 10px 0;
+    font-size: 15px;
     font-weight: 400;
-    color: #aaa;
-    width: 70%;
-    float: left;
+    color: #444;
 }
 .list_bq{
     position: absolute;
@@ -2052,12 +2015,8 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .warning{
     color: #E6A23C !important;
 }
-.warning-fill{
-    background-color: #E6A23c;
-    color: #ffffff;
-}
 .bottom_line{
-    border-bottom: 1px solid #5b637d;
+    border-bottom: 1px solid #eeeeee;
 }
 .half{
     width: 50%;
@@ -2065,37 +2024,6 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 .primary{
     background-color: #409eff !important;
-}
-.primary-fill{
-    background-color: #409eff !important;
-    color: #ffffff;
-}
-.success-btn{
-    background-color: #30c6b1 !important;
-    color: #ffffff !important;
-}
-.success-btn.little{
-    padding: 3px 4px;
-    border-radius: 5px;
-}
-.error-btn{
-    background-color: #F56C6C !important;
-    color: #ffffff !important;
-}
-.error-btn.little{
-    padding: 3px 4px;
-    border-radius: 5px;
-}
-.error-btn.big{
-    font-size: 16px;
-    border: none;
-    padding: 0.5rem;
-    width: 60%;
-    margin: 0 auto;
-    border-radius: 1rem;
-}
-.error-btn.big:active{
-    background-color: #a55050;
 }
 .text-error{
     color:#F56C6C !important;
@@ -2117,7 +2045,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     text-align: center;
     line-height: 30px;
     color: #2ab27b;
-    background-color: #2e3551;
+    background-color: #efefef;
 }
 .top-select li:active{
     background-color: #d0d0d0;
@@ -2128,134 +2056,4 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 .top-select li.active:active{
     background-color: #1aa26b;
-}
-
-.mine-header2{
-    background-image: url("../images/mobile/head-bg.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 50%;
-    background-position: top left;
-    padding-top: 50%;
-    position: relative;
-    display: block;
-}
-
-.mine-header2>.content{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    text-align: center;
-}
-
-.mine-header2>.content .avatar{
-    width: 25%;
-    border-radius: 50%;
-    border: 5px #FFF solid;
-    margin: 12% auto 5px;
-    display: block;
-    position: relative;
-    z-index: 1;
-}
-
-.mine-header2>.content .name{
-    /*background-color: rgba(55, 55, 55, 0.6); */
-    /* border-radius: 50px; */
-    /* padding: 3px 20px; */
-    font-size: 18px;
-    color: #fff;
-    text-align: center;
-    /* display: inline-block; */
-    z-index: 1;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0.5rem;
-}
-
-.mine-header2>.content .signname{
-    background-color: rgba(55, 55, 55, 0.6);
-    border-radius: 50px;
-    padding: 3px 20px;
-    font-size: 14px;
-    color: #394263;
-    text-align: center;
-    display: inline-block;
-    margin-top: 10px;
-}
-.user-info{
-    text-align: center;
-    padding-bottom: 1rem;
-}
-.user-info .row{
-    display: flex;
-}
-
-.user-info .row .label{
-    text-align: right;
-    float: left;
-    font-size: 13px;
-    flex: 1;
-    width: 50%;
-}
-
-.user-info .row .content{
-    flex: 1;
-    font-size: 13px;
-    text-align: left;
-    display: block;
-    margin-left: 5px;
-    position: relative;
-}
-.member-archive ul{
-    text-align: left;
-    padding-left: 22%;
-    margin: 1rem 0 1.5rem;
-}
-.member-archive ul li{
-    font-size: 14px;
-    line-height: 1.8rem;
-}
-.member-archive ul li i{
-    font-size: 14px;
-    vertical-align: 0;
-    margin-right: 10px;
-}
-.setting-box .info-box{
-    background-color: #4d4266;
-    overflow: hidden;
-    position: relative;
-    max-height: 2px;
-}
-.mine-header.message-top{
-    padding-top:40% ;
-}
-.mine-header.message-top .content .avatar-box{
-    height: 100%;
-    left:15%;
-    width: 18%;
-    top:0;
-    padding-top: 10%;
-    position: absolute;
-    text-align: center;
-}
-.mine-header.message-top .content .avatar-box img{
-    width: 100%;
-    border-radius:50% ;
-    border: 3px #FFF solid;
-}
-.mine-header.message-top .content .avatar-box div{
-    margin: 0;
-    padding: 0;
-    line-height: 1rem;
-    font-size: 15px;
-}
-.mine-header.message-top .content .long-bar{
-    width: 100%;
-    padding: 0.2rem 0 0.2rem 50%;
-    margin-top: 18%;
-    background-color: rgba(0,0,0,0.3);
-    font-size: 12px;
-    text-align: left;
 }

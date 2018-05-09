@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 class MemberController extends BaseController
 {
     public function index(){
-
         $this->assign(['background'=>'url(../images/mobile/head-bg.jpg)','username'=>Member::find($this->uid)['username']]);
         return $this->view('mobile.member.index');
     }
@@ -48,19 +47,25 @@ class MemberController extends BaseController
         }
     }
     public function archive(){
-
         $archive = MemberArchive::where('uid', $this->uid)->first();
+        if ($archive){}else{
+            $newArchive = new MemberArchive;
+            $newArchive['uid'] = $this->uid;
+            $newArchive->save();
+            $archive = MemberArchive::where('uid', $this->uid)->first();
+        }
+        $member = Member::where('uid',$this->uid)->first();
         $experience = $archive->experience;
         $works = $archive->work;
         $education = $archive->education;
         $this->assign([
+            'member'=>$member,
             'archive'=>$archive,
             'experience'=>$experience,
             'edus'=>$education,
             'works'=>$works,
             'verify_status'=>trans('member.verify_status')
         ]);
-
         return $this->view('mobile.member.archive');
     }
     /**

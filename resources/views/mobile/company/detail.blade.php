@@ -25,7 +25,7 @@
         </ul>
         <div class="content">{!! $content['content'] !!}</div>
         <div class="blank"></div>
-        <div class="title-div">在招职位</div>
+        <div class="title-div"><span>在招职位</span></div>
         <ul class="jobs">
             @foreach($jobList as $item)
                 <li data-link="{{url('/mobile/job/detail/'.$item['job_id'].'.html')}}">

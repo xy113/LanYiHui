@@ -1,6 +1,9 @@
 /* CSS Document */
 @import url(common.css);
 .button{border-radius: 1px;}
+body{
+    min-width: 900px;
+}
 /**==导航==**/
 .navigation{padding: 10px; border: 1px #DDD solid; font-size: 12px; color: #666; display: block; margin-bottom: 15px; background-color: #fafafa;}
 .navigation span{margin: 0 5px; color: #999;}

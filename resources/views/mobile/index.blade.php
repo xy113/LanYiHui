@@ -5,7 +5,7 @@
         <div class="swiper" id="swiper">
             <ul class="swiper-wrapper">
                 @foreach($focus_imgs as $img)
-                    <li class="swiper-slide"><a><img src="{{image_url($img['image'])}}"></a></li>
+                    <li class="swiper-slide"><a href="{{$img['url']}}"><img src="{{image_url($img['image'])}}"></a></li>
                 @endforeach
             </ul>
             <div class="swiper-pagination"></div>
@@ -56,7 +56,7 @@
     </div>
 
     <div class="content-div">
-        <div class="title-div">最新动态</div>
+        <div class="title-div"><span>最新动态</span></div>
         <ul class="article-list">
             @foreach($newslist as $item)
                 <li class="item" data-link="{{post_mobile_url($item['aid'])}}">

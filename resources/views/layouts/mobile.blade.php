@@ -8,11 +8,15 @@
     <meta name="render" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    {{--<META HTTP-EQUIV="Pragma" CONTENT="no-cache">--}}
+    {{--<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">--}}
+    {{--<META HTTP-EQUIV="Expires" CONTENT="0">--}}
     <meta name="_token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{asset('images/common/favicon.png')}}">
     <link rel="stylesheet" href="{{asset('css/mobile.css')}}" type="text/css">
     @yield('styles')
     <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
+    <script src="{{asset('js/jquery.cookie.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/common.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/jquery.mobile.touch.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('js/vue.min.js')}}" type="text/javascript"></script>

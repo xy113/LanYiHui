@@ -16,7 +16,7 @@ class ResumeController extends BaseController
             if ($job_id){
                 $itemlist = JobRecord::where(['company_id'=>$this->company_id,'job_id'=>$job_id])->orderBy('created_at', 'DESC')->paginate(20);
             }else{
-                $itemlist = JobRecord::where(['company_id'=>$this->company_id])->orderBy('created_at', 'DESC')->paginate(20);
+                $itemlist = JobRecord::where('company_id',$this->company_id)->orderBy('created_at', 'DESC')->paginate(20);
             }
             $this->assign([
                 'itemlist'=>$itemlist,

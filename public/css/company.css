@@ -79,6 +79,7 @@
 .body{
     background-color: #f7f7f7;
     height: 100%;
+    min-width: 900px;
 }
 .header-topbar{
     background-color: #1E1E1E;

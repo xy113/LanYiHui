@@ -3,24 +3,95 @@
 @section('title', $user->info->name)
 
 @section('content')
-    <div class="mine-header">
+    <div class="mine-header message-top">
         <div class="content">
-            <img src="{{avatar($user->uid)}}" class="avatar">
-            <div class="name">{{$user->archive->fullname}}</div>
+            <div class="avatar-box">
+                <img src="{{avatar($user->uid)}}">
+                <div>{{$user->archive->fullname}}</div>
+            </div>
+            <div class="long-bar">
+                <li>联谊会职务：@if($user->archive->post){{$user->archive->post}}@else普通会员@endif</li>
+                <li>人气指数：
+                    <span class="iconfont icon-favorfill" style="color: #cbb956;"></span>{{$user->archive->stars}}
+                <li>认证状态：{{$verify_status[$user->archive->status]}}</li>
+            </div>
         </div>
     </div>
 
-    <div class="space-tabs">
-        <ul>
-            <li>校友留言板</li>
-        </ul>
+    @if($isMe==false)
+        <div class="list-box setting-box">
+            <div class="title" onclick="showInfo(this)">
+                <span>教育经历</span>
+            </div>
+            <div class="info-box">
+                @forelse ($edus as $edu)
+                    <div class="resume-li">
+                        <div>{{date('Y',$edu->start_time)}} - {{date('Y',$edu->end_time)}} | @switch($edu['status'])
+                                @case('-1')
+                                <font class="text-error"> 未通过</font>
+                                @break
+                                @case('0')
+                                <font class="text-info"> 审核中</font>
+                                @break
+                                @case('1')
+                                <font class="warning"> 复核中</font>
+                                @break
+                                @case('2')
+                                <font class="text-primary"> 已审核</font>
+                                @break
+                            @endswitch</div>
+                        <div class="mainInfo">{{$edu->school}}</div>
+                        <div>
+                            @switch($edu->degree)
+                                @case('1')
+                                小学
+                                @break
+                                @case('2')
+                                初中
+                                @break
+                                @case('3')
+                                高中
+                                @break
+                                @case('4')
+                                专科
+                                @break
+                                @case('5')
+                                本科
+                                @break
+                                @case('6')
+                                硕士
+                                @break
+                                @case('7')
+                                博士
+                                @break
+                                @default
+                                其他
+                            @endswitch
+                            ·{{$edu->major}}
+                        </div>
+                    </div>
+                @empty
+                    <p class="notice">暂无教育经历</p>
+                @endforelse
+            </div>
+        </div>
+    @endif
+
+    <div class="setting-box">
+        <div class="title">
+            <span>校友留言板</span>
+        </div>
     </div>
     <div class="space-content" id="contents">
         <ul class="itemlist" style="display: block;">
             @foreach ($message as $item)
                <div class="message_box">
-                   <img src="{{avatar($item->visitor->uid)}}" class="avatar"><i class="name">{{$item->visitor->archive->fullname}}</i>
+                   <div class="visitor-box">
+                       <img src="{{avatar($item->visitor->uid)}}" class="avatar">
+                       <div class="name">{{$item->visitor->archive->fullname}}</div>
+                   </div>
                    <div class="msg_content">{{$item->content}}</div>
+                   <div style="clear: both"></div>
                    <div>
                        <span onclick="showReply(this)">查看回复</span>
                        ({{$item->children->count()}})
@@ -34,8 +105,12 @@
                    <div class="replys">
                    @foreach($item->children as $item)
                        <div class="reply_box">
-                           <img src="{{avatar($item->visitor->uid)}}" class="avatar"><i class="name">{{$item->visitor->archive->fullname}}</i>
+                           <div style="display: table-cell; vertical-align: middle">
+                           <div class="visitor-box">
+                               <img src="{{avatar($item->visitor->uid)}}" class="avatar"><i class="name">{{$item->visitor->archive->fullname}}</i>
+                           </div>
                            <div class="msg_content">回复<i class="name">{{$item->reply->visitor->username}}</i>：{{$item['content']}}</div>
+                           </div>
                            <div>
                                @if($item->vid==$uid)
                                    <span class="del_btn" onclick="del({{$item->id}},this)"> 删除 </span>
@@ -152,6 +227,16 @@
 
                 }
             })
+        }
+        function showInfo(obj) {
+            if($(obj).siblings('.info-box').css('max-height')=='2000px'){
+                $(obj).siblings('.info-box').animate({'max-height':'2px'},function () {
+                    $(obj).children('li').html('展开');
+                });
+            }else {
+                $(obj).siblings('.info-box').animate({'max-height':'2000px'});
+                $(obj).children('li').html('收起');
+            }
         }
     </script>
 @stop

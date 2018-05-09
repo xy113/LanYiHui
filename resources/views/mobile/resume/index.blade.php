@@ -8,20 +8,22 @@
             @foreach($itemlist as $item)
                 <li id="resume_{{$item['id']}}">
                     <span>
-                        <a href="{{url('/mobile/resume/edit?id='.$item['id'])}}">编辑</a>
-                        <a rel="delete" data-id="{{$item['id']}}">删除</a>
+                        <a class="success-btn little" href="{{url('/mobile/resume/edit?id='.$item['id'])}}">编辑</a>
+                        <a class="error-btn little" rel="delete" data-id="{{$item['id']}}">删除</a>
                     </span>
                     <div class="title" data-link="{{url('/mobile/resume/detail/'.$item['id'].'.html')}}">{{$item['title']}}</div>
+                    <div class="text-info" style="font-size: 12px">{{date('Y-m-d h:m:s',$item['created_at'])}}</div>
                 </li>
             @endforeach
         </ul>
     </div>
     <div class="bottom-bar">
         <div class="fixed">
-            <div class="btn half primary" onclick="create()">+生成会员简历</div>
-            <div class="btn half" data-link="{{url('/mobile/resume/edit')}}">+自定义简历</div>
+            <div class="btn half success-btn" onclick="create()">+生成会员简历</div>
+            <div class="btn half error-btn" data-link="{{url('/mobile/resume/edit')}}">+自定义简历</div>
         </div>
     </div>
+    {{--@include('mobile.tabbar', ['tab' => 'mine'])--}}
     <script type="text/javascript">
         (function () {
             $("[rel=delete]").on('click', function () {

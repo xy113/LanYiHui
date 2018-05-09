@@ -41,7 +41,7 @@
                 <tr>
                     <td>
                         <label><input type="checkbox" class="checkbox checkmark checkall"> 全选</label>
-                        <label><button type="submit" class="btn">提交</button></label>
+                        <label><button type="submit" class="btn">删除</button></label>
                         <label><button type="button" class="btn" data-action="refresh">刷新</button></label>
                     </td>
                 </tr>

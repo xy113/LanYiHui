@@ -30,7 +30,7 @@
         </ul>
     </div>
     <div class="blank"></div>
-    <div class="topic-section-title">最新话题</div>
+    <div class="topic-section-title"><span>最新话题</span></div>
     <div class="topiclist">
         <ul>
             @foreach ($newtopics as $topic)
