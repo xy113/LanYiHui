@@ -7,13 +7,15 @@
         <div class="favor-tabs-fixed">
             <ul id="tabs">
                 <li class="active" data-type="article">文章</li>
-                <li data-type="job">职位</li>
+                <li data-type="recruit">活动</li>
+                <li data-type="job">招聘</li>
                 <li data-type="company">企业</li>
             </ul>
         </div>
     </div>
     <div class="favor-wrapper" id="app">
         <ul v-for="item in items">
+            {{--<img v-if="item.data_type=='article'" :src="url(item.image)">--}}
             <li v-on:click="view(item.data_type, item.data_id)">@{{ item.title }}</li>
         </ul>
     </div>
@@ -34,9 +36,17 @@
                             window.redirect(g_config.baseUrl+'/mobile/job/detail/'+id+'.html');
                         }
 
+                        if (type === 'recruit') {
+                            window.redirect(g_config.baseUrl+'/mobile/recruit/detail/'+id+'.html');
+                        }
+
                         if (type === 'company') {
                             window.redirect(g_config.baseUrl+'/mobile/company/detail/'+id+'.html');
                         }
+                    },
+                    url:function (url) {
+                        console.log(url);
+                        return url;
                     }
                 }
             });

@@ -35,4 +35,48 @@
             @endforeach
         </ul>
     </div>
+    <div class="bottom-bar">
+        <div class="fixed">
+            @if($collect=='1')
+                <div class="btn" collect="{{$collect}}" onclick="collect(this)"><i class="iconfont icon-favorfill"></i>已收藏</div>
+            @else
+                <div class="btn" collect="{{$collect}}" onclick="collect(this)"><i class="iconfont icon-favor"></i>收藏</div>
+            @endif
+        </div>
+    </div>
+    <script>
+        function collect(obj) {
+            var method = 1
+            if($(obj).attr('collect')==1){
+                method = 0
+            }
+            $.ajax({
+                type:'POST',
+                url:'{{url('/mobile/favorite/collect')}}',
+                dataType: 'json',
+                data:{
+                    id:{{$company['company_id']}},
+                    type:'company',
+                    title:'{{$company['company_name']}}',
+                    img:'{{$company['company_logo']}}',
+                    method:method
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                success:function (res) {
+                    if(res.errcode==0){
+                        DSXUtil.reFresh()
+                    }else if(res.errcode===1){
+                        DSXUI.error(res.msg);
+                    }else{
+                        DSXUI.error(res.msg);
+                    }
+                },
+                error:function (err) {
+
+                }
+            })
+        }
+    </script>
 @stop

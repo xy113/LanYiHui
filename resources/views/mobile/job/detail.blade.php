@@ -44,7 +44,47 @@
     </div>
     <div class="bottom-bar">
         <div class="fixed">
-            <div class="btn" data-link="{{url('/mobile/job/enroll?job_id='.$job['job_id'])}}">投递简历</div>
+            @if($collect=='1')
+                <div class="btn-left" collect="{{$collect}}" onclick="cellect(this)"><i class="iconfont icon-favorfill"></i>已收藏</div>
+            @else
+                <div class="btn-left" collect="{{$collect}}" onclick="cellect(this)"><i class="iconfont icon-favor"></i>收藏</div>
+            @endif
+            <div class="btn-right" data-link="{{url('/mobile/job/enroll?job_id='.$job['job_id'])}}">投递简历</div>
         </div>
     </div>
+    <script>
+        function cellect(obj) {
+            var method = 1
+            if($(obj).attr('collect')==1){
+                method = 0
+            }
+            $.ajax({
+                type:'POST',
+                url:'{{url('/mobile/favorite/collect')}}',
+                dataType: 'json',
+                data:{
+                    id:{{$job['job_id']}},
+                    type:'job',
+                    title:'{{$job['title']}}',
+                    img:'{{$job['place']}}',
+                    method:method
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                success:function (res) {
+                    if(res.errcode==0){
+                        DSXUtil.reFresh()
+                    }else if(res.errcode===1){
+                        DSXUI.error(res.msg);
+                    }else{
+                        DSXUI.error(res.msg);
+                    }
+                },
+                error:function (err) {
+
+                }
+            })
+        }
+    </script>
 @stop

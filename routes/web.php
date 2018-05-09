@@ -212,6 +212,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::get('/post/detail/{aid}.html', 'PostController@detail');
     Route::get('/post/list', 'PostController@itemlist');
     Route::get('/post/getjson', 'PostController@getjson');
+    Route::post('/post/message', 'PostController@message')->middleware('mobile.auth');
 
     Route::get('/job/list', 'JobController@itemlist');
     Route::get('/job/detail/{id}.html', 'JobController@detail');
@@ -284,4 +285,7 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::post('/leaveMessage','MessageController@leaveMessage')->middleware(['mobile.auth']);
     Route::post('/message/del','MessageController@delMessage')->middleware(['mobile.auth']);
     Route::any('/test','ForumController@test');
+
+//    收藏
+    Route::post('/favorite/collect','FavoriteController@collect')->middleware(['mobile.auth']);
 });

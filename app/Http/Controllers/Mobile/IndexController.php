@@ -13,7 +13,6 @@ class IndexController extends BaseController
             'focus_imgs'=>BlockItem::where('block_id', 10)->get(),
             'newslist'=>PostItem::where(['status'=>1,'catid'=>15])->orderBy('aid', 'DESC')->limit(5)->get()
         ]);
-
         return $this->view('mobile.index');
     }
 }

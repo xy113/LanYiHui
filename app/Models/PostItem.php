@@ -8,6 +8,10 @@ class PostItem extends BaseModel
     protected $primaryKey = 'aid';
     public $timestamps = false;
 
+    public function comment(){
+        return $this->hasMany('\App\Models\PostComment','aid','aid');
+    }
+
     /**
      * @param $aid
      */

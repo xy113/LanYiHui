@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mobile;
 
+use App\Models\Collection;
 use App\Models\Company;
 use App\Models\CompanyContent;
 use App\Models\Job;
@@ -43,13 +44,18 @@ class JobController extends Controller
 
         $company = Company::where('company_id', $job->company_id)->first();
         $content = CompanyContent::where('company_id', $job->company_id)->first();
-
+        if(Collection::where(['data_id'=>$job_id,'uid'=>$this->uid,'data_type'=>'job'])->first()){
+            $collect = 1;
+        }else{
+            $collect = 0;
+        }
         $this->assign([
             'job'=>$job,
             'welfares'=>unserialize($job->welfare),
             'company'=>$company,
             'content'=>$content,
-            'salary_ranges'=>trans('job.salary_ranges')
+            'salary_ranges'=>trans('job.salary_ranges'),
+            'collect'=>$collect
         ]);
 
         return $this->view('mobile.job.detail');

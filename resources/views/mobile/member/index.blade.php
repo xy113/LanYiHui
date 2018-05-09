@@ -25,10 +25,10 @@
             <div class="cell cell-icon"><span class="iconfont icon-group_fill"></span></div>
             <div class="cell cell-text">我的校友</div>
         </div>
-        {{--<div class="row" data-link="{{url('/mobile/favorite')}}">--}}
-            {{--<div class="cell cell-icon"><span class="iconfont icon-favor"></span></div>--}}
-            {{--<div class="cell cell-text">我的收藏</div>--}}
-        {{--</div>--}}
+        <div class="row" data-link="{{url('/mobile/favorite')}}">
+            <div class="cell cell-icon"><span class="iconfont icon-favor"></span></div>
+            <div class="cell cell-text">我的收藏</div>
+        </div>
         <div class="row" data-link="{{url('/mobile/message')}}">
             <div class="cell cell-icon"><span class="iconfont icon-lyb"></span></div>
             <div class="cell cell-text">我的留言</div>

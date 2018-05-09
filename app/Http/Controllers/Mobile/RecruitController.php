@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mobile;
 
+use App\Models\Collection;
 use App\Models\RecruitCatlog;
 use App\Models\RecruitItem;
 use App\Models\RecruitRecord;
@@ -33,7 +34,12 @@ class RecruitController extends Controller
     public function detail($id){
 
         $recruit = RecruitItem::where('id', $id)->first();
-        if ($recruit) $this->assign(['recruit'=>$recruit]);
+        if(Collection::where(['data_id'=>$id,'uid'=>$this->uid,'data_type'=>'recruit'])->first()){
+            $collect = 1;
+        }else{
+            $collect = 0;
+        }
+        if ($recruit) $this->assign(['recruit'=>$recruit,'collect'=>$collect]);
 
         return $this->view('mobile.recruit.detail');
     }
