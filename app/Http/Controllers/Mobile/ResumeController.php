@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Mobile;
 
+use App\Models\JobRecord;
 use App\Models\MemberArchive;
 use App\Models\MemberEducation;
+use App\Models\RecruitRecord;
 use App\Models\Resume;
 use App\Models\ResumeEdu;
 use App\Models\ResumeWork;
@@ -92,12 +94,17 @@ class ResumeController extends BaseController
      */
     public function delete(){
         $id = $this->request->get('id');
-        Resume::where(['uid'=>$this->uid,'id'=>$id])->delete();
-        ResumeWork::where('resume_id',$id)->delete();
-        ResumeEdu::where('resume_id',$id)->delete();
+        if (JobRecord::where('resume_id',$id)->where('status','>','-1')->first()||RecruitRecord::where('resume_id',$id)->where('status','>','-1')->first()){
+            Resume::where(['uid'=>$this->uid,'id'=>$id])->update('status','-1');
+        }else{
+            Resume::where(['uid'=>$this->uid,'id'=>$id])->delete();
+            ResumeWork::where('resume_id',$id)->delete();
+            ResumeEdu::where('resume_id',$id)->delete();
+            JobRecord::where('resume_id',$id)->delete();
+            RecruitRecord::where('resume_id',$id)->delete();
+        }
         return ajaxReturn();
     }
-
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -256,5 +263,57 @@ class ResumeController extends BaseController
             $newWork->save();
         }
         return ajaxReturn();
+    }
+    public function deliver(){
+        return $this->view('mobile.member.deliver.index');
+    }
+    public function jsonDeliver(){
+        $type = $this->request->input('type');
+        $work = JobRecord::where(['uid'=>$this->uid])->with('job','company','resume')->get()->map(function ($item) use (&$work){
+            $item['company']['company_logo'] = image_url($item['company']['company_logo']);
+        });
+        switch ($type){
+            case 'all':
+                $work = JobRecord::where(['uid'=>$this->uid])->with('job','company','resume')->get()->map(function ($item) use (&$work){
+                    $item['company']['company_logo'] = image_url($item['company']['company_logo']);
+                    return $item;
+                });
+                break;
+            case '0':
+                $work = JobRecord::where(['uid'=>$this->uid,'status'=>'0'])->with('job','company','resume')->get()->map(function ($item) use (&$work){
+                    $item['company']['company_logo'] = image_url($item['company']['company_logo']);
+                    return $item;
+                });
+                break;
+            case '1':
+                $work = JobRecord::where(['uid'=>$this->uid,'status'=>'1'])->with('job','company','resume')->get()->map(function ($item) use (&$work){
+                    $item['company']['company_logo'] = image_url($item['company']['company_logo']);
+                    return $item;
+                });
+                break;
+            case '2':
+                $work = JobRecord::where(['uid'=>$this->uid,'status'=>'2'])->with('job','company','resume')->get()->map(function ($item) use (&$work){
+                    $item['company']['company_logo'] = image_url($item['company']['company_logo']);
+                    return $item;
+                });
+                break;
+            case '-1':
+                $work = JobRecord::where(['uid'=>$this->uid,'status'=>'-1'])->with('job','company','resume')->get()->map(function ($item) use (&$work){
+                    $item['company']['company_logo'] = image_url($item['company']['company_logo']);
+                    return $item;
+                });
+                break;
+            default:
+                $work = [];
+        }
+        return ajaxReturn($work);
+    }
+
+    public function deliverDetail(){
+        $id = $this->request->get('id');
+        $record = JobRecord::where(['uid'=>$this->uid,'id'=>$id])->with('company','job','resume')->first();
+        $record['company']['company_logo'] = image_url($record['company']['company_logo']);
+        $this->assign(['data'=>$record]);
+        return $this->view('mobile.member.deliver.detail');
     }
 }

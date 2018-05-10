@@ -18,6 +18,7 @@ class ResumeController extends BaseController
             }else{
                 $itemlist = JobRecord::where('company_id',$this->company_id)->orderBy('created_at', 'DESC')->paginate(20);
             }
+//            return json_encode($itemlist);
             $this->assign([
                 'itemlist'=>$itemlist,
                 'pagination'=>$itemlist->links()
@@ -30,6 +31,7 @@ class ResumeController extends BaseController
         $record = JobRecord::where(['company_id'=>$this->company_id,'id'=>$id])->first();
         if($record['status']=='0'){
             $record['status'] ='1';
+            $record['read_at'] = time();
             $record->save();
         }
         $this->assign([
@@ -45,6 +47,7 @@ class ResumeController extends BaseController
         $record = JobRecord::where(['company_id'=>$this->company_id,'id'=>$req['id']])->first();
         if($record['status']=='0'||$record['status']=='1'){
             $record['status'] = $req['status'];
+            $record['updated_at'] = time();
             $record->save();
             return ajaxReturn();
         }else{

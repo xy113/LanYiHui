@@ -23,7 +23,7 @@
                 @foreach($itemlist as $item)
                     <tr>
                         <td><label><input type="checkbox" class="checkbox"></label></td>
-                        <th><a href="{{url('/company/resume/detail').'?id='.$item['id']}}">{{$item->resume->title}}</a></th>
+                        <th><a href="{{url('/company/resume/detail').'?id='.$item['id']}}">{{$item->resume?$item->resume->title:'简历已删除'}}</a></th>
                         <td>{{$item->job->title}}</td>
                         <td>@switch($item['status'])
                             @case('-1')<font class="error">已拒绝</font>@break

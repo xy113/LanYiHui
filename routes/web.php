@@ -259,6 +259,10 @@ Route::group(['namespace'=>'Mobile', 'prefix'=>'mobile'], function (){
     Route::any('/resume/work', 'ResumeController@work')->middleware(['mobile.auth']);
     Route::post('/resume/createWithArchive','ResumeController@createWithArchive')->middleware(['mobile.auth']);
 
+    Route::get('/resume/getdeliver','ResumeController@jsonDeliver')->middleware(['mobile.auth']);
+    Route::get('/resume/deliver','ResumeController@deliver')->middleware(['mobile.auth']);
+    Route::get('/resume/deliver/detail','ResumeController@deliverDetail')->middleware(['mobile.auth']);
+
     Route::get('/recruit', 'RecruitController@index');
     Route::get('/recruit/detail/{id}.html', 'RecruitController@detail');
     Route::any('/recruit/enroll', 'RecruitController@enroll')->middleware('member.auth');

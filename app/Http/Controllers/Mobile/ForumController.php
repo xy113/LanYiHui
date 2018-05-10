@@ -6,6 +6,7 @@ use App\Models\BlockItem;
 use App\Models\ForumBoard;
 use App\Models\ForumMessage;
 use App\Models\ForumTopic;
+use App\Models\JobRecord;
 use App\Models\Member;
 use App\Models\MemberArchive;
 use App\Models\MemberInfo;
@@ -215,6 +216,9 @@ class ForumController extends BaseController
     }
     public function test(){
 
-        return json_encode(School::find(1)->members);
+        $work = JobRecord::where(['uid'=>$this->uid])->with('job','company')->get()->map(function ($item) use (&$work){
+            $item['company']['company_logo'] = image_url($item['company']['company_logo']);
+        });
+        return json_encode($work);
     }
 }

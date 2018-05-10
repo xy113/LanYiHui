@@ -25,6 +25,10 @@
             <div class="cell cell-icon"><span class="iconfont icon-group_fill"></span></div>
             <div class="cell cell-text">我的校友</div>
         </div>
+        <div class="row" data-link="{{url('/mobile/resume/deliver')}}">
+            <div class="cell cell-icon"><span class="iconfont icon-creative"></span></div>
+            <div class="cell cell-text">我的投递</div>
+        </div>
         <div class="row" data-link="{{url('/mobile/favorite')}}">
             <div class="cell cell-icon"><span class="iconfont icon-favor"></span></div>
             <div class="cell cell-text">我的收藏</div>

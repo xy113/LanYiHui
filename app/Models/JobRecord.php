@@ -13,4 +13,7 @@ class JobRecord extends BaseModel
     public function job(){
         return $this->hasOne('App\Models\Job','job_id','job_id');
     }
+    public function company(){
+        return $this->hasOne('App\Models\Company','company_id','company_id');
+    }
 }

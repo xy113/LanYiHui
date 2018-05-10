@@ -8,7 +8,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     position: fixed;
     width: 100%;
     height: 49px;
-    /*border-top: 1px #e7e7e7 solid;*/
+    /*border-top: 1px #5b637d solid;*/
     box-shadow: 0 0 10px #2e3551;
     bottom: 0;
     background-color: #2e3551;
@@ -694,7 +694,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 .job-list li{
     display: flex;
     padding: 15px 0;
-    border-bottom: 1px #e7e7e7 solid;
+    border-bottom: 1px #5b637d solid;
 }
 
 .job-list li .image{
@@ -1452,7 +1452,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     display: block;
     padding: 15px 0;
     font-size: 16px;
-    border-bottom: 1px #e7e7e7 dotted;
+    border-bottom: 1px #5b637d dotted;
 }
 
 /*近期活动*/
@@ -1798,7 +1798,7 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     width: 100%;
     background-color: #394263;
     height: 49px;
-    border-bottom: 1px #e7e7e7 solid;
+    border-bottom: 1px #5b637d solid;
 }
 
 .favor-tabs-fixed ul{
@@ -1831,7 +1831,52 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
     height: 46px;
     line-height: 46px;
     overflow: hidden;
-    border-bottom: 1px #e5e5e5 solid;
+    border-bottom: 1px #5b637d solid;
+    position: relative;
+}
+
+.favor-wrapper ul li.deliver{
+    height: inherit;
+    padding: 0.5rem 0 ;
+}
+
+.favor-wrapper ul li.deliver img{
+    width: 20%;
+    float: left;
+    vertical-align: top;
+}
+.favor-wrapper ul li.deliver>div{
+    width: 80%;
+    float: left;
+    padding: 0 3rem 0 0.5rem;
+    line-height: 1.5rem;
+}
+.favor-wrapper ul li.deliver>div>div{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.favor-wrapper ul li.deliver .time{
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.5rem;
+}
+.favor-wrapper ul li.deliver span{
+    position: absolute;
+    top: 1rem;
+    font-size: 14px;
+    right: 0;
+}
+.favor-wrapper ul li.deliver span.error{
+    color: #F56C6C;
+}
+.favor-wrapper ul li.deliver span.success{
+    color: #30c6b1;
+}
+.favor-wrapper ul li.deliver span.info{
+    color: #bbb;
 }
 
 .setting-box{
@@ -2308,4 +2353,192 @@ body,html{font-size: 16px; background-color: #394263; color: #ffffff;}
 }
 .fixed .btn-left i{
     color: #cbb956;
+}
+
+.deliver-detail{
+    height: inherit;
+}
+.deliver-detail>div{
+    padding: 0.5rem 1rem;
+    background-color: #5b637d;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+.deliver-detail .deliver-company img{
+    width: 20%;
+    float: left;
+    vertical-align: top;
+}
+.deliver-detail .deliver-company>div{
+    width: 80%;
+    float: left;
+    padding: 0 3rem 0 0.5rem;
+    line-height: 1.5rem;
+}
+.deliver-detail .deliver-company>div>div{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.deliver-detail .time{
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.5rem;
+}
+.deliver-detail .deliver-company span.time{
+    position: absolute;
+    top: 0.5rem;
+    font-size: 14px;
+    right: 1rem;
+}
+.deliver-detail .deliver-company span{
+    position: absolute;
+    top: 2rem;
+    font-size: 14px;
+    right: 1rem;
+}
+.flowTime *{
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+.flowTime .flowChart {
+    padding: 12px;
+    display: flex;
+}
+.flowTime .flowChart-left {
+    width: 50px;
+    flex-shrink: 0;
+}
+.flowTime .flowChart .dashed {
+    width: 0px;
+    height: 100%;
+    margin-left: 50%;
+    border-left-style: dashed;
+    border-left-color: darkgray;
+    border-left-width: 2px;
+}
+.flowTime .flowChart-right {
+    flex-grow: 1;
+}
+.flowTime .flowChart .oneNode {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 14px;
+}
+.flowTime .flowChart .check {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    line-height: 32px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    position: relative;
+    left: -45px;
+    flex-shrink: 0;
+    background-color: rgb(125, 122, 117);
+    border: 4px solid rgb(173,168,163);
+}
+.flowTime .flowChart .check-success {
+    background-color: rgb(87, 194, 64);
+    border: 4px solid rgba(198, 228, 177,0.9);
+}
+.flowTime .flowChart .check-danger {
+    background-color: rgb(228,108,35);
+    border: 4px solid rgb(250, 166, 122);
+}
+.flowTime .flowChart .check-prime {
+    background-color: rgb(0, 136, 165);
+    border: 4px solid rgb(88, 191, 243);
+}
+.flowTime .flowChart .check-warning {
+    background-color: rgb(248, 144,2);
+    border: 4px solid rgba(255, 208, 122,1);
+}
+.flowTime .flowChart .NodeDetail {
+    background-color: white;
+    margin-left: -60px;
+    flex-grow: 1;
+    border: 1px solid gainsboro;
+    border-radius: 1rem;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+}
+.flowTime .flowChart img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+.flowTime .NodeDetail .details {
+    flex-grow: 1;
+    padding-left: 8px;
+    margin-left: 8px;
+    border-left: 4px solid rgb(72, 108, 160);
+}
+.flowTime .details p {
+    color: rgb(154, 154, 154);
+    font-size: 14px;
+    font-weight: 100;
+}
+.flowTime .NodeDetail-title {
+    display: flex;
+    margin-bottom: 10px;
+}
+.flowTime .NodeDetail-content {
+    flex-grow: 1;
+}
+.flowTime .NodeDetail-content p {
+    text-indent: 1em;
+    text-align: justify;
+    font-size: 14px;
+}
+.flowTime .NodeDetail-footer {
+    margin-top: 10px;
+}
+.flowTime .NodeDetail-footer span {
+    font-size: 12px;
+    font-weight: 100;
+    color: rgb(104, 104, 104);
+    float: right;
+}
+.flowTime .badge {
+    padding: 2px 5px;
+    font-size: 12px;
+    background-color: #30c6b1;
+    border-radius: 5px;
+    font-weight: 100;
+    color: white;
+    letter-spacing: 2px;
+    box-shadow: 1px 1px 1px gainsboro;
+}
+.flowTime .BadgeGray {
+    background-color: rgb(104, 108, 104);
+}
+.flowTime .tag {
+    width: 0;
+    height: 0;
+    border: 14px solid;
+    border-style: dashed;
+    border-color: transparent white transparent transparent;
+    position: absolute;
+    left: -13px;
+    top: -14px;
+}
+.flowTime .tag-boder {
+    width: 0;
+    height: 0;
+    border: 12px solid;
+    border-style: dashed;
+    border-color: transparent gainsboro transparent transparent;
+    position: relative;
+    left: -59px;
+}
+.flowTime .NodeDetail-content p{
+    margin-top: 7px;
 }
