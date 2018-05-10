@@ -19,6 +19,13 @@
                     <span style="color: #E6A23C;">复核中</span>
                 </div>
             @endforeach
+
+            @if($list1->count()==0&&$list2->count()==0)
+                <div v-if="items.length==0">
+                    <div class="icon-no-data"></div>
+                    <p class="icon-no-data-p" style="font-size: 14px">暂无学校，请添加教育经历</p>
+                </div>
+            @endif
         </div>
     </div>
     @include('mobile.tabbar', ['tab' => 'mine'])

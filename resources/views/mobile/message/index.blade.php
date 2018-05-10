@@ -133,6 +133,12 @@
                </div>
             @endforeach
         </ul>
+        @if($message->count()==0)
+            <div v-if="items.length==0">
+                <div class="icon-no-data"></div>
+                <p class="icon-no-data-p">暂无留言</p>
+            </div>
+        @endif
     </div>
     @if($isMe==false)
     <div class="bottom-bar">

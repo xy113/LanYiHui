@@ -30,8 +30,13 @@
                 </div>
 
             </li>
+            <div v-if="items.length==0">
+                <div class="icon-no-data"></div>
+                <p class="icon-no-data-p">暂无数据</p>
+            </div>
         </ul>
     </div>
+    @include('mobile.tabbar', ['tab' => 'mine'])
     <script type="text/javascript">
         (function () {
             var vm = new Vue({

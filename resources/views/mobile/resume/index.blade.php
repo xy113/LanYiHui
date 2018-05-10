@@ -15,6 +15,12 @@
                     <div class="text-info" style="font-size: 12px">{{date('Y-m-d h:m:s',$item['created_at'])}}</div>
                 </li>
             @endforeach
+            @if($itemlist->count()==0)
+                    <div v-if="items.length==0">
+                        <div class="icon-no-data"></div>
+                        <p class="icon-no-data-p">暂无简历</p>
+                    </div>
+                @endif
         </ul>
     </div>
     <div class="bottom-bar">
@@ -34,7 +40,7 @@
                         data:{id:id},
                         success:function (response) {
                             if (response.errcode === 0){
-                                $("#resume_"+id).remove();
+                                DSXUtil.reFresh()
                             }else {
                                 DSXUI.error(response.errmsg);
                             }

@@ -31,6 +31,12 @@
                 @endif
             </li>
         @endforeach
+            @if($list->count()==0)
+                <div v-if="items.length==0">
+                    <div class="icon-no-data"></div>
+                    <p class="icon-no-data-p" style="font-size: 14px">暂无校友</p>
+                </div>
+            @endif
     </ul>
     @include('mobile.tabbar', ['tab' => 'com'])
 @stop

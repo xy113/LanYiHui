@@ -19,6 +19,7 @@ class ResumeController extends BaseController
     public function index(){
 
         $itemlist = Resume::where(['uid'=> $this->uid, 'status'=>'1'])->get();
+//        return json_encode($itemlist);
         $this->assign(['itemlist'=>$itemlist]);
 
         return $this->view('mobile.resume.index');
@@ -95,7 +96,7 @@ class ResumeController extends BaseController
     public function delete(){
         $id = $this->request->get('id');
         if (JobRecord::where('resume_id',$id)->where('status','>','-1')->first()||RecruitRecord::where('resume_id',$id)->where('status','>','-1')->first()){
-            Resume::where(['uid'=>$this->uid,'id'=>$id])->update('status','-1');
+            Resume::where(['uid'=>$this->uid,'id'=>$id])->update(['status'=>'-1']);
         }else{
             Resume::where(['uid'=>$this->uid,'id'=>$id])->delete();
             ResumeWork::where('resume_id',$id)->delete();
