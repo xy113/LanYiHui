@@ -22,12 +22,25 @@ module.exports = function(grunt){
                     ]
                 }
             }
+        },
+        babel: {
+            options: {
+                sourceMap: false,
+                presets: ['babel-preset-latest']
+            },
+            dist: {
+                files: {
+                    'resources/assets/test/app.js': 'resources/assets/test/index.js'
+                }
+            }
         }
     });
 
+    require( "load-grunt-tasks" )( grunt );
     // 加载提供"uglify"任务的插件
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     // 默认任务
-    grunt.registerTask('default', ['uglify:release']);
+    grunt.registerTask('default', ['uglify:release', 'babel']);
+    //grunt.registerTask('babel', ['babel']);
 };

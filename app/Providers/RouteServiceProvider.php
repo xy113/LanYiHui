@@ -40,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
 
         $this->mapOpenApiRoutes();
+
+        $this->mapMinAppApiRoutes();
         //
     }
 
@@ -77,5 +79,12 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('openapi')
             ->namespace($this->namespace)
             ->group(base_path('routes/openapi.php'));
+    }
+
+    protected function mapMinAppApiRoutes(){
+        Route::prefix('minapp')
+            ->middleware('mainapp')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/minapp.php'));
     }
 }

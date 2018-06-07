@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="content"><button type="button" class="button" id="submit" style="width: 100%;">发表</button></div>
+                    <div class="content"><button type="button" class="button long-button" id="submit">发表</button></div>
                 </div>
             </form>
         </div>
