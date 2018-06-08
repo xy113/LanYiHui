@@ -83,7 +83,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapMinAppApiRoutes(){
         Route::prefix('minapp')
-            ->middleware('mainapp')
+            ->middleware('minapp')
             ->namespace($this->namespace)
             ->group(base_path('routes/minapp.php'));
     }

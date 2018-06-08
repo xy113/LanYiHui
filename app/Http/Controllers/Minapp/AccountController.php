@@ -19,7 +19,7 @@ class AccountController extends BaseController
         if (isset($res['openid']) && isset($res['session_key'])) {
             $connect = MemberConnect::where('openid', $res['openid'])->first();
             if ($connect) {
-                $user = Member::where('uid', $connect->uid)->get(['uid', 'username', 'email', 'mobile']);
+                $user = Member::where('uid', $connect->uid)->first(['uid', 'username', 'email', 'mobile']);
                 if ($user) {
                     Cache::forever($res['session_key'], $user->toArray());
                 } else {

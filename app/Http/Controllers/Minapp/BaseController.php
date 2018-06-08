@@ -24,7 +24,7 @@ class BaseController extends Controller
         ];
 
         $this->middleware(function (Request $req, $next){
-            $token = $req->header('X-Token');
+            $token = $req->header('x-token');
             if ($token) {
                 $userInfo = Cache::get($token);
                 if (isset($userInfo['uid']) && isset($userInfo['username'])) {

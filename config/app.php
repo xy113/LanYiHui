@@ -179,7 +179,8 @@ return [
         //验证码
         Mews\Captcha\CaptchaServiceProvider::class,
         //图片处理
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        //Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*

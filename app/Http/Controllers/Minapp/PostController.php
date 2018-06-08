@@ -37,7 +37,9 @@ class PostController extends BaseController
             });
 
         return ajaxReturn([
-            'items'=>$items
+            'items'=>$items,
+            'uid'=>$this->uid,
+            'username'=>$this->username
         ]);
     }
 }

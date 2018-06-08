@@ -42,7 +42,7 @@ class Kernel extends HttpKernel
             'bindings',
         ],
 
-        'mainapp' => [
+        'minapp' => [
             'throttle:60,1',
             'bindings',
             \App\Http\Middleware\MinappCheck::class

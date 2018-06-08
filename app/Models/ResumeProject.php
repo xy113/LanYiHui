@@ -7,6 +7,11 @@
  */
 namespace App\Models;
 
+/**
+ * App\Models\ResumeProject
+ *
+ * @mixin \Eloquent
+ */
 class ResumeProject extends BaseModel
 {
     protected $table = 'resume_project';

@@ -4,6 +4,39 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * App\Models\PostCatlog
+ *
+ * @mixin \Eloquent
+ * @property int $catid
+ * @property int $fid 父级分类
+ * @property string $name 分类名称
+ * @property string $identifer
+ * @property string $icon 图片
+ * @property int $level 级别
+ * @property int $enable 是否可选
+ * @property int $available 是否可用
+ * @property int $displayorder 显示顺序
+ * @property string $keywords 关键字
+ * @property string $description 描述
+ * @property string $template_index 首页模板
+ * @property string $template_list 列表页模板
+ * @property string $template_detail 详细页模板
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereAvailable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereCatid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereDisplayorder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereEnable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereFid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereIcon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereIdentifer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereKeywords($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereTemplateDetail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereTemplateIndex($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PostCatlog whereTemplateList($value)
+ */
 class PostCatlog extends BaseModel
 {
     protected $table = 'post_catlog';
