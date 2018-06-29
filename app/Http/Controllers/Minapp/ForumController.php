@@ -36,6 +36,35 @@ class ForumController extends BaseController
         return ajaxReturn(['items'=>$items]);
     }
 
+    public function add_topic()
+    {
+        $boardid = $this->request->input('boardid');
+        $title   = $this->request->input('title');
+        $message = $this->request->input('message');
+
+        $tid = ForumTopic::insertGetId([
+            'boardid'=>$boardid,
+            'uid'=>$this->uid,
+            'username'=>$this->username,
+            'last_uid'=>$this->uid,
+            'last_username'=>$this->username,
+            'title'=>$title,
+            'created_at'=>time()
+        ]);
+
+        ForumMessage::insertGetId([
+            'tid'=>$tid,
+            'boardid'=>$boardid,
+            'uid'=>$this->uid,
+            'username'=>$this->username,
+            'message'=>$message,
+            'created_at'=>time(),
+            'topic'=>1
+        ]);
+
+        return ajaxReturn(['tid'=>$tid]);
+    }
+
     /**
      * @return \Illuminate\Http\JsonResponse
      */
@@ -67,8 +96,8 @@ class ForumController extends BaseController
         !$count && $count = 20;
 
         $condition = [];
-        $tid = $this->request->input('tid');
-        if ($tid) $condition['tid'] = $tid;
+        $boardid = $this->request->input('boardid');
+        if ($boardid) $condition['boardid'] = $boardid;
 
         $orderby = $this->request->input('orderby');
         if ($orderby === 'replies-desc') {
@@ -113,7 +142,7 @@ class ForumController extends BaseController
         !$count && $count = 20;
 
         $tid = $this->request->input('tid');
-        $items = ForumMessage::where('tid', $tid)->offset($offset)->limit($count)
+        $items = ForumMessage::where('tid', $tid)->where('topic', 0)->offset($offset)->limit($count)
             ->get()->map(function ($item){
             $item->avatar = avatar($item->uid);
             return $item;
@@ -122,5 +151,26 @@ class ForumController extends BaseController
         return ajaxReturn([
             'items'=>$items
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function reply()
+    {
+        $tid = $this->request->input('tid');
+        $boardid = $this->request->input('boardid');
+        $message = $this->request->input('message');
+
+        $id = ForumMessage::insertGetId([
+            'tid'=>$tid,
+            'boardid'=>$boardid,
+            'uid'=>$this->uid,
+            'username'=>$this->username,
+            'message'=>$message,
+            'created_at'=>time()
+        ]);
+
+        return ajaxReturn(['id'=>$id]);
     }
 }

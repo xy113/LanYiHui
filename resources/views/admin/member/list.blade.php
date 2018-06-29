@@ -86,8 +86,8 @@
                     <td>{{$member->mobile}}</td>
                     <td>{{$member->email}}</td>
                     <td>{{$member->grouptitle}}</td>
-                    <td><a href="http://ip.taobao.com/?ip={{$member->regip}}" target="_blank">{{date('Y-m-d H:i:s', $member->regdate)}}</a></td>
-                    <td><a href="http://ip.taobao.com/?ip={{$member->lastvisitip}}" target="_blank">{{date('Y-m-d H:i:s', $member->lastvisit)}}</a></td>
+                    <td><a href="http://ip.taobao.com/?ip={{$member->regip}}" target="_blank">{{@date('Y-m-d H:i:s', $member->regdate)}}</a></td>
+                    <td><a href="http://ip.taobao.com/?ip={{$member->lastvisitip}}" target="_blank">{{@date('Y-m-d H:i:s', $member->lastvisit)}}</a></td>
                     <td>{{$status_name or ''}}</td>
                 </tr>
                 @endforeach

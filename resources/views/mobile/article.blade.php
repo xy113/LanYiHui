@@ -59,6 +59,7 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
     <script>
         function le_message(obj) {
             $.ajax({
@@ -87,12 +88,13 @@
                 }
             })
         }
-        
+
         function favorite(obj) {
             var method = 1;
             if($(obj).attr('collect')==1){
                 method = 0
             }
+            wx.miniProgram.postMessage({ data: '{{$aid}}' });
             $.ajax({
                 type:'POST',
                 url:'{{url('/mobile/favorite/collect')}}',

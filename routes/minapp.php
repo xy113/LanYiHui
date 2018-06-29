@@ -39,9 +39,25 @@ Route::group(['namespace'=>'Minapp'], function (){
     Route::any('/forum/get_board', 'ForumController@get_board');
     Route::any('/forum/batchget_board', 'ForumController@batchget_board');
 
+    Route::any('/forum/add_topic', 'ForumController@add_topic');
     Route::any('/forum/get_topic', 'ForumController@get_topic');
     Route::any('/forum/batchget_topic', 'ForumController@batchget_topic');
 
     Route::any('/forum/get_message', 'ForumController@get_message');
     Route::any('/forum/batchget_message', 'ForumController@batchget_message');
+    Route::any('/forum/reply', 'ForumController@reply');
+
+    Route::any('/feedback', 'FeedbackController@index');
+
+    Route::any('/collection/add', 'CollectionController@add');
+    Route::any('/collection/batchget', 'CollectionController@batchget');
+
+    Route::any('/resume/get', 'ResumeController@get');
+    Route::any('/resume/batchget', 'ResumeController@batchget');
+    Route::any('/resume/generate', 'ResumeController@generate');
+    Route::any('/resume/save', 'ResumeController@save');
+    Route::any('/resume/delete', 'ResumeController@delete');
+
+    Route::any('/archive/get', 'ArchiveController@get');
+    Route::any('/archive/save', 'ArchiveController@save');
 });

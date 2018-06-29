@@ -12,7 +12,7 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="listtable">
                 <thead>
                 <tr>
-                    <th width="50"><label><input type="checkbox" class="checkbox checkall checkmark"></label></th>
+                    <th width="60"><label><input type="checkbox" class="checkbox checkall checkmark">删?</label></th>
                     <th width="60">ID</th>
                     <th width="300">名称</th>
                     <th>说明</th>
@@ -35,7 +35,7 @@
                     <td colspan="10">
                         <div class="float-right">{!! $pagination !!}</div>
                         <label><input type="checkbox" class="checkbox checkall checkmark"> 全选</label>
-                        <label><button type="button" class="btn" id="deleteButton">删除</button></label>
+                        <label><button type="button" class="btn" id="deleteButton">提交</button></label>
                         <label><button type="button" class="btn" data-action="refresh">刷新</button></label>
                     </td>
                 </tr>

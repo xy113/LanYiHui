@@ -47,6 +47,10 @@ class MessageController extends BaseController
         return ajaxReturn();
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function delMessage(){
         $req = $this->request->post();
         $msg = Message::find($req['id']);
